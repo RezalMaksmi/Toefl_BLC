@@ -14,7 +14,7 @@ const CardTable = (props) => {
     <td className='border border-[#929292] px-2'>{Gender}</td>
     <td className='border border-[#929292] px-2'>{Instansi}</td>
     <td className='border border-[#929292] px-2'>{Nilai}</td>
-    <td className='flex md:flex-row gap-2 w-fit flex-col text-center mx-auto '>
+    <td className='flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2'>
       <Button type="ButtonIconCS" className="bg-[#4BABD6] items-center text-white " icon={<BiEdit />} />
       <Button type="ButtonIconCS" className="bg-[#58b4ad] items-center text-white " icon={<BiShow />} />
       <Button type="ButtonIconCS" className="bg-[#FF4E4E] items-center text-white " icon={<LuDelete />} />

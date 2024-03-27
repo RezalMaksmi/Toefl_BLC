@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Button, CardTable, Input, NavTop, ShowCard } from '../components';
 import Product from './Product';
 import { Images } from '../assets';
-import { BiChevronDown, BiChevronLeft, BiChevronRight, BiEdit, BiPlus, BiShow, BiSkipNext, BiSliderAlt } from "react-icons/bi";
+import { BiChevronDown, BiChevronLeft, BiChevronRight, BiEdit, BiPlus, BiShow, BiSkipNext, BiSliderAlt, BiSolidUserPlus } from "react-icons/bi";
 import { LuDelete } from 'react-icons/lu';
 
 const DashboardAdmin = () => {
@@ -119,7 +119,7 @@ const DashboardAdmin = () => {
         <ShowCard opens={open} close={handleClose} />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
-            <Button type="ButtonIcon" className="bg-[#FF4E4E] items-center text-white " text="tambah" onClick={handleClickOpen} icon={<BiPlus className='text-2xl' />} />
+            <Button type="ButtonIcon" className="bg-[#FF4E4E] items-center text-white " text="tambah" onClick={handleClickOpen} icon={<BiSolidUserPlus  className='text-2xl' />} />
             <Button type="ButtonIcon" className="bg-[#58b4ad] items-center text-white " text="Filter" icon={<BiSliderAlt className='text-2xl' />} />
           </div>
           <div className="max-w-2xl w-full flex flex-row gap-4 ">

@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
-import { LuAlignRight,LuX } from "react-icons/lu";
+import { LuAlignRight,LuLogOut,LuX } from "react-icons/lu";
 
 
 import { Button } from "../atoms";
 import { Images } from "../../assets";
+import { BiSolidBookBookmark, BiSolidSelectMultiple, BiSolidUserDetail, BiSolidUserPlus, BiSpreadsheet } from "react-icons/bi";
 
 const Navbar = () => {
   const [active, setActive] = React.useState(false);
@@ -36,15 +37,73 @@ console.log(pathname)
   console.log(localStorage)
 
 
+  const [isShown, setIsShown] = useState(false);
+  const [isShownTest, setIsShownTest] = useState(false);
+  const [isShownActiveTest, setIsShownActiveTest] = useState(false);
+  const [isShownQuis, setIsShownQuis] = useState(false);
+  const [isShownListAdmin, setIsShownListAdmin] = useState(false);
+  const [isShownProfile, setIsShownProfile] = useState(false);
 
   
   return (
     <>
       {pathname === "/dashboard" ? (
-          <div className={`px-3  pt-4 h-screen w-20 bg-[#E3F1FF] transition-all fixed ${active ? `w-[250px]` : ``}`} >
-            <div className="text-[#1283B6] text-2xl rounded-sm w-full flex justify-center" onClick={() => setActive(!active)}>
+          <div className={`px-3   h-screen w-20  bg-[#E3F1FF] transition-all fixed ${active ? `w-[180px]` : ``}`} >
+            <div className="text-[#1283B6] text-2xl h-[80px] rounded-sm w-full flex justify-center items-center" onClick={() => setActive(!active)}>
               {active ? <LuX />  : <LuAlignRight />}
             </div>
+            <div className="flex flex-col justify-between h-[85%] text-[#1283B6]  ">
+              <div className="flex flex-col gap-3 ">
+                <div className={`relative py-2 w-full  flex justify-start items-center flex-col gap-4 ${isShown ? `overflow-visible w-max bg-white rounded-lg pr-5 ` : `overflow-hidden`}`}
+                onMouseEnter={() => setIsShown(true)}
+                onMouseLeave={() => setIsShown(false)}>
+                  <div className="w-full  flex justify-start items-center flex-row gap-4 ">
+                    <div className="w-max ml-3  flex justify-center items-center">
+                      <BiSolidUserDetail className="text-3xl w-[35px] h-[35px] " />
+                    </div>
+                    <span className="text-xl font-semibold ">Peserta</span>
+                  </div>
+                  {isShown && (
+                    <div className="flex flex-col relative w-max z-30 left-4 gap-2 pb-4">
+                      <span>Semua Peserta</span>
+                      <span>Hasil Test</span>
+                    </div>
+                  )}
+                </div>
+                <div className={`w-full py-2 flex justify-start items-center flex-row gap-4 overflow-hidden ${isShownTest ? `overflow-visible w-max text-white bg-[#1283B6] rounded-lg pr-5 ` : `overflow-hidden`}`}
+                onMouseEnter={() => setIsShownTest(true)}
+                onMouseLeave={() => setIsShownTest(false)}
+                >
+                  <div className="w-max ml-3  flex justify-center items-center">
+                    <BiSpreadsheet className="text-3xl w-[35px] h-[35px] " />
+                  </div>
+                  <span className="text-xl font-semibold">Test</span>
+                </div>
+
+                <div className="w-full py-2 flex justify-start items-center flex-row gap-4 overflow-hidden">
+                  <div className="w-max ml-3  flex justify-center items-center">
+                    <BiSolidSelectMultiple className="text-3xl w-[35px] h-[35px] " />
+                  </div>
+                  <span className="text-xl font-semibold">Soal</span>
+                </div>
+
+                <div className="w-full py-2 flex justify-start items-center flex-row gap-4 overflow-hidden">
+                  <div className="w-max ml-3  flex justify-center items-center">
+                    <BiSolidBookBookmark className="text-3xl w-[35px] h-[35px] " />
+                  </div>
+                  <span className="text-xl font-semibold">Soal</span>
+                </div>
+
+                <div className="w-full py-2 flex justify-start items-center flex-row gap-4 overflow-hidden">
+                  <div className="w-max ml-3  flex justify-center items-center">
+                    <BiSolidUserPlus className="text-3xl w-[35px] h-[35px] " />
+                  </div>
+                  <span className="text-xl font-semibold">Soal</span>
+                </div>
+              </div>
+              <LuLogOut  className="text-3xl w-[30px] h-[30px]  ml-3" />
+            </div>
+            
           </div>
       ) : (
       pathname !== "/dashboard" && (

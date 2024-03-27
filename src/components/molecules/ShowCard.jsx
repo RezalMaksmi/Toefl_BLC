@@ -27,8 +27,11 @@ const ShowCard = (props) => {
         >
             <span className='absolute top-0 right-0 px-2 py-2 text-2xl' onClick={close}><LuX /></span>
 
-          <DialogTitle id="alert-dialog-title" className='text-center'>
+          <DialogTitle id="alert-dialog-title" className='text-center font-bold '>
+            <h1 className='font-bold text-2xl'>
+
             {"Tambah Data Peserta"}
+            </h1>
           </DialogTitle>
           <DialogContent  className=' w-full '>
             <div className="flex flex-row gap-9 w-[100%] px-10">

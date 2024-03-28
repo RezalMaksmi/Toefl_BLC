@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input, Text } from "../components/atoms";
 import { getAPIUsers } from '../redux/fetch/Get';
-
 import { useDispatch, useSelector } from "react-redux"
-
+import {Accounts} from '../data'
 import { useNavigate } from "react-router-dom";
 import { Images } from "../assets";
 
@@ -11,16 +10,14 @@ const LoginAdmin = () => {
   const { loading, users,products } = useSelector((state) => state.getAPI);
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
-
+console.log(Accounts)
 
   const navigate = useNavigate();
   useEffect(() => {
     loading ? setProgress(100) : setProgress(40);
     const fetchData = async () => {
       try {
-       
-            dispatch(getAPIUsers(`http://localhost:2000/users`));
-       
+        dispatch(getAPIUsers(`http://localhost:2000/users`));
       } catch (error) {
         console.log("Error Fetching :",error);
       }
@@ -28,9 +25,6 @@ const LoginAdmin = () => {
     fetchData();
   }, []);
 
-  console.log("isinyaberapaaaaaaaaaaaaaa oyyyyyyyyyyyyyy: ",users)
-  console.log("isinyaberapaaaaaaaaaaaaaa oyyyyyyyyyyyyyy: ",products)
-  
 
   const [formLogin, setFormLogin] = useState({
     email: "",
@@ -48,43 +42,35 @@ const LoginAdmin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     const { email, password } = formLogin;
- 
 
     if (email.length < 5 || password.length < 5) {
       setError({
-        email: email.length < 2 ? "Email must be at least 5 characters" : "",
+        email: email.length < 5 ? "Email must be at least 5 characters" : "",
         password:
-          password.length < 3 ? "Password must be at least 5 characters" : "",
+          password.length < 5 ? "Password must be at least 5 characters" : "",
       });
       return;
     }
-
-    users.map((item, key) => {
-      console.log(item.username)
-
-
-      if (email === item.username && password === item.password && item.role === "user"  ) {
+    // console.log(email)
+    // console.log(password)
+    
+    if (email === "user@gmail.com" && password === "user123") {
       loginUser("user");
-      // dispatch(item.username)
-    } else if (email === item.username && password === item.password && item.role === "admin") {
+    } else if (email === "admin@gmail.com" && password === "admin123") {
       loginUser("admin");
     } else {
       setError({
         email: "Invalid email or password",
         password: "Invalid email or password",
       });
-     
     }
-    } )
-
-    
   };
   const loginUser = (role) => {
     setTimeout(() => {
       const token = "akmsdnfydtaja3kjeq8d9";
       const userData = { token, role };
       localStorage.setItem("userData", JSON.stringify(userData));
-      navigate(role === "admin" ? "/" : "/");
+      navigate(role === "admin" ? "/dashboard" : "/");
     }, 2000);
   };
 

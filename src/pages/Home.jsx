@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { getAPIAct } from "../redux/fetch/Get";
 import { CartProduct } from "../components";
+import DashboardAdmin from "./DashboardAdmin";
 
 
 const Home = () => {
@@ -13,6 +14,11 @@ const Home = () => {
   const dispatch = useDispatch();
   const { loading, products,users } = useSelector((state) => state.getAPI);
   const [progress, setProgress] = useState(0);
+  const getUserDataFromLocalStorage = () => {
+    const getUser = localStorage.getItem("userData");
+    return getUser ? JSON.parse(getUser) : {};
+  };
+  const { token, role } = getUserDataFromLocalStorage();
 
   useEffect(() => {
     loading ? setProgress(100) : setProgress(40);
@@ -55,31 +61,29 @@ const Home = () => {
     navigate(`/${id}`);
 }
 
-console.log(users)
+console.log(role)
 
   return (
     <div className="w-full">
-      
-      {loading ? (
-            <LoadingBar
-              style={{color: "red"}}
-              progress={progress}
-              onLoaderFinished={() => setProgress(0)}
+      {
+        role === "admin" && token ? (  
+          <DashboardAdmin />
+        ):( 
+          <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
+          {products.map((item, key) => (
+            <CartProduct 
+              key={item.id}
+              image={item.image}
+              name={item.name}
+              description={item.description}
+              id={item.id}
+              onClick={() => handleDetail(item.id)}
             />
-            ) : (
-              <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
-                {products.map((item, key) => (
-                 <CartProduct 
-                    key={item.id}
-                    image={item.image}
-                    name={item.name}
-                    description={item.description}
-                    id={item.id}
-                    onClick={() => handleDetail(item.id)}
-                 />
-                ))}
-              </div>
-            )}
+          ))}
+          </div>
+        )
+      }
+          
     </div>
   )
 }

@@ -3,15 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { LuAlignRight,LuLogOut,LuX } from "react-icons/lu";
-
-
 import { Button } from "../atoms";
 import { Images } from "../../assets";
 import { BiSolidBookBookmark, BiSolidSelectMultiple, BiSolidUserDetail, BiSolidUserPlus, BiSpreadsheet } from "react-icons/bi";
 
 const Navbar = () => {
   const [active, setActive] = React.useState(false);
-
   const { loading, users,products } = useSelector((state) => state.getAPI);
 
   let navigate = useNavigate(); 
@@ -47,7 +44,7 @@ console.log(pathname)
   
   return (
     <>
-      {pathname === "/dashboard" ? (
+      {role === "admin" && token ? (
           <div className={`px-3   h-screen w-20  bg-[#E3F1FF] transition-all fixed ${active ? `w-[180px]` : ``}`} >
             <div className="text-[#1283B6] text-2xl h-[80px] rounded-sm w-full flex justify-center items-center" onClick={() => setActive(!active)}>
               {active ? <LuX />  : <LuAlignRight />}
@@ -101,7 +98,7 @@ console.log(pathname)
                   <span className="text-xl font-semibold">Soal</span>
                 </div>
               </div>
-              <LuLogOut  className="text-3xl w-[30px] h-[30px]  ml-3" />
+              <LuLogOut  className="text-3xl w-[30px] h-[30px]  ml-3" onClick={handleLogout} />
             </div>
             
           </div>

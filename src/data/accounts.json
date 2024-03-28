@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "firstName": "Rezal",
+    "lastName": "Nur",
+    "email": "rezalnur@gmail.com",
+    "gender": "Pria",
+    "password": "rezal123",
+    "phoneNumber": "081212345678",
+    "role":"admin"
+  },
+  {
+    "id": 1,
+    "firstName": "Syaifudin",
+    "lastName": "John",
+    "email": "syaifudin@gmail.com",
+    "gender": "Pria",
+    "password": "syaif123",
+    "phoneNumber": "081212345678",
+    "role":"user"
+  }
+]

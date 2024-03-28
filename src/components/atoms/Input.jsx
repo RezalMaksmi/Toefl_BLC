@@ -10,6 +10,8 @@ const Input = (props) => {
     name,
     className,
     icon,
+    checked1,
+    checked2
   } = props;
   switch (typeInput) {
     case "Search":
@@ -38,11 +40,23 @@ const Input = (props) => {
           />
         </div>
       );
+      case "InputForm":
+      return (
+        <div className="flex flex-col gap-2 max-w-6xl w-full">
+          <span className=''>{name}</span>
+          <Input placeholder={placeholder} className="px-2 py-3 "
+              type={type}
+              onChange={onChange}
+              value={value}
+              name={name}/>
+        </div>
+      );
+   
     default:
       return (
         <input
           type={type}
-          className={`focus:outline-none border rounded-md ${className}`}
+          className={`focus:outline-none border rounded-md focus:border-slate-600 ${className}`}
           placeholder={placeholder}
           onChange={onChange}
           value={value}

@@ -1,41 +1,28 @@
-import React, { useState, useEffect } from "react";
-import LoadingBar from "react-top-loading-bar"
+import React from "react";
 
-import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
-import { getAPIAct } from "../redux/fetch/Get";
-import { CartProduct } from "../components";
 import DashboardAdmin from "./DashboardAdmin";
+// Import Swiper React components
+// import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+// import 'swiper/swiper.min.css';
+// import 'swiper/css';
+
+
 
 
 const Home = () => {
-  const {id} = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, products,users } = useSelector((state) => state.getAPI);
-  const [progress, setProgress] = useState(0);
+  // const {id} = useParams();
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const { loading, products,users } = useSelector((state) => state.getAPI);
+  // const [progress, setProgress] = useState(0);
   const getUserDataFromLocalStorage = () => {
     const getUser = localStorage.getItem("userData");
     return getUser ? JSON.parse(getUser) : {};
   };
   const { token, role } = getUserDataFromLocalStorage();
 
-  useEffect(() => {
-    loading ? setProgress(100) : setProgress(40);
-    const fetchData = async () => {
-      try {
-        if (id) {
-            console.log("ada id")
-            dispatch(getAPIAct(`http://localhost:2000/products/${id}`));
-        }else{
-            dispatch(getAPIAct("http://localhost:2000/products"));
-        }
-      } catch (error) {
-        console.log("Error Fetching :",error);
-      }
-    };
-    fetchData();
-  }, []);
 
   // console.log(products)
  
@@ -57,11 +44,9 @@ const Home = () => {
   // useEffect(()  =>{
   //   featchDataCuy()
   // }, [])
-  const handleDetail = (id) => {
-    navigate(`/${id}`);
-}
 
-console.log(role)
+
+// console.log(role)
 
   return (
     <div className="w-full">
@@ -69,17 +54,42 @@ console.log(role)
         role === "admin" && token ? (  
           <DashboardAdmin />
         ):( 
-          <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
-          {products.map((item, key) => (
-            <CartProduct 
-              key={item.id}
-              image={item.image}
-              name={item.name}
-              description={item.description}
-              id={item.id}
-              onClick={() => handleDetail(item.id)}
-            />
-          ))}
+          <div className="flex flex-row flex-wrap gap-4 justify-center items-center h-screen py-8 w-full">
+          {/* <Swiper
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            slidesPerView={1}
+            spaceBetween={10}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+              },
+            }}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
+            className="mySwiper"
+          >
+            <SwiperSlide>Slide 1</SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>Slide 4</SwiperSlide>
+            <SwiperSlide>Slide 5</SwiperSlide>
+            <SwiperSlide>Slide 6</SwiperSlide>
+          </Swiper> */}
           </div>
         )
       }

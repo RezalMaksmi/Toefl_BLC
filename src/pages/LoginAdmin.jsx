@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Button, Input, Text } from "../components/atoms";
-import { getAPIUsers } from '../redux/fetch/Get';
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState } from "react";
+import {  Input, Text } from "../components/atoms";
+
+// import {  useSelector } from "react-redux"
 import {Accounts} from '../data'
 import { useNavigate } from "react-router-dom";
 import { Images } from "../assets";
 
 const LoginAdmin = () => {
-  const { loading, users,products } = useSelector((state) => state.getAPI);
-  const dispatch = useDispatch();
-  const [progress, setProgress] = useState(0);
+  // const {  users } = useSelector((state) => state.getAPI);
+  // const dispatch = useDispatch();
+  // const [progress, setProgress] = useState(0);
 console.log(Accounts)
 
   const navigate = useNavigate();
-  useEffect(() => {
-    loading ? setProgress(100) : setProgress(40);
-    const fetchData = async () => {
-      try {
-        dispatch(getAPIUsers(`http://localhost:2000/users`));
-      } catch (error) {
-        console.log("Error Fetching :",error);
-      }
-    };
-    fetchData();
-  }, []);
+
 
 
   const [formLogin, setFormLogin] = useState({
@@ -36,9 +26,9 @@ console.log(Accounts)
   });
   // const [isLoading, setIsLoading] = useState(false);
 
-  users.map((item, key) => {
-    console.log(item.username[key])
-  } )
+  // users.map((item, key) => {
+  //   console.log(item.username[key])
+  // } )
   const handleLogin = (e) => {
     e.preventDefault();
     const { email, password } = formLogin;

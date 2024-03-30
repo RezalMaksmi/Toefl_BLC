@@ -18,7 +18,7 @@ const Input = (props) => {
       return (
         <input
           type={type}
-          className="border-2 border-lightgray bg-white h-[45px] w-full px-5 pr-5 rounded-md text-sm focus:outline-none"
+          className="border-2 border-lightgray bg-white h-[40px] w-full px-5 pr-5 rounded-md text-sm focus:outline-none"
           placeholder={placeholder}
           onChange={onChange}
           value={value}
@@ -44,7 +44,7 @@ const Input = (props) => {
       return (
         <div className="flex flex-col gap-2 max-w-6xl w-full">
           <span className=''>{name}</span>
-          <Input placeholder={placeholder} className="px-2 py-3 "
+          <Input placeholder={placeholder} className={`px-2 py-3 ${className}`}
               type={type}
               onChange={onChange}
               value={value}

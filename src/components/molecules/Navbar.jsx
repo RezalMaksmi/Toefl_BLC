@@ -1,15 +1,12 @@
 // import React from 'react'
-import React, { useEffect, useState } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
+import React, {  useState } from "react";
+import { Link,  useLocation, useNavigate } from "react-router-dom";
 import { LuAlignRight,LuLogOut,LuX } from "react-icons/lu";
-import { Button } from "../atoms";
 import { Images } from "../../assets";
 import { BiSolidBookBookmark, BiSolidSelectMultiple, BiSolidUserDetail, BiSolidUserPlus, BiSpreadsheet } from "react-icons/bi";
 
 const Navbar = () => {
   const [active, setActive] = React.useState(false);
-  const { loading, users,products } = useSelector((state) => state.getAPI);
 
   let navigate = useNavigate(); 
   const location = useLocation();
@@ -45,7 +42,7 @@ console.log(pathname)
   return (
     <>
       {role === "admin" && token ? (
-          <div className={`px-3   h-screen w-20  bg-[#E3F1FF] transition-all fixed ${active ? `w-[180px]` : ``}`} >
+          <div className={`px-3   h-screen w-20  bg-[#E3F1FF] transition-all z-20 fixed ${active ? `w-[180px]` : ``}`} >
             <div className="text-[#1283B6] text-2xl h-[80px] rounded-sm w-full flex justify-center items-center" onClick={() => setActive(!active)}>
               {active ? <LuX />  : <LuAlignRight />}
             </div>
@@ -161,8 +158,7 @@ console.log(pathname)
         // onClick={handleLogout} />
         <>
         <h1>
-
-        {users.username}
+p
         </h1>
 
         <button className="px-5 py-2 rounded-lg  font-semibold border bg-red-800 text-white " onClick={handleLogout}>

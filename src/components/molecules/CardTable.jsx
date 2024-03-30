@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button } from '../atoms'
-import { BiCheckSquare, BiEdit, BiShow } from 'react-icons/bi'
+import { BiCheckSquare,  BiShow } from 'react-icons/bi'
 import { LuDelete } from 'react-icons/lu'
 
 const CardTable = (props) => {
-    const {NoReg, Role, Name, JenisPeserta, Gender,Instansi,Nilai, ActShow, ActActiveTest, ActDelete,onClickEdit} = props
+    const {NoReg, Role, Name, JenisPeserta, Gender,Instansi,Nilai, ActShow, ActActiveTest, ActDelete} = props
   return (
     <tr className='border border-[#929292] '>
     <td className='border py-3 border-[#929292] px-2'>{NoReg}</td>

@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAPIAct } from '../redux/fetch/Get';
 import { useParams } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar'
-import { CartProduct } from '../components';
 
 const ProductDetail = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
-    const { loading, product, products } = useSelector((state) => state.getAPI);
+    const { loading, users } = useSelector((state) => state.getAPI);
     const [progress, setProgress] = useState(0);
 
     // function getApiByAct(url,id){
@@ -27,9 +26,9 @@ const ProductDetail = () => {
         const fetchData = async () => {
           try {
             if (id) {
-                dispatch(getAPIAct(`http://localhost:2000/products/${id}`));
+                dispatch(getAPIAct(`http://localhost:8000/peserta/${id}`));
             }else{
-                dispatch(getAPIAct("http://localhost:2000/products"));
+                dispatch(getAPIAct("http://localhost:8000/peserta"));
             }
           } catch (error) {
             console.log("Error Fetching :",error);
@@ -76,7 +75,6 @@ const ProductDetail = () => {
     //     fetchData();
     //   }, [dispatch]);
 
-      console.log("ini isinya producttttt",product)
 
   return (
     <div className="w-full  container mx-auto py-8">
@@ -88,29 +86,23 @@ const ProductDetail = () => {
             />
             ) : (
           
-                <div key={product.id} className=" mx-10 flex flex-row flex-wrap gap-11 justify-start py-8 w-full ">
+                <div key={users.id} className=" mx-10 flex flex-row flex-wrap gap-11 justify-start py-8 w-full ">
               
-                 {/* <CartProduct 
-                    key={product.id}
-                    image={product.image}
-                    name={product.name}
-                    description={product.description}
-                    id={product.id}
-                 /> */}
+            
                  <div className="max-w-[500px] h-[300px] overflow-hidden bg-slate-500 rounded-lg">
-                    <img className='w-full h-full object-cover' src={product.image} alt="" />
+                    <img className='w-full h-full object-cover' src={users.image} alt="" />
                  </div>
                  <div className="flex flex-col gap-3 h-auto justify-evenly">
                     <div className="flex flex-col">
-                        <h1 className='text-4xl font-bold'>{product.name}</h1>
-                        <span className='text-2xl'>{product.description}</span>
-                        <span className='text-2xl'>{product.price}</span>
+                        <h1 className='text-4xl font-bold'>{users.name}</h1>
+                        <span className='text-2xl'>{users.description}</span>
+                        <span className='text-2xl'>{users.price}</span>
                         <span>====================</span>
-                        <span className='text-2xl'>{product.user.username}</span>
+                        <span className='text-2xl'>{users.user.username}</span>
                     </div>
 
                     {
-                      console.table(product.user)
+                      console.table(users.user)
                     }
 
                     <button className='px-11 py-3 bg-green-800 max-w-fit hover:bg-green-950 text-white rounded-md'>Pesan Sekarang</button>

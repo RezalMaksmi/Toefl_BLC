@@ -4,10 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 const CartProduct = (props) => {
     const {key, image, name, description, onClick, id} = props;
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   
-  return (
+    return (
    
       <div key={key} 
       onClick={onClick}
@@ -19,7 +19,7 @@ const CartProduct = (props) => {
             </div>
         </div>
 
-  )
+    )
 }
 
 export default CartProduct

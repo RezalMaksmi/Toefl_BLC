@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import {  Input, Text } from "../components/atoms";
+import { Input, Text } from "../components/atoms";
 
 // import {  useSelector } from "react-redux"
-import {Accounts} from '../data'
+import { Accounts } from "../data";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../assets";
 
@@ -10,11 +10,9 @@ const LoginAdmin = () => {
   // const {  users } = useSelector((state) => state.getAPI);
   // const dispatch = useDispatch();
   // const [progress, setProgress] = useState(0);
-console.log(Accounts)
+  console.log(Accounts);
 
   const navigate = useNavigate();
-
-
 
   const [formLogin, setFormLogin] = useState({
     email: "",
@@ -43,10 +41,10 @@ console.log(Accounts)
     }
     // console.log(email)
     // console.log(password)
-    
+
     if (email === "user@gmail.com" && password === "user123") {
       loginUser("user");
-    } else if (email === "admin@gmail.com" && password === "admin123") {
+    } else if (email === "admin" && password === "admin1234") {
       loginUser("admin");
     } else {
       setError({
@@ -76,27 +74,27 @@ console.log(Accounts)
       throw error;
     }
   };
- 
+
   return (
     <div className="w-full h-screen  flex justify-center ">
-    <div className="container mx-auto flex flex-col-reverse lg:flex-row justify-between items-center lg:px-[70px] w-full">
-   
+      <div className="container mx-auto flex flex-col-reverse lg:flex-row justify-between items-center lg:px-[70px] w-full">
         <div className="flex flex-col bg-neutral-200 bg-opacity-50 rounded-[30px] px-[46px] py-[46px] max-w-[660px] w-full">
           <Text
             className="font-semibold text-center text-[40px] lg:text-[48px] w-full text-darkgray"
             text="Log in"
           />
           <br />
-          <form onSubmit={handleLogin} className="w-full d-flex justify-center items-center">
-            <Input 
+          <form
+            onSubmit={handleLogin}
+            className="w-full d-flex justify-center items-center"
+          >
+            <Input
               placeholder="Enter Your Email"
               onChange={handleChange}
               name="email"
               value={formLogin.email}
               type="text"
               typeInput="InputWithIcon"
-              
-              
             />
             <p className="text-red-500">{error.email}</p>
             <br />
@@ -107,19 +105,18 @@ console.log(Accounts)
               value={formLogin.password}
               type="password"
               typeInput="InputWithIcon"
-             
             />
             <p className="text-red-500">{error.password}</p>
             <br />
             <button className="px-10 py-2 text-2xl bg-[#1283B6] text-white rounded-lg flex items-center justify-center bg-slate-300">
-                Log in
+              Log in
             </button>
           </form>
         </div>
         <div className=" w-full h-[700px] relative">
-          <Images type="vektor1" className="absolute h-[100%] right-0 "/>
+          <Images type="vektor1" className="absolute h-[100%] right-0 " />
         </div>
-        </div>
+      </div>
     </div>
   );
 };

@@ -8,9 +8,6 @@ import DashboardAdmin from "./DashboardAdmin";
 // import 'swiper/swiper.min.css';
 // import 'swiper/css';
 
-
-
-
 const Home = () => {
   // const {id} = useParams();
   // const navigate = useNavigate();
@@ -23,20 +20,16 @@ const Home = () => {
   };
   const { token, role } = getUserDataFromLocalStorage();
 
-
   // console.log(products)
- 
- 
- 
-  // fetch api 
- 
+
+  // fetch api
 
   // const featchDataCuy = async () => {
   //   try {
   //     const productResponse = await axios.get("http://localhost:2000/products")
-  
+
   //     console.log("respon"+productResponse)
-      
+
   //   } catch (err) {
   //     console.log(err)
   //   }
@@ -45,16 +38,14 @@ const Home = () => {
   //   featchDataCuy()
   // }, [])
 
-
-// console.log(role)
+  // console.log(role)
 
   return (
     <div className="w-full">
-      {
-        role === "admin" && token ? (  
-          <DashboardAdmin />
-        ):( 
-          <div className="flex flex-row flex-wrap gap-4 justify-center items-center h-screen py-8 w-full">
+      {role === "admin" && token ? (
+        <DashboardAdmin />
+      ) : (
+        <div className="flex flex-row flex-wrap gap-4 justify-center items-center h-screen py-8 w-full">
           {/* <Swiper
             autoplay={{
               delay: 2500,
@@ -90,12 +81,10 @@ const Home = () => {
             <SwiperSlide>Slide 5</SwiperSlide>
             <SwiperSlide>Slide 6</SwiperSlide>
           </Swiper> */}
-          </div>
-        )
-      }
-          
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

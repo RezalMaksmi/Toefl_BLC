@@ -5,92 +5,110 @@ export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   try {
     const response = await axios.get(url);
     if (response) {
-      console.log("typenya apaaaaa: ", typeof response.data.data);
+      console.log("apa ini coy", response.data.data);
       return response.data.data;
     }
   } catch (error) {
-    console.log(error);
     throw error;
   }
 });
-
-export const deleteAPIAct = createAsyncThunk("delete/api", async (url) => {
-  try {
-    const response = await axios.delete(url);
-    if (response) {
-      console.log("typenya apaaaaa: ", response);
-      return response.data;
-    }
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-});
-
-export const postAPIAct = createAsyncThunk(
-  "post/api",
-  async ({ url, body }) => {
-    try {
-      const response = await axios.post(url, body);
-      if (response) {
-        console.log("typenya apaaaaa: ", response);
-        console.log("url apaaaaa: ", body);
-        return response.data;
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+// detail data
+export const showData = createAsyncThunk(
+  "product/showData",
+  async (productId) => {
+    const response = await axios.get(
+      `http://localhost:8000/peserta/${productId}`
+    );
+    return response.data.data;
   }
 );
 
-export const resetLoading = createAsyncThunk("reset/loading", async () => {
-  return true;
+// add data
+export const addData = createAsyncThunk("data/addData", async (newData) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8000/peserta/",
+      newData
+    );
+    console.log("api tambah = ", newData);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// delete data
+export const deleteData = createAsyncThunk("data/deleteData", async (id) => {
+  try {
+    await axios.delete(`http://localhost:8000/peserta/${id}`);
+    return id;
+  } catch (error) {
+    throw error;
+  }
 });
 
 export const fetchAPISlice = createSlice({
   name: "fetchAPI",
   initialState: {
-    users: [],
-    user: [],
+    data: [],
+    detailsData: {},
     loading: true,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAPIAct.fulfilled, (state, action) => {
-      console.log("isinya apa :", action.payload);
-      // console.log("isinya berapa :", action.payload);
-
-      if (Array.isArray(action.payload)) {
-        state.users = action.payload;
+    builder
+      .addCase(getAPIAct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAPIAct.fulfilled, (state, action) => {
+        state.data = action.payload;
         state.loading = false;
-      } else {
-        state.user = action.payload;
+      })
+      .addCase(getAPIAct.rejected, (state, action) => {
         state.loading = false;
-      }
-      // state.products = action.payload;
-      // state.loading = false;
-    });
-    // .addCase(getAPIUsers.fulfilled, (state, action) => {
-    //   console.log("isinya apa :", typeof action.payload.data);
-    //   console.log("isinya berapa :", action.payload);
+        state.error = action.error.message;
+      })
+      // add data
+      .addCase(addData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data.push(action.payload);
+      })
+      .addCase(addData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      // details
+      .addCase(showData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(showData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.detailsData = action.payload;
+      })
+      .addCase(showData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
 
-    //   state.users = action.payload;
-    //   state.loading = false;
-
-    //   // state.products = action.payload;
-    //   // state.loading = false;
-    // });
-
-    // .addCase(getAPIUsers.fulfilled, (state, action) => {
-    //   console.log("isinya apa :", typeof action.payload.data);
-    //   console.log("isinya berapa :", action.payload);
-
-    //   state.users = action.payload;
-    //   state.loading = false;
-
-    //   // state.products = action.payload;
-    //   // state.loading = false;
+    // delete
+    // .addCase(deleteData.pending, (state) => {
+    //   state.deleting = true;
+    //   state.error = null;
+    // })
+    // .addCase(deleteData.fulfilled, (state, action) => {
+    //   state.deleting = false;
+    //   // Handle deletion in your state here if needed
+    // })
+    // .addCase(deleteData.rejected, (state, action) => {
+    //   state.deleting = false;
+    //   state.error = action.error.message;
     // });
   },
 });

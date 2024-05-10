@@ -2,24 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { Home, LoginAdmin, Search, Product, DashboardAdmin } from "./pages";
+import { Home, LoginAdmin, DashboardAdmin, HasilTest } from "./pages";
 import { Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
-import ProductDetail from "./pages/ProductDetail";
+import PesertaTest from "./pages/admin/PesertaTest";
 
 const Router = () => {
   const { loading, products } = useSelector((state) => state.getAPI);
+  const token = localStorage.getItem("userToken");
 
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/search/:searchValue" element={<Search />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/:id" element={<ProductDetail />} />
         <Route path="/login" element={<LoginAdmin />} />
         <Route path="/dashboard" element={<DashboardAdmin />} />
+        <Route path="/hasil-test" element={<HasilTest />} />
+        <Route path="/peserta-test" element={<PesertaTest />} />
       </Routes>
     </BrowserRouter>
   );

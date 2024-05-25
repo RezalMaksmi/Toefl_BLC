@@ -147,15 +147,13 @@ const Navbar = () => {
                       <div className="w-max ml-3  flex justify-center items-center">
                         <BiSolidBookBookmark className="text-3xl w-[35px] h-[35px] " />
                       </div>
-                      <span className="text-xl font-semibold ">Soal</span>
+                      <Link
+                        to={"/edit-soal"}
+                        className="text-xl font-semibold "
+                      >
+                        Soal
+                      </Link>
                     </div>
-                    {isShownQuis && (
-                      <div className="flex flex-col relative w-max z-30 left-4 gap-2 pb-4">
-                        <Link to="/semua">Pretest</Link>
-                        <Link to="/hasil-test">Post Test 1</Link>
-                        <Link to="/hasil-test">Post Test 2</Link>
-                      </div>
-                    )}
                   </div>
                   <div
                     className={`w-full py-2 flex justify-start items-center flex-row gap-4 overflow-hidden ${

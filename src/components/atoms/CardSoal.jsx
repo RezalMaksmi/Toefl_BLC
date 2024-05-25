@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 const CardSoal = (props) => {
   const { onClick, className, type, children, to, icon, text } = props;
+  const navigate = useNavigate();
   switch (type) {
     case "paragraph" || "example" || "test" || "test 1":
       return (
@@ -132,6 +133,7 @@ const CardSoal = (props) => {
               type="PrimaryButton"
               text="Lihat Soal"
               className="bg-[#17948B] "
+              onClick={() => navigate("/lihat-soal")}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">

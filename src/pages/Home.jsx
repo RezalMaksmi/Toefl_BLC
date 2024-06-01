@@ -17,7 +17,7 @@ const Home = () => {
     const getUser = localStorage.getItem("userData");
     return getUser ? JSON.parse(getUser) : {};
   };
-  const { token, role } = getUserDataFromLocalStorage();
+  // const { token, role } = getUserDataFromLocalStorage();
 
   useEffect(() => {
     loading ? setProgress(100) : setProgress(40);
@@ -39,10 +39,11 @@ const Home = () => {
   const handleDetail = (id) => {
     navigate(`/${id}`);
   };
+  const { type, status, error, token } = useSelector((state) => state.auth);
 
   return (
     <div className="w-full">
-      {role === "admin" && token ? (
+      {type === "admin" && token ? (
         <DashboardAdmin />
       ) : (
         <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">

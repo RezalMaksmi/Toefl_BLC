@@ -5,7 +5,6 @@ export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   try {
     const response = await axios.get(url);
     if (response) {
-      // console.log("typenya apaaaaa: ", typeof response.data);
       return response.data;
     }
   } catch (error) {

@@ -14,10 +14,12 @@ import {
 } from "react-icons/bi";
 import CardProfile from "../atoms/CardProfile";
 import OutsideClick from "../atoms/OutsideClick";
+import { logout } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
   const [active, setActive] = React.useState(false);
   const { users } = useSelector((state) => state.getAPI);
+  const dispatch = useDispatch();
 
   let navigate = useNavigate();
   const location = useLocation();
@@ -30,11 +32,10 @@ const Navbar = () => {
     return user ? JSON.parse(user) : {};
   };
 
-  const { token, role } = getUserDataFromLocalStorage();
+  // const { token, role } = getUserDataFromLocalStorage();
 
   const handleLogout = () => {
-    localStorage.removeItem("userData");
-    navigate("/login");
+    dispatch(logout());
   };
 
   console.log(localStorage);
@@ -49,9 +50,12 @@ const Navbar = () => {
   const closeToggle = () => {
     setActive(false);
   };
+
+  const { type, status, error, token } = useSelector((state) => state.auth);
+
   return (
     <>
-      {role === "admin" && token ? (
+      {type === "admin" && token ? (
         <div className="w-full  ">
           <OutsideClick onOutsideClick={closeToggle}>
             <div className="w-full py-4  h-[75px] bg-white flex justify-between items-center px-[40px] shadow z-10 border">
@@ -229,7 +233,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="h-full flex justify-center items-center borderr ">
-                  {role === "admin" ? (
+                  {type === "admin" ? (
                     <Link
                       to="/rekap"
                       className={
@@ -241,7 +245,7 @@ const Navbar = () => {
                       Rekap Penjualan
                     </Link>
                   ) : (
-                    role === "user" && (
+                    type === "user" && (
                       <Link
                         to="/cart"
                         className={

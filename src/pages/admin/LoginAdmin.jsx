@@ -6,6 +6,7 @@ import { Accounts } from "../../data";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets";
 import { login } from "../../redux/slices/authSlice";
+import { toast } from "react-toastify";
 
 const LoginAdmin = () => {
   const [username, setUsername] = useState("");
@@ -16,15 +17,26 @@ const LoginAdmin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ username, password }));
+
+    dispatch(login({ username, password }))
+      .unwrap()
+      .then((response) => {
+        toast.success("Berhasil Masuk!", {
+          position: "bottom-right",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        return error;
+      });
   };
 
   useEffect(() => {
-    if (status === "succeeded") {
+    if (user && token) {
       navigate("/");
     }
-  }, [status]);
-
+  }, [user, token, status]);
+  console.log("tokennya berapa", token);
   return (
     <div className="w-full h-screen  flex justify-center ">
       <div className="container mx-auto flex flex-col-reverse lg:flex-row justify-between items-center lg:px-[70px] w-full">
@@ -58,7 +70,7 @@ const LoginAdmin = () => {
             <br />
             <button
               onClick={handleSubmit}
-              className="px-10 py-2 text-2xl bg-[#1283B6] text-white rounded-lg flex items-center justify-center bg-slate-300"
+              className="px-10 py-2 text-2xl bg-[#1283B6] text-white rounded-lg flex items-center justify-center "
             >
               Log in
             </button>

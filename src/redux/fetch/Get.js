@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosInstance from "../../api/axiosInstance";
 
 export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   try {
-    const response = await axios.get(url);
+    const response = await axiosInstance.get(url);
     if (response) {
-      return response.data;
+      console.log(response.data);
+
+      return response.data.data;
     }
   } catch (error) {
     console.log(error);
@@ -13,71 +16,57 @@ export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   }
 });
 
-export const getAPIUsers = createAsyncThunk("get/api/User", async (url) => {
-  try {
-    const response = await axios.get(url);
-    if (response) {
-      console.log("typenya apaaaaa: ", typeof response.data);
-      return response.data;
-    }
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-});
+// export const getAPIActById = createAsyncThunk("get/apiById", async (url) => {
+//   try {
+//     const response = await axiosInstance.get(url);
+//     if (response) {
+//       console.log(response.data);
 
-export const resetLoading = createAsyncThunk("reset/loading", async () => {
-  return true;
-});
+//       return response.data.data;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// });
 
-export const fetchAPISlice = createSlice({
-  name: "fetchAPI",
+const getData = createSlice({
+  name: "get",
   initialState: {
-    products: [],
-    product: [],
-    users: [],
-    user: [],
-    loading: true,
+    data: null,
+    dataDetail: null,
+    status: "idle",
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAPIAct.fulfilled, (state, action) => {
-        console.log("isinya apa :", typeof action.payload.data);
-        console.log("isinya berapa :", action.payload);
-
-        if (Array.isArray(action.payload)) {
-          state.products = action.payload;
-          state.loading = false;
-        } else {
-          state.product = action.payload;
-          state.loading = false;
-        }
-        // state.products = action.payload;
-        // state.loading = false;
+      .addCase(getAPIAct.pending, (state) => {
+        state.status = "loading";
       })
-      // .addCase(getAPIUsers.fulfilled, (state, action) => {
-      //   console.log("isinya apa :", typeof action.payload.data);
-      //   console.log("isinya berapa :", action.payload);
-
-      //   state.users = action.payload;
-      //   state.loading = false;
-
-      //   // state.products = action.payload;
-      //   // state.loading = false;
-      // });
-
-      .addCase(getAPIUsers.fulfilled, (state, action) => {
-        console.log("isinya apa :", typeof action.payload.data);
-        console.log("isinya berapa :", action.payload);
-
-        state.users = action.payload;
-        state.loading = false;
-
-        // state.products = action.payload;
-        // state.loading = false;
+      .addCase(getAPIAct.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(getAPIAct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
+
+    // detail peserta
+    // builder
+    //   .addCase(getAPIActById.pending, (state) => {
+    //     state.status = "loading";
+    //   })
+    //   .addCase(getAPIActById.fulfilled, (state, action) => {
+    //     state.status = "succeeded";
+    //     state.dataDetail = action.payload;
+    //   })
+    //   .addCase(getAPIActById.rejected, (state, action) => {
+    //     state.status = "failed";
+    //     state.error = action.error.message;
+    //   });
   },
 });
 
-export default fetchAPISlice.reducer;
+export default getData.reducer;

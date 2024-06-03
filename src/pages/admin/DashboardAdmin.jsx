@@ -8,6 +8,8 @@ import {
 } from "react-icons/bi";
 import { Users } from "../../data";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getAPIAct, getAPIActById } from "../../redux/fetch/Get";
 
 const DashboardAdmin = () => {
   const [addData, setAddData] = React.useState(false);
@@ -22,6 +24,7 @@ const DashboardAdmin = () => {
   };
 
   const handleOpenDetail = (i) => {
+    // console.log("idnya", id);
     console.log(i);
     if (i === 0) {
       return setOpenDetail(false);
@@ -42,7 +45,14 @@ const DashboardAdmin = () => {
       return;
     }
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAPIAct(`http://localhost:8000/peserta`));
+  }, []);
 
+  const { data } = useSelector((state) => state.getAPI);
+
+  console.log("datanya apa", data);
   return (
     <div className="pl-[80px] w-full h-full  flex justify-center ">
       <div className=" bg-white mx-auto w-full h-auto">
@@ -112,23 +122,27 @@ const DashboardAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {Users.map((item, i) => {
-                return (
-                  <CardTable
-                    key={i}
-                    NoReg={item.no}
-                    Role={item.role}
-                    Name={item.nama}
-                    JenisPeserta={item.jenis}
-                    Gender={item.gender}
-                    Instansi={item.instansi}
-                    Nilai={item.nilai}
-                    ActShow={() => handleOpenDetail(i + 1)}
-                    ActActiveTest={() => handleOpenActiveTest(i + 1)}
-                    // ActDelete={}
-                  />
-                );
-              })}
+              {data ? (
+                data.map((item, i) => {
+                  return (
+                    <CardTable
+                      key={i}
+                      NoReg={item.no_reg}
+                      Role={item.role}
+                      Name={item.nama_peserta}
+                      JenisPeserta={item.kelas}
+                      Gender={item.gender}
+                      Instansi={item.instansi}
+                      Nilai={item.nilai}
+                      ActShow={() => handleOpenDetail(i + 1)}
+                      ActActiveTest={() => handleOpenActiveTest(i + 1)}
+                      // ActDelete={}
+                    />
+                  );
+                })
+              ) : (
+                <>Loading</>
+              )}
             </tbody>
           </table>
         </div>

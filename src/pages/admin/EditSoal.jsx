@@ -55,7 +55,7 @@ const EditSoal = () => {
             </button>
           </div>
           <div className="bg-white col-span-5 shadow-md border rounded-2xl px-2 py-2">
-            <CardSoal type="question" />
+            <CardSoal type="paragraph" />
           </div>
         </div>
       </div>

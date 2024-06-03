@@ -269,7 +269,7 @@ const Navbar = () => {
 
               {token ? (
                 <>
-                  <h1>{users.username}</h1>
+                  <h1>{users ? users.username : ""}</h1>
 
                   <button
                     className="px-5 py-2 rounded-lg  font-semibold border bg-red-800 text-white "

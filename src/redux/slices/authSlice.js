@@ -51,6 +51,7 @@ const authSlice = createSlice({
       Cookies.remove("token");
       Cookies.remove("type");
       localStorage.removeItem("dataUser");
+      localStorage.removeItem("user");
       toast.done("Keluar!", {
         position: "bottom-right",
       });

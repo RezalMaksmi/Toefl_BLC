@@ -19,26 +19,6 @@ const Home = () => {
   };
   // const { token, role } = getUserDataFromLocalStorage();
 
-  useEffect(() => {
-    loading ? setProgress(100) : setProgress(40);
-    const fetchData = async () => {
-      try {
-        if (id) {
-          console.log("ada id");
-          dispatch(getAPIAct(`http://localhost:2000/products/${id}`));
-        } else {
-          dispatch(getAPIAct("http://localhost:2000/products"));
-        }
-      } catch (error) {
-        console.log("Error Fetching :", error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const handleDetail = (id) => {
-    navigate(`/${id}`);
-  };
   const { type, status, error, token } = useSelector((state) => state.auth);
 
   return (
@@ -47,7 +27,7 @@ const Home = () => {
         <DashboardAdmin />
       ) : (
         <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
-          {products.map((item, key) => (
+          {/* {products.map((item, key) => (
             <CartProduct
               key={item.id}
               image={item.image}
@@ -56,7 +36,7 @@ const Home = () => {
               id={item.id}
               onClick={() => handleDetail(item.id)}
             />
-          ))}
+          ))} */}
         </div>
       )}
     </div>

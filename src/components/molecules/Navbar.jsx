@@ -185,7 +185,7 @@ const Navbar = () => {
       ) : (
         pathname !== "/dashboard" && (
           <section className="bg-white border py-2 fixed w-full z-10 ">
-            <div className="max-w-[1800px] max-h-[80px]  w-full h-full mx-auto px-10 lg:px-40   lg:py-3 flex justify-between relative items-center ">
+            <div className="container  max-h-[80px]  w-full h-full mx-auto px-10 lg:px-15   lg:py-3 flex justify-between relative items-center ">
               <div
                 className="h-[70px] cursor-pointer"
                 onClick={() => navigate("/")}

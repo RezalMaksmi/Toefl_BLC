@@ -16,20 +16,6 @@ export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   }
 });
 
-// export const getAPIActById = createAsyncThunk("get/apiById", async (url) => {
-//   try {
-//     const response = await axiosInstance.get(url);
-//     if (response) {
-//       console.log(response.data);
-
-//       return response.data.data;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// });
-
 const getData = createSlice({
   name: "get",
   initialState: {

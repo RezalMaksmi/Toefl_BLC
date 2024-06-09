@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 const backendURL = "http://localhost:8000";
 
 // Async thunk untuk login
-export const login = createAsyncThunk(
-  "auth/login",
+export const loginAdmin = createAsyncThunk(
+  "auth/login/admin",
   async ({ username, password }) => {
     try {
       const response = await axiosInstance.post(
@@ -18,16 +18,17 @@ export const login = createAsyncThunk(
         }
       );
 
-      const newToken = `${response.data.data.access_token}`;
-      Cookies.set("token", newToken, { expires: 1 });
-      Cookies.set("type", "admin", { expires: 1 });
-      localStorage.setItem("user", JSON.stringify(response.data));
+      if (response) {
+        const newToken = `${response.data.data.access_token}`;
+        Cookies.set("token", newToken, { expires: 1 });
+        Cookies.set("type", "admin", { expires: 1 });
+        localStorage.setItem("user", JSON.stringify(response.data));
 
-      const data = response.data;
-
-      return data;
+        const data = response.data;
+        return data;
+      }
     } catch (error) {
-      toast.error(`${error}`, {
+      toast.error(`error ${error}`, {
         position: "bottom-right",
       });
       return error;
@@ -59,16 +60,16 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
+      .addCase(loginAdmin.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(loginAdmin.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.type = "admin";
         state.user = action.payload.data.user;
         state.token = action.payload.data.access_token;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(loginAdmin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

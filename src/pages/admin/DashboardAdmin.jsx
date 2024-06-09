@@ -6,10 +6,10 @@ import {
   BiSliderAlt,
   BiSolidUserPlus,
 } from "react-icons/bi";
-import { Users } from "../../data";
+// import { Users } from "../../data";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAPIAct, getAPIActById } from "../../redux/fetch/Get";
+import { getUsersAct, getUsersActDetail } from "../../redux/users/Users";
 
 const DashboardAdmin = () => {
   const [addData, setAddData] = React.useState(false);
@@ -18,14 +18,14 @@ const DashboardAdmin = () => {
   const [openActiveTest, setOpenActiveTest] = React.useState();
   const [showTable, setShowTable] = React.useState(10);
 
-  console.log(Users);
   const handleAddData = () => {
     setAddData(true);
   };
 
   const handleOpenDetail = (i) => {
     // console.log("idnya", id);
-    console.log(i);
+    console.log("idnya apaaaaaaaaaaaaaaa", i);
+    dispatch(getUsersActDetail(i));
     if (i === 0) {
       return setOpenDetail(false);
     } else {
@@ -47,11 +47,12 @@ const DashboardAdmin = () => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAPIAct(`http://localhost:8000/peserta`));
+    dispatch(getUsersAct(`http://localhost:8000/peserta`));
   }, []);
 
-  const { data } = useSelector((state) => state.getAPI);
-
+  const { data } = useSelector((state) => state.users);
+  const { user, loading } = useSelector((state) => state.auth);
+  console.log("user apa", user);
   console.log("datanya apa", data);
   return (
     <div className="pl-[80px] w-full h-full  flex justify-center ">
@@ -71,7 +72,7 @@ const DashboardAdmin = () => {
           type="ActiveTest"
           opens={openActiveTest}
           close={() => setOpenActiveTest(false)}
-          id={openDataId}
+          id={"openDataId"}
         />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
@@ -99,7 +100,7 @@ const DashboardAdmin = () => {
               >
                 <option value={10}>Show 10</option>
                 <option value={30}>Show 30</option>
-                <option value={Users.length}>Show All</option>
+                {/* <option value={users.length}>Show All</option> */}
               </select>
             </label>
           </div>
@@ -134,7 +135,7 @@ const DashboardAdmin = () => {
                       Gender={item.gender}
                       Instansi={item.instansi}
                       Nilai={item.nilai}
-                      ActShow={() => handleOpenDetail(i + 1)}
+                      ActShow={() => handleOpenDetail(item.id_peserta)}
                       ActActiveTest={() => handleOpenActiveTest(i + 1)}
                       // ActDelete={}
                     />

@@ -17,9 +17,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Router = () => {
-  const { loading } = useSelector((state) => state.getAPI);
+  const { user, loading } = useSelector((state) => state.auth);
   const token = localStorage.getItem("userToken");
 
+  console.log("usernya apa", user);
   return (
     <>
       <ToastContainer />

@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Accounts } from "../../data";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets";
-import { login } from "../../redux/slices/authSlice";
+import { loginAdmin } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const LoginAdmin = () => {
   const [username, setUsername] = useState("");
@@ -18,25 +19,35 @@ const LoginAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(login({ username, password }))
-      .unwrap()
-      .then((response) => {
-        toast.success("Berhasil Masuk!", {
-          position: "bottom-right",
-        });
-        navigate("/");
-      })
-      .catch((error) => {
-        return error;
+    if (!username || !password) {
+      toast.error("Email dan password tidak boleh kosong!", {
+        position: "bottom-right",
       });
+      return;
+    }
+
+    dispatch(loginAdmin({ username, password }));
+    // .unwrap()
+    // .then((response) => {
+    //   toast.success("Berhasil Masuk!", {
+    //     position: "bottom-right",
+    //   });
+    //   navigate("/");
+    // })
+    // .catch((error) => {
+    //   return error;
+    // });
   };
 
   useEffect(() => {
-    if (user && token) {
+    if (status === "succeeded") {
+      toast.success("Berhasil Masuk coy!", {
+        position: "bottom-right",
+      });
       navigate("/");
     }
   }, [user, token, status]);
-  console.log("tokennya berapa", token);
+
   return (
     <div className="w-full h-screen  flex justify-center ">
       <div className="container mx-auto flex flex-col-reverse lg:flex-row justify-between items-center lg:px-[70px] w-full">
@@ -46,10 +57,7 @@ const LoginAdmin = () => {
             text="Log in"
           />
           <br />
-          <div
-            // onSubmit={handleLogin}
-            className="w-full d-flex justify-center items-center"
-          >
+          <div className="w-full d-flex justify-center items-center">
             <Input
               placeholder="Enter Your Email"
               onChange={(e) => setUsername(e.target.value)}
@@ -72,8 +80,17 @@ const LoginAdmin = () => {
               onClick={handleSubmit}
               className="px-10 py-2 text-2xl bg-[#1283B6] text-white rounded-lg flex items-center justify-center "
             >
-              Log in
+              {status === "loading" ? (
+                <>
+                  <div className="animate-spin">
+                    <BiLoaderAlt />
+                  </div>
+                </>
+              ) : (
+                "Masuk"
+              )}
             </button>
+            {error}
           </div>
         </div>
         <div className=" w-full h-[700px] relative">

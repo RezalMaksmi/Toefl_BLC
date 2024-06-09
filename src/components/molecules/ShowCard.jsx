@@ -36,6 +36,9 @@ const ShowCard = (props) => {
   console.log(onClickEdit);
   // const { dataDetail } = useSelector((state) => state.getAPI);
   // console.log("apa isinya", dataDetail);
+
+  const { data, detail } = useSelector((state) => state.users);
+
   switch (type) {
     case "AddData":
       return (
@@ -215,63 +218,71 @@ const ShowCard = (props) => {
               <h1 className="font-bold text-2xl">{"Data Peserta"}</h1>
             </DialogTitle>
             <DialogContent className=" w-full ">
-              <div className="flex flex-row gap-9 w-[100%] px-10">
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Nama</span>
-                    <span>:</span>
-                    {/* <span>{dataDetail ? dataDetail.nama_peserta : ""}</span> */}
+              {detail ? (
+                <div className="flex flex-row gap-9 w-[100%] px-10">
+                  <div className="flex flex-col gap-4 w-full">
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Nama</span>
+                      <span>:</span>
+                      <span>{detail.nama_peserta}</span>
+                    </div>
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">No Reg</span>
+                      <span>:</span>
+                      <span>{detail.no_reg}</span>
+                    </div>
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Jenis Kelamin</span>
+                      <span>:</span>
+                      <span>{detail.gender}</span>
+                    </div>
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Jenis Peserta</span>
+                      <span>:</span>
+                      <span>{detail.kelas}</span>
+                    </div>
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Tempat Tanggal Lahir</span>
+                      <span>:</span>
+                      <span>{detail.tgl_lahir}</span>
+                    </div>
                   </div>
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">No Reg</span>
-                    <span>:</span>
-                    <span>{id}</span>
-                  </div>
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Jenis Kelamin</span>
-                    <span>:</span>
-                    <span>Laki-laki</span>
-                  </div>
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Jenis Peserta</span>
-                    <span>:</span>
-                    <span>reguler</span>
-                  </div>
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Tempat Tanggal Lahir</span>
-                    <span>:</span>
-                    <span>Blitar 05-09-2002</span>
-                  </div>
-                </div>
 
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Alamat</span>
-                    <span>:</span>
-                    <span>Desa Tapakrejo rt.04 rw.03</span>
-                  </div>
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Instansi</span>
-                    <span>:</span>
-                    <span>UNIKAMA</span>
-                  </div>
-                  <div className="flex flex-row gap-5 max-w-6xl w-full">
-                    <span className="">Role</span>
-                    <span>:</span>
-                    <span>Mahasiswa</span>
-                  </div>
-                  <div className="flex flex-col gap-3 max-w-6xl w-full">
-                    <span className="">Foto :</span>
-                    <div className="w-[90px] h-[100px] overflow-hidden rounded-md border border-black flex justify-center  items-center bg-cover">
-                      <img
-                        alt="preview image"
-                        src={image ? image : defaultProfile}
-                        className="w-full h-full object-cover"
-                      />
+                  <div className="flex flex-col gap-4 w-full">
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Alamat</span>
+                      <span>:</span>
+                      <span>{detail.alamat}</span>
+                    </div>
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Instansi</span>
+                      <span>:</span>
+                      <span>{detail.instansi}</span>
+                    </div>
+                    <div className="flex flex-row gap-5 max-w-6xl w-full">
+                      <span className="">Role</span>
+                      <span>:</span>
+                      <span>{detail.role}</span>
+                    </div>
+                    <div className="flex flex-col gap-3 max-w-6xl w-full">
+                      <span className="">Foto :</span>
+                      <div className="w-[90px] h-[100px] overflow-hidden rounded-md border border-black flex justify-center  items-center bg-cover">
+                        <img
+                          alt="preview image"
+                          src={
+                            detail.profile_picture
+                              ? detail.profile_picture
+                              : defaultProfile
+                          }
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                "Loading"
+              )}
             </DialogContent>
             <DialogActions className="mr-4 mb-3">
               <Button

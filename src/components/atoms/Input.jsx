@@ -11,7 +11,7 @@ const Input = (props) => {
     className,
     icon,
     checked1,
-    checked2
+    checked2,
   } = props;
   switch (typeInput) {
     case "Search":
@@ -28,11 +28,11 @@ const Input = (props) => {
 
     case "InputWithIcon":
       return (
-        <div className="bg-white border-2 border-secondary h-[50px] w-fulllg:w-[60%]  px-5 pr-5 rounded-md flex justify-center items-center space-x-5">
+        <div className="bg-white border-2 border-secondary h-[50px] w-full  rounded-lg overflow-hidden flex justify-center items-center space-x-5">
           {icon}
           <input
             type={type}
-            className="w-full h-full text-sm text-darkgray focus:outline-none placeholder:text-secondary"
+            className="w-full h-full text-sm text-darkgray focus:outline-none placeholder:text-secondary px-5"
             placeholder={placeholder}
             onChange={onChange}
             value={value}
@@ -40,18 +40,21 @@ const Input = (props) => {
           />
         </div>
       );
-      case "InputForm":
+    case "InputForm":
       return (
         <div className="flex flex-col gap-2 max-w-6xl w-full">
-          <span className=''>{name}</span>
-          <Input placeholder={placeholder} className="px-2 py-3 "
-              type={type}
-              onChange={onChange}
-              value={value}
-              name={name}/>
+          <span className="">{name}</span>
+          <Input
+            placeholder={placeholder}
+            className="px-2 py-3 "
+            type={type}
+            onChange={onChange}
+            value={value}
+            name={name}
+          />
         </div>
       );
-   
+
     default:
       return (
         <input

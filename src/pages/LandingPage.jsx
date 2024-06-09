@@ -9,9 +9,9 @@ const LandingPage = () => {
     <div className="w-full h-screen  flex justify-center ">
       <div className="container mx-auto flex flex-col-reverse lg:flex-row justify-between items-center lg:px-[70px] w-full">
         <div className="flex flex-col gap-3 w-full">
-          <h1 className="text-5xl font-semibold">English Proficiency Test</h1>
-          <span className="text-2xl text-[#1283B6]">online</span>
-          <span className="text-xl">
+          <h1 className="text-6xl  font-serif">English Proficiency Test</h1>
+          <span className="text-2xl text-[#1283B6] font-semibold">online</span>
+          <span className="text-xl text-[#4c4c4c]">
             Peserta wajib melakukan English Proficiency Test sebelum mengikuti
             English Training.
           </span>

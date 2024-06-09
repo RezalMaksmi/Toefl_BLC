@@ -6,10 +6,15 @@ import {
   BiSliderAlt,
   BiSolidUserPlus,
 } from "react-icons/bi";
-// import { Users } from "../../data";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersAct, getUsersActDetail } from "../../redux/users/Users";
+import {
+  getUsersAct,
+  getUsersActDetail,
+  usersDeleteAct,
+} from "../../redux/users/Users";
+import SweetAlert2 from "react-sweetalert2";
+import Swal from "sweetalert2";
 
 const DashboardAdmin = () => {
   const [addData, setAddData] = React.useState(false);
@@ -17,14 +22,30 @@ const DashboardAdmin = () => {
   const [openDataId, setOpenDataId] = React.useState();
   const [openActiveTest, setOpenActiveTest] = React.useState();
   const [showTable, setShowTable] = React.useState(10);
+  const [swalProps, setSwalProps] = useState({});
 
   const handleAddData = () => {
     setAddData(true);
   };
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Yakin ingin menghapus peserta?",
+      text: "data yang telah dihapus tidak bisa dikembalikan",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.value) {
+        console.log("hapus");
+        return dispatch(usersDeleteAct(id));
+      }
+    });
+  };
+
   const handleOpenDetail = (i) => {
-    // console.log("idnya", id);
-    console.log("idnya apaaaaaaaaaaaaaaa", i);
     dispatch(getUsersActDetail(i));
     if (i === 0) {
       return setOpenDetail(false);
@@ -46,14 +67,13 @@ const DashboardAdmin = () => {
     }
   };
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersAct(`http://localhost:8000/peserta`));
-  }, []);
 
   const { data } = useSelector((state) => state.users);
   const { user, loading } = useSelector((state) => state.auth);
-  console.log("user apa", user);
-  console.log("datanya apa", data);
+
+  useEffect(() => {
+    dispatch(getUsersAct(`http://localhost:8000/peserta`));
+  }, [user]);
   return (
     <div className="pl-[80px] w-full h-full  flex justify-center ">
       <div className=" bg-white mx-auto w-full h-auto">
@@ -62,6 +82,7 @@ const DashboardAdmin = () => {
           opens={addData}
           close={() => setAddData(false)}
         />
+
         <ShowCard
           type="ShowData"
           opens={openDetail}
@@ -100,7 +121,7 @@ const DashboardAdmin = () => {
               >
                 <option value={10}>Show 10</option>
                 <option value={30}>Show 30</option>
-                {/* <option value={users.length}>Show All</option> */}
+                <option value={data ? data.length : ""}>Show All</option>
               </select>
             </label>
           </div>
@@ -137,7 +158,7 @@ const DashboardAdmin = () => {
                       Nilai={item.nilai}
                       ActShow={() => handleOpenDetail(item.id_peserta)}
                       ActActiveTest={() => handleOpenActiveTest(i + 1)}
-                      // ActDelete={}
+                      ActDelete={() => handleDelete(item.id_peserta)}
                     />
                   );
                 })

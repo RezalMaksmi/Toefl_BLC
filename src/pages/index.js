@@ -4,5 +4,14 @@ import DashboardAdmin from "./admin/DashboardAdmin";
 import HasilTest from "./admin/HasilTest";
 import EditSoal from "./admin/EditSoal";
 import LihatSoal from "./admin/LihatSoal";
+import LandingPage from "./LandingPage";
 
-export { Home, LoginAdmin, DashboardAdmin, HasilTest, EditSoal, LihatSoal };
+export {
+  Home,
+  LoginAdmin,
+  DashboardAdmin,
+  HasilTest,
+  EditSoal,
+  LihatSoal,
+  LandingPage,
+};

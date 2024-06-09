@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAPIAct } from "../redux/fetch/Get";
 import { CartProduct } from "../components";
 import DashboardAdmin from "./admin/DashboardAdmin";
+import LandingPage from "./LandingPage";
 
 const Home = () => {
   const { id } = useParams();
@@ -26,8 +27,9 @@ const Home = () => {
       {type === "admin" && token ? (
         <DashboardAdmin />
       ) : (
-        <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
-          {/* {products.map((item, key) => (
+        // <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
+
+        /* {products.map((item, key) => (
             <CartProduct
               key={item.id}
               image={item.image}
@@ -36,8 +38,10 @@ const Home = () => {
               id={item.id}
               onClick={() => handleDetail(item.id)}
             />
-          ))} */}
-        </div>
+          ))} */
+
+        // </div>
+        <LandingPage />
       )}
     </div>
   );

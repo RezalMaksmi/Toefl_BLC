@@ -15,6 +15,7 @@ import {
 } from "../../redux/users/Users";
 import SweetAlert2 from "react-sweetalert2";
 import Swal from "sweetalert2";
+import { LayoutAdmin } from "../../template";
 
 const DashboardAdmin = () => {
   const [addData, setAddData] = React.useState(false);
@@ -75,7 +76,7 @@ const DashboardAdmin = () => {
     dispatch(getUsersAct(`http://localhost:8000/peserta`));
   }, [user]);
   return (
-    <div className="pl-[80px] w-full h-full  flex justify-center ">
+    <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
         <ShowCard
           type="AddData"
@@ -186,7 +187,7 @@ const DashboardAdmin = () => {
           </div>
         </div>
       </div>
-    </div>
+    </LayoutAdmin>
   );
 };
 

@@ -40,13 +40,10 @@ const LoginAdmin = () => {
   };
 
   useEffect(() => {
-    if (status === "succeeded") {
-      toast.success("Berhasil Masuk coy!", {
-        position: "bottom-right",
-      });
+    if (token) {
       navigate("/");
     }
-  }, [user, token, status]);
+  }, [token, status]);
 
   return (
     <div className="w-full h-screen  flex justify-center ">

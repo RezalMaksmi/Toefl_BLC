@@ -1,8 +1,8 @@
 import React from "react";
-import { Navbar } from "../organism";
 import { useSelector } from "react-redux";
+import { NavbarAdmin } from "../components";
 
-const Admin = ({ children }) => {
+const LayoutAdmin = ({ children }) => {
   // const getUserDataFromLocalStorage = () => {
   // const user = localStorage.getItem("type");
   // const token = localStorage.getItem("userToken");
@@ -15,11 +15,13 @@ const Admin = ({ children }) => {
 
   return (
     <div>
-      {token && type ? <Navbar type={type} /> : <Navbar />}
-
-      <main>{children}</main>
+      {/* {token && type ? <Navbar type={type} /> : <Navbar />} */}
+      <NavbarAdmin />
+      <div className="pl-[40px] w-full h-full  flex justify-center ">
+        {children}
+      </div>
     </div>
   );
 };
 
-export default Admin;
+export default LayoutAdmin;

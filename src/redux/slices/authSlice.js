@@ -23,8 +23,10 @@ export const loginAdmin = createAsyncThunk(
         Cookies.set("token", newToken, { expires: 1 });
         Cookies.set("type", "admin", { expires: 1 });
         localStorage.setItem("user", JSON.stringify(response.data));
-
         const data = response.data;
+        toast.success(`${data.message}`, {
+          position: "bottom-right",
+        });
         return data;
       }
     } catch (error) {
@@ -53,7 +55,7 @@ const authSlice = createSlice({
       Cookies.remove("type");
       localStorage.removeItem("dataUser");
       localStorage.removeItem("user");
-      toast.done("Keluar!", {
+      toast.info("Berhasil Log Out!", {
         position: "bottom-right",
       });
     },

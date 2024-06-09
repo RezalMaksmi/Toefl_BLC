@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "../../components";
+import { LayoutAdmin } from "../../template";
 
 const LihatSoal = () => {
   return (
-    <div className="pl-[80px] w-full h-[75vh]  flex justify-center ">
+    <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
         <div className="w-auto h-full px-10 py-10 flex flex-col justify-start items-end gap-10">
           <div className="bg-[#f8f8f8] w-full h-full shadow-md border col-span-1 rounded-3xl px-2 py-2 relative">
@@ -62,7 +63,7 @@ const LihatSoal = () => {
           />
         </div>
       </div>
-    </div>
+    </LayoutAdmin>
   );
 };
 

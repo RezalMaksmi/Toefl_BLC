@@ -1,15 +1,11 @@
 import React from "react";
 import { Button, Input } from "../../components";
-import {
-  BiChevronLeft,
-  BiChevronRight,
-  BiExport,
-  BiSliderAlt,
-} from "react-icons/bi";
+import { BiChevronLeft, BiChevronRight, BiSliderAlt } from "react-icons/bi";
+import { LayoutAdmin } from "../../template";
 
 const PesertaTest = () => {
   return (
-    <div className="pl-[80px] w-full h-auto bg-black  flex justify-center">
+    <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
@@ -85,7 +81,7 @@ const PesertaTest = () => {
           </div>
         </div>
       </div>
-    </div>
+    </LayoutAdmin>
   );
 };
 

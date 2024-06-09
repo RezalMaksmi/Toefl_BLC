@@ -1,11 +1,12 @@
 import React from "react";
 import { CardSoal } from "../../components";
+import { LayoutAdmin } from "../../template";
 
 const EditSoal = () => {
   const [showTable, setShowTable] = React.useState(10);
 
   return (
-    <div className="pl-[80px] w-full h-full  flex justify-center ">
+    <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
         <div className="w-auto h-auto px-10 py-5 flex flex-row justify-start items-center gap-10">
           <span>Edit Soal</span>
@@ -59,7 +60,7 @@ const EditSoal = () => {
           </div>
         </div>
       </div>
-    </div>
+    </LayoutAdmin>
   );
 };
 

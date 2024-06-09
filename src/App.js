@@ -10,7 +10,7 @@ import {
   EditSoal,
   LihatSoal,
 } from "./pages";
-import { Navbar } from "./components/index";
+import { Footer, Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
 import PesertaTest from "./pages/admin/PesertaTest";
 import { ToastContainer } from "react-toastify";
@@ -35,6 +35,7 @@ const Router = () => {
           <Route path="/edit-soal" element={<EditSoal />} />
           <Route path="/lihat-soal" element={<LihatSoal />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

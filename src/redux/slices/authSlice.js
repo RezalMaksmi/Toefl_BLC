@@ -17,6 +17,7 @@ export const loginAdmin = createAsyncThunk(
           password,
         }
       );
+      console.log(response);
 
       if (response) {
         const newToken = `${response.data.data.access_token}`;
@@ -30,10 +31,11 @@ export const loginAdmin = createAsyncThunk(
         return data;
       }
     } catch (error) {
-      toast.error(`error ${error}`, {
+      toast.error(`${error.response.data.message}`, {
         position: "bottom-right",
       });
-      return error;
+      console.log(error.response.data);
+      return error.response.data;
     }
   }
 );
@@ -68,12 +70,14 @@ const authSlice = createSlice({
       .addCase(loginAdmin.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.type = "admin";
-        state.user = action.payload.data.user;
-        state.token = action.payload.data.access_token;
+
+        state.user = action.payload.data;
+        state.token = action.payload.data || null;
       })
       .addCase(loginAdmin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+        console.log(action.error.message);
       });
   },
 });

@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import {
   Home,
   LoginAdmin,
-  DashboardAdmin,
   HasilTest,
   EditSoal,
   LihatSoal,
+  HomeAdmin,
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,7 @@ const Router = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<LoginAdmin />} />
-          <Route path="/dashboard" element={<DashboardAdmin />} />
+          <Route path="/dashboard" element={<HomeAdmin />} />
           <Route path="/hasil-test" element={<HasilTest />} />
           <Route path="/peserta-test" element={<PesertaTest />} />
           <Route path="/edit-soal" element={<EditSoal />} />

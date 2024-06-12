@@ -5,8 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAPIAct } from "../redux/fetch/Get";
 import { CartProduct } from "../components";
-import DashboardAdmin from "./admin/DashboardAdmin";
 import LandingPage from "./LandingPage";
+import HomeAdmin from "./admin/HomeAdmin";
 
 const Home = () => {
   const { id } = useParams();
@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <div className="w-full">
       {type === "admin" && token ? (
-        <DashboardAdmin />
+        <HomeAdmin />
       ) : (
         // <div className="flex flex-row flex-wrap gap-4 justify-center py-8 w-full">
 

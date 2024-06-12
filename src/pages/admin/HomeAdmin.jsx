@@ -17,7 +17,7 @@ import SweetAlert2 from "react-sweetalert2";
 import Swal from "sweetalert2";
 import { LayoutAdmin } from "../../template";
 
-const DashboardAdmin = () => {
+const HomeAdmin = () => {
   const [addData, setAddData] = React.useState(false);
   const [openDetail, setOpenDetail] = React.useState(false);
   const [openDataId, setOpenDataId] = React.useState();
@@ -41,6 +41,7 @@ const DashboardAdmin = () => {
     }).then((result) => {
       if (result.value) {
         console.log("hapus");
+        dispatch(getUsersAct(`/peserta`));
         return dispatch(usersDeleteAct(id));
       }
     });
@@ -73,7 +74,7 @@ const DashboardAdmin = () => {
   const { user, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getUsersAct(`http://localhost:8000/peserta`));
+    dispatch(getUsersAct(`/peserta`));
   }, [user]);
   return (
     <LayoutAdmin>
@@ -191,4 +192,4 @@ const DashboardAdmin = () => {
   );
 };
 
-export default DashboardAdmin;
+export default HomeAdmin;

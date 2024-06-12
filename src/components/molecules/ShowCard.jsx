@@ -13,18 +13,32 @@ import _default from "@mui/material/styles/identifier";
 import { BiCheck } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getAPIActById } from "../../redux/fetch/Get";
+import axiosInstance from "../../api/axiosInstance";
+import { useState } from "react";
+import { createUsersAct } from "../../redux/users/Users";
 
 const ShowCard = (props) => {
   const { type, opens, close, onClickEdit, id } = props;
-  const [gender, setGender] = React.useState();
-  const [name, setName] = React.useState();
-  const [NoReg, setNoReg] = React.useState();
-  const [participantType, setParticipantType] = React.useState();
-  const [city, setCity] = React.useState();
-  const [date, setDate] = React.useState();
+  const [gender, setGender] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [noReg, setNoReg] = React.useState("");
+  const [noHp, setNoHp] = React.useState("");
+  const [jenis, setJenis] = React.useState("");
+  const [role, setRole] = React.useState("");
+  const [alamat, setAlamat] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [date, setDate] = React.useState("");
+  const [instansi, setInstansi] = React.useState("");
   const [image, setImage] = React.useState();
   const [edit, setEdit] = React.useState(false);
+  const [rolePeserta, setRolePeserta] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  // const [selectedOption, setSelectedOption] = React.useState('');
 
+  // const handleChange = (event) => {
+  //   setSelectedOption(event.target.value);
+  // };
   console.log(edit);
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -37,8 +51,60 @@ const ShowCard = (props) => {
   // const { dataDetail } = useSelector((state) => state.getAPI);
   // console.log("apa isinya", dataDetail);
 
+  const [jenisP, setJenisP] = React.useState();
+  const [roleP, setRoleP] = React.useState();
+  React.useEffect(() => {
+    const rolePeserta = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "http://localhost:8000/role_peserta"
+        );
+        setRoleP(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    rolePeserta();
+    const jenisPeserta = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "http://localhost:8000/jenis_kelas"
+        );
+        setJenisP(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    jenisPeserta();
+  }, []);
+
+  console.log(jenis);
+  console.log(rolePeserta);
   const { data, detail } = useSelector((state) => state.users);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      no_reg: noReg,
+      role_kelas: jenis,
+      jenis_peserta: role,
+      nama_peserta: name,
+      email: email,
+      no_hp: noHp,
+      gender: gender,
+      tgl_lahir: date,
+      instansi: instansi,
+      alamat: alamat,
+    };
+    dispatch(createUsersAct(data));
+    console.log(data);
+  };
   switch (type) {
     case "AddData":
       return (
@@ -115,31 +181,40 @@ const ShowCard = (props) => {
                         className="w-full px-2 py-3 focus:outline-none border rounded-md"
                         name="selectedJenisPeserta"
                         defaultValue="pilih"
-                        onChange={(e) => setParticipantType(e.target.value)}
+                        onChange={(e) => setJenis(e.target.value)}
                       >
                         <option value="pilih" disabled>
                           Pilih Jenis Peserta
                         </option>
-                        <option value="Reguler">Reguler</option>
-                        <option value="VIP">VIP</option>
-                        <option value="Umum">Umum</option>
+                        {jenisP
+                          ? jenisP.map((item, i) => {
+                              return (
+                                <option value={item.id}>
+                                  {item.nama_kelas}
+                                </option>
+                              );
+                            })
+                          : ""}
                       </select>
                     </label>
                   </div>
                   <div className="flex flex-col gap-2 w-6xl w-full">
-                    <span className="">Tempat Tanggal Lahir</span>
+                    <span className="">Tanggal Lahir</span>
                     <div className="flex flex-row gap-3">
-                      <Input
-                        placeholder="Masukkan Kota"
-                        className="px-2 py-3 w-full"
-                        onChange={(e) => setCity(e.target.value)}
-                      />
                       <Input
                         type="date"
                         className="px-2 w-[50%]"
                         onChange={(e) => setDate(e.target.value)}
                       />
                     </div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <span className="">Email</span>
+                    <Input
+                      placeholder="Masukkan Email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="px-2 py-3"
+                    />
                   </div>
                 </div>
 
@@ -148,19 +223,49 @@ const ShowCard = (props) => {
                     <span className="">Alamat</span>
                     <textarea
                       placeholder="Masukkan Alamat"
-                      className="px-2 py-3 focus:outline-none focus:border-slate-600 border rounded-md"
+                      onChange={(e) => setAlamat(e.target.value)}
+                      className="px-2 py-1 focus:outline-none focus:border-slate-600 border rounded-md"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <span className="">No hp</span>
+                    <Input
+                      placeholder="Masukkan No hp"
+                      onChange={(e) => setNoHp(e.target.value)}
+                      className="px-2 py-3"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
                     <span className="">Instansi</span>
                     <Input
                       placeholder="Masukkan Instansi"
+                      onChange={(e) => setInstansi(e.target.value)}
                       className="px-2 py-3"
                     />
                   </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="">Role</span>
-                    <Input placeholder="Masukkan Role" className="px-2 py-3" />
+                  <div className="flex flex-col gap-2 max-w-6xl w-full">
+                    <span className="">Role Peserta</span>
+                    <label>
+                      <select
+                        className="w-full px-2 py-3 focus:outline-none border rounded-md"
+                        name="selectedRolePeserta"
+                        defaultValue="pilih"
+                        onChange={(e) => setRole(e.target.value)}
+                      >
+                        <option value="pilih" disabled>
+                          Pilih Role Peserta
+                        </option>
+                        {roleP
+                          ? roleP.map((item, i) => {
+                              return (
+                                <option value={item.id}>
+                                  {item.nama_role}
+                                </option>
+                              );
+                            })
+                          : ""}
+                      </select>
+                    </label>
                   </div>
 
                   <div className="flex flex-col gap-2">
@@ -188,6 +293,7 @@ const ShowCard = (props) => {
                 type="PrimaryButton"
                 text="Tambah Data"
                 className="bg-[#22A5C4] "
+                onClick={handleSubmit}
               />
             </DialogActions>
           </Dialog>

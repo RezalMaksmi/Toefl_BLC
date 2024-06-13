@@ -9,6 +9,7 @@ import {
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  createUsersAct,
   getUsersAct,
   getUsersActDetail,
   usersDeleteAct,
@@ -16,14 +17,76 @@ import {
 import SweetAlert2 from "react-sweetalert2";
 import Swal from "sweetalert2";
 import { LayoutAdmin } from "../../template";
+import { toast } from "react-toastify";
 
 const HomeAdmin = () => {
-  const [addData, setAddData] = React.useState(false);
-  const [openDetail, setOpenDetail] = React.useState(false);
-  const [openDataId, setOpenDataId] = React.useState();
-  const [openActiveTest, setOpenActiveTest] = React.useState();
-  const [showTable, setShowTable] = React.useState(10);
-  const [swalProps, setSwalProps] = useState({});
+  const [addData, setAddData] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [openDataId, setOpenDataId] = useState();
+  const [openActiveTest, setOpenActiveTest] = useState();
+  const [showTable, setShowTable] = useState(10);
+  //
+  const [gender, setGender] = useState("");
+  const [name, setName] = useState("");
+  const [noReg, setNoReg] = useState("");
+  const [noHp, setNoHp] = useState("");
+  const [jenis, setJenis] = useState("");
+  const [role, setRole] = useState("");
+  const [alamat, setAlamat] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
+  const [instansi, setInstansi] = useState("");
+  const [image, setImage] = useState();
+  const [edit, setEdit] = useState(false);
+
+  console.log(edit);
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
+  };
+  const dispatch = useDispatch();
+
+  const { data, detail } = useSelector((state) => state.users);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      !noReg ||
+      !role ||
+      !jenis ||
+      !name ||
+      !email ||
+      !noHp ||
+      !gender ||
+      !date ||
+      !instansi ||
+      !alamat
+    ) {
+      toast.error("Data tidak boleh kosong!", {
+        position: "top-right",
+      });
+      return;
+    }
+
+    const dataGroub = {
+      no_reg: noReg,
+      role_kelas: jenis,
+      jenis_peserta: role,
+      nama_peserta: name,
+      email: email,
+      no_hp: noHp,
+      gender: gender,
+      tgl_lahir: date,
+      instansi: instansi,
+      alamat: alamat,
+    };
+    dispatch(createUsersAct(dataGroub));
+    setAddData(false);
+    fetchData();
+  };
+  // ===================
 
   const handleAddData = () => {
     setAddData(true);
@@ -67,9 +130,7 @@ const HomeAdmin = () => {
       return;
     }
   };
-  const dispatch = useDispatch();
 
-  const { data } = useSelector((state) => state.users);
   const { user, loading } = useSelector((state) => state.auth);
 
   const fetchData = async () => {
@@ -78,6 +139,7 @@ const HomeAdmin = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
@@ -85,6 +147,17 @@ const HomeAdmin = () => {
           type="AddData"
           opens={addData}
           close={() => setAddData(false)}
+          nameValue={(e) => setName(e.target.value)}
+          genderValue={(e) => setGender(e.target.value)}
+          noRegValue={(e) => setNoReg(e.target.value)}
+          noHpValue={(e) => setNoHp(e.target.value)}
+          jenisValue={(e) => setJenis(e.target.value)}
+          roleValue={(e) => setRole(e.target.value)}
+          alamatValue={(e) => setAlamat(e.target.value)}
+          emailValue={(e) => setEmail(e.target.value)}
+          dateValue={(e) => setDate(e.target.value)}
+          instansiValue={(e) => setInstansi(e.target.value)}
+          handleSubmit={handleSubmit}
         />
 
         <ShowCard

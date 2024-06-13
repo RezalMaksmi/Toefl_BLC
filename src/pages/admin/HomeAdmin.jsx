@@ -40,9 +40,8 @@ const HomeAdmin = () => {
       confirmButtonText: "Yes!",
     }).then((result) => {
       if (result.value) {
-        console.log("hapus");
-        dispatch(getUsersAct(`/peserta`));
-        return dispatch(usersDeleteAct(id));
+        fetchData();
+        dispatch(usersDeleteAct(id));
       }
     });
   };
@@ -73,9 +72,12 @@ const HomeAdmin = () => {
   const { data } = useSelector((state) => state.users);
   const { user, loading } = useSelector((state) => state.auth);
 
+  const fetchData = async () => {
+    dispatch(await getUsersAct(`/peserta`));
+  };
   useEffect(() => {
-    dispatch(getUsersAct(`/peserta`));
-  }, [user]);
+    fetchData();
+  }, []);
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">

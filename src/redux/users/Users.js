@@ -20,31 +20,27 @@ export const getUsersAct = createAsyncThunk("get/users/api", async (url) => {
 
 export const createUsersAct = createAsyncThunk(
   "post/users/api",
-  async (
-    // noReg,
-    // role,
-    // jenis,
-    // name,
-    // email,
-    // noHp,
-    // gender,
-    // date,
-    // instansi,
-    // alamat,
-    body
-  ) => {
+  async (body) => {
     try {
       const response = await axiosInstance.post(
         `http://localhost:8000/peserta/`,
         body
       );
       console.log("apa bodynya");
+      if (response) {
+        toast.done(`${response.data.message}`, {
+          position: "bottom-right",
+        });
 
-      console.log("responya apa : =========", response.data);
+        console.log("responya apa : =========", response.data);
 
-      return response.data;
+        return response.data;
+      }
     } catch (error) {
       console.log(error);
+      toast.done(`${error.response.message}`, {
+        position: "bottom-right",
+      });
       throw error;
     }
   }

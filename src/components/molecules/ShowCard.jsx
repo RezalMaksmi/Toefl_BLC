@@ -16,6 +16,7 @@ import { getAPIActById } from "../../redux/fetch/Get";
 import axiosInstance from "../../api/axiosInstance";
 import { useState } from "react";
 import { createUsersAct } from "../../redux/users/Users";
+import { toast } from "react-toastify";
 
 const ShowCard = (props) => {
   const { type, opens, close, onClickEdit, id } = props;
@@ -90,6 +91,25 @@ const ShowCard = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      !noReg ||
+      !role ||
+      !jenis ||
+      !name ||
+      !email ||
+      !noHp ||
+      !gender ||
+      !date ||
+      !instansi ||
+      !alamat
+    ) {
+      toast.error("Data tidak boleh kosong!", {
+        position: "top-right",
+      });
+      return;
+    }
+
     const data = {
       no_reg: noReg,
       role_kelas: jenis,
@@ -103,7 +123,6 @@ const ShowCard = (props) => {
       alamat: alamat,
     };
     dispatch(createUsersAct(data));
-    console.log(data);
   };
   switch (type) {
     case "AddData":
@@ -208,6 +227,9 @@ const ShowCard = (props) => {
                       />
                     </div>
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-4 w-full">
                   <div className="flex flex-col gap-2">
                     <span className="">Email</span>
                     <Input
@@ -216,9 +238,6 @@ const ShowCard = (props) => {
                       className="px-2 py-3"
                     />
                   </div>
-                </div>
-
-                <div className="flex flex-col gap-4 w-full">
                   <div className="flex flex-col gap-2">
                     <span className="">Alamat</span>
                     <textarea
@@ -267,24 +286,6 @@ const ShowCard = (props) => {
                       </select>
                     </label>
                   </div>
-
-                  <div className="flex flex-col gap-2">
-                    <span className="">Foto</span>
-                    <div className="flex flex-row gap-2">
-                      <div className="w-[90px] h-[100px] overflow-hidden rounded-md border border-black flex justify-center  items-center bg-cover">
-                        <img
-                          alt="preview image"
-                          src={image ? image : defaultProfile}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <input
-                        type="file"
-                        onChange={onImageChange}
-                        className="filetype"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
             </DialogContent>
@@ -292,7 +293,7 @@ const ShowCard = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Tambah Data"
-                className="bg-[#22A5C4] "
+                className="bg-[#22A5C4] hover:bg-[#287e92]"
                 onClick={handleSubmit}
               />
             </DialogActions>

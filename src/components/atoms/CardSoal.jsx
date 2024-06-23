@@ -3,10 +3,39 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 const CardSoal = (props) => {
-  const { onClick, className, type, children, to, icon, text } = props;
+  const {
+    onClick,
+    className,
+    type,
+    children,
+    to,
+    icon,
+    text,
+    valueTitle,
+    title,
+    type_test,
+    type_soal,
+    test,
+    page_title,
+    page_subtitle,
+    subtitle,
+    content,
+    p_title,
+    paragraph,
+    no,
+    a,
+    b,
+    c,
+    d,
+    key,
+    timer,
+  } = props;
   const navigate = useNavigate();
   switch (type) {
-    case "paragraph" || "example" || "test" || "test 1":
+    case "paragraph":
+    case "example":
+    case "test":
+    case "test1":
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
@@ -26,6 +55,8 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
+                valueTitle={valueTitle}
+                onChange={page_title}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -34,6 +65,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
+                onChange={page_subtitle}
               />
             </div>
           </div>
@@ -45,6 +77,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-20"
                 placeholder="Pertanyaan..."
+                onChange={content}
               />
             </div>
           </div>
@@ -56,6 +89,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                onChange={a}
               />
             </div>
             <div className="flex flex-row gap-4">
@@ -64,6 +98,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                onChange={b}
               />
             </div>
             <div className="flex flex-row gap-4">
@@ -72,6 +107,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                onChange={c}
               />
             </div>
             <div className="flex flex-row gap-4">
@@ -80,6 +116,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                onChange={d}
               />
             </div>
           </div>
@@ -122,7 +159,8 @@ const CardSoal = (props) => {
         </div>
       );
 
-    case "question" || "blank":
+    case "question":
+    case "blank":
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
@@ -143,6 +181,8 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
+                valueTitle={valueTitle}
+                onChange={title}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -233,6 +273,8 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
+                valueTitle={valueTitle}
+                onChange={title}
               />
             </div>
             <div className="flex flex-col gap-1">

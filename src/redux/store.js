@@ -4,6 +4,7 @@ import authReducer from "./slices/authSlice";
 // import getData from "./get/getData";
 import { saveState, loadState } from "../utils/localStorage";
 import Users from "./users/Users";
+import Quiz from "./quiz/Quiz";
 const preloadedState = loadState();
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     getAPI: fetchReducer,
     auth: authReducer,
     users: Users,
+    quiz: Quiz,
   },
   preloadedState,
 });

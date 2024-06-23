@@ -32,7 +32,7 @@ const Router = () => {
           <Route path="/dashboard" element={<HomeAdmin />} />
           <Route path="/hasil-test" element={<HasilTest />} />
           <Route path="/peserta-test" element={<PesertaTest />} />
-          <Route path="/edit-soal" element={<EditSoal />} />
+          <Route path="/tambah-soal/:id" element={<EditSoal />} />
           <Route path="/lihat-soal" element={<LihatSoal />} />
         </Routes>
         <Footer />

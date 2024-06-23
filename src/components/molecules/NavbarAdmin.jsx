@@ -14,6 +14,7 @@ import {
 import OutsideClick from "../atoms/OutsideClick";
 import { logout } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { getTypeQuizAct, getTypeTestAct } from "../../redux/fetch/Get";
 const NavbarAdmin = () => {
   const [active, setActive] = React.useState(false);
   const { users } = useSelector((state) => state.getAPI);
@@ -38,6 +39,7 @@ const NavbarAdmin = () => {
 
   console.log(localStorage);
 
+  const [isShownQuiz, setIsShownQuiz] = useState(false);
   const [isShown, setIsShown] = useState(false);
   const [isShownTest, setIsShownTest] = useState(false);
   const [isShownActiveTest, setIsShownActiveTest] = useState(false);
@@ -50,8 +52,16 @@ const NavbarAdmin = () => {
   };
 
   const { type, status, error, token } = useSelector((state) => state.auth);
+  const { typeTest } = useSelector((state) => state.getAPI);
 
-  useEffect(() => {}, []);
+  console.log("Apa type nya", typeTest);
+  const fetchData = () => {
+    // dispatch(await getUsersAct(`/peserta`));
+    dispatch(getTypeTestAct("/test"));
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -154,21 +164,40 @@ const NavbarAdmin = () => {
 
                 {/* ===== */}
                 <div
-                  className={`relative py-2 w-full  flex justify-start items-center flex-col gap-4 ${
-                    isShownQuis
-                      ? `overflow-visible w-max bg-white rounded-lg pr-8 `
-                      : `overflow-hidden`
+                  className={`relative  py-0 h-auto w-full flex justify-center items-center flex-col gap-4 ${
+                    isShownQuiz
+                      ? `overflow-hidden w-max bg-white rounded-lg pr-5 shadow-md`
+                      : `overflow-hidden `
                   }`}
-                  onMouseEnter={() => setIsShownQuis(true)}
-                  onMouseLeave={() => setIsShownQuis(false)}
+                  onMouseEnter={() => setIsShownQuiz(true)}
+                  onMouseLeave={() => setIsShownQuiz(false)}
                 >
-                  <div className="w-full  flex justify-start items-center flex-row gap-4 ">
-                    <div className="w-max ml-2  flex justify-center items-center">
+                  <div className="w-full flex justify-start items-end flex-row gap-4 ">
+                    <div className="w-max ml-2 h-0 flex justify-center items-center">
                       <BiSolidBookBookmark className="text-3xl w-[25px] h-[25px] " />
                     </div>
-                    <Link to={"/edit-soal"} className="text-xl font-semibold ">
-                      Soal
-                    </Link>
+                    <span className="text-xl font-semibold ">Soal</span>
+                  </div>
+
+                  <div
+                    className={`${
+                      isShownQuiz
+                        ? "w-[180px] flex h-max opacity-100 flex-col relative z-30 left-2 right-2 gap-0 pb-4 "
+                        : "w-0 h-0 opacity-0"
+                    } transition-all overflow-hidden`}
+                  >
+                    {typeTest &&
+                      typeTest.map((item, i) => {
+                        return (
+                          <Link
+                            key={i}
+                            className="min-w-max w-full px-2 py-1 rounded-sm hover:bg-[#ececec]"
+                            to={`/tambah-soal/${item.id}`}
+                          >
+                            {item.jenis_test}
+                          </Link>
+                        );
+                      })}
                   </div>
                 </div>
                 <div

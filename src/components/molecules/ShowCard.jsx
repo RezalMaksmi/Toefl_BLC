@@ -9,6 +9,7 @@ import defaultProfile from "../../assets/img/default-profile.png";
 import { BiCheck } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../api/axiosInstance";
+import { setAddTypeQuizAct } from "../../redux/quiz/Quiz";
 
 const ShowCard = (props) => {
   const {
@@ -32,10 +33,13 @@ const ShowCard = (props) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [addTypeQuiz, setAddTypeQuiz] = useState(null);
   const [jenisP, setJenisP] = useState();
   const [roleP, setRoleP] = useState();
+
+  const dispatch = useDispatch();
   useEffect(() => {
+    addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
     const rolePeserta = async () => {
       try {
         const response = await axiosInstance.get(
@@ -64,10 +68,20 @@ const ShowCard = (props) => {
     };
 
     jenisPeserta();
-  }, []);
+  }, [addTypeQuiz]);
 
   const { data, detail } = useSelector((state) => state.users);
+  const { typeQuiz, valueTypeQuiz } = useSelector((state) => state.quiz);
 
+  console.log(addTypeQuiz);
+
+  console.log("apa ni type value nya", valueTypeQuiz);
+
+  const handleTypeQuiz = (i) => {
+    setAddTypeQuiz(i);
+  };
+
+  console.log(close);
   switch (type) {
     case "AddData":
       return (
@@ -398,6 +412,51 @@ const ShowCard = (props) => {
                     className="bg-[#58b4ad] text-white items-center"
                     icon={<BiCheck />}
                   />
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </React.Fragment>
+      );
+    case "addQuiz":
+      return (
+        <React.Fragment>
+          <Dialog
+            open={opens}
+            onClose={close}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            // maxWidth="md"
+            // fullWidth="true"
+            className="relative w-full "
+          >
+            <span
+              className="absolute top-0 right-0 px-2 py-2 text-2xl"
+              onClick={close}
+            >
+              <LuX />
+            </span>
+            <DialogTitle
+              id="alert-dialog-title"
+              className="text-center font-bold "
+            >
+              <h1 className="font-bold text-2xl">{"Pilih Jenis Soal"}</h1>
+            </DialogTitle>
+            <DialogContent className=" w-full">
+              <div className="flex flex-row gap-2 w-[100%] px-2 pb-4">
+                <div className="flex flex-row gap-2 w-full">
+                  {typeQuiz &&
+                    typeQuiz.map((item, i) => {
+                      return (
+                        <Button
+                          type="ButtonIcon"
+                          text={item.type_soal}
+                          className="bg-[#58b4ad] text-white items-center"
+                          onClick={() => handleTypeQuiz(item.type_soal)}
+                          // icon={<BiCheck />}
+                        />
+                      );
+                    })}
                 </div>
               </div>
             </DialogContent>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosInstance from "../../api/axiosInstance";
+import { toast } from "react-toastify";
 
 const API_URL = "localhost:8000";
 
@@ -18,22 +19,22 @@ export const getQuizAct = createAsyncThunk("get/quiz/api", async (endpoint) => {
   }
 });
 
-export const getDetailQuizAct = createAsyncThunk(
-  "get/detail/quiz/api",
-  async (endpoint) => {
-    try {
-      const response = await axiosInstance.get(endpoint);
-      if (response) {
-        console.log("apa ini anjayyy", response.data);
+// export const getDetailQuizAct = createAsyncThunk(
+//   "get/detail/quiz/api",
+//   async (endpoint) => {
+//     try {
+//       const response = await axiosInstance.get(endpoint);
+//       if (response) {
+//         console.log("apa ini anjayyy", response.data);
 
-        return response.data.data;
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-);
+//         return response.data.data;
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       throw error;
+//     }
+//   }
+// );
 
 export const getTypeQuizAct = createAsyncThunk(
   "get/type/quiz/api",
@@ -55,13 +56,55 @@ export const getTypeQuizAct = createAsyncThunk(
   }
 );
 
+// detail quiz
+export const getDetailQuizAct = createAsyncThunk(
+  "get/detail/quiz/api",
+  async (id) => {
+    try {
+      const response = await axiosInstance.get(`/soal/detail/${id}`);
+      if (response) {
+        console.log(
+          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          response.data
+        );
+
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
+
 export const setAddTypeQuizAct = createAsyncThunk(
   "set/type/quiz/api",
-  async (e) => {
+  async (data) => {
     try {
-      if (e) {
-        console.log("apa id nya type", e);
-        return e;
+      console.log("apa id nya type", data);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
+
+export const postAddQuizAct = createAsyncThunk(
+  "post/quiz/api",
+  async (data) => {
+    try {
+      const response = await axiosInstance.post(`/soal`, data);
+      if (response) {
+        console.log(
+          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          response.data
+        );
+        toast.done(`${response.data.message}`, {
+          position: "bottom-right",
+        });
+
+        return response.data;
       }
     } catch (error) {
       console.log(error);

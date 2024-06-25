@@ -29,6 +29,7 @@ const CardSoal = (props) => {
     d,
     key,
     timer,
+    submit,
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -152,6 +153,7 @@ const CardSoal = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Simpan"
+                onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
             </div>
@@ -246,6 +248,7 @@ const CardSoal = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Simpan"
+                onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
             </div>
@@ -347,6 +350,7 @@ const CardSoal = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Simpan"
+                onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
             </div>

@@ -36,50 +36,53 @@ const ShowCard = (props) => {
   const [addTypeQuiz, setAddTypeQuiz] = useState(null);
   const [jenisP, setJenisP] = useState();
   const [roleP, setRoleP] = useState();
+  const [click, setClick] = useState("");
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
-    const rolePeserta = async () => {
-      try {
-        const response = await axiosInstance.get(
-          "http://localhost:8000/role_peserta"
-        );
-        setRoleP(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    rolePeserta();
-    const jenisPeserta = async () => {
-      try {
-        const response = await axiosInstance.get(
-          "http://localhost:8000/jenis_kelas"
-        );
-        setJenisP(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    jenisPeserta();
-  }, [addTypeQuiz]);
 
   const { data, detail } = useSelector((state) => state.users);
   const { typeQuiz, valueTypeQuiz } = useSelector((state) => state.quiz);
 
   console.log(addTypeQuiz);
 
-  console.log("apa ni type value nya", valueTypeQuiz);
+  console.log("apa ni type value nya", typeQuiz);
 
-  const handleTypeQuiz = (i) => {
-    setAddTypeQuiz(i);
+  const handleTypeQuiz = (data) => {
+    setAddTypeQuiz(data);
+    setClick("click");
   };
+  const rolePeserta = async () => {
+    try {
+      const response = await axiosInstance.get(
+        "http://localhost:8000/role_peserta"
+      );
+      setRoleP(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const jenisPeserta = async () => {
+    try {
+      const response = await axiosInstance.get(
+        "http://localhost:8000/jenis_kelas"
+      );
+      setJenisP(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
+
+    rolePeserta();
+
+    jenisPeserta();
+    setClick("");
+  }, [addTypeQuiz, click]);
 
   console.log(close);
   switch (type) {
@@ -449,10 +452,11 @@ const ShowCard = (props) => {
                     typeQuiz.map((item, i) => {
                       return (
                         <Button
+                          key={i}
                           type="ButtonIcon"
                           text={item.type_soal}
                           className="bg-[#58b4ad] text-white items-center"
-                          onClick={() => handleTypeQuiz(item.type_soal)}
+                          onClick={() => handleTypeQuiz(item)}
                           // icon={<BiCheck />}
                         />
                       );

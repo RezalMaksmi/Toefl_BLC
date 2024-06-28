@@ -42,11 +42,6 @@ export const getTypeQuizAct = createAsyncThunk(
     try {
       const response = await axiosInstance.get(`/jenis_soal`);
       if (response) {
-        console.log(
-          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          response.data
-        );
-
         return response.data;
       }
     } catch (error) {
@@ -63,11 +58,6 @@ export const getDetailQuizAct = createAsyncThunk(
     try {
       const response = await axiosInstance.get(`/soal/detail/${id}`);
       if (response) {
-        console.log(
-          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          response.data
-        );
-
         return response.data;
       }
     } catch (error) {
@@ -81,7 +71,6 @@ export const setAddTypeQuizAct = createAsyncThunk(
   "set/type/quiz/api",
   async (data) => {
     try {
-      console.log("apa id nya type", data);
       return data;
     } catch (error) {
       console.log(error);
@@ -95,9 +84,9 @@ export const postAddQuizAct = createAsyncThunk(
   async (data) => {
     try {
       const response = await axiosInstance.post(`/soal`, data);
-      if (response) {
+      if (response.success === true) {
         console.log(
-          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssa",
           response.data
         );
         toast.done(`${response.data.message}`, {
@@ -112,23 +101,6 @@ export const postAddQuizAct = createAsyncThunk(
     }
   }
 );
-
-// export const getTypeTestAct = createAsyncThunk(
-//   "get/type/test/api",
-//   async (url) => {
-//     try {
-//       const response = await axiosInstance.get(`${url}`);
-//       if (response) {
-//         console.log(response.data);
-
-//         return response.data.data;
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       throw error;
-//     }
-//   }
-// );
 
 const quiz = createSlice({
   name: "quiz",

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CardSoal, ShowCard } from "../../components";
+import { CardSoal, Loading, ShowCard } from "../../components";
 import { LayoutAdmin } from "../../template";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -15,39 +15,42 @@ const EditSoal = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [click, setClick] = useState("");
+  const [openDetail, setOpenDetail] = useState(false);
   const [showTable, setShowTable] = useState(10);
   const [typeQuizValue, setTypeQuizValue] = useState();
-  const { typeQuiz, soal, detail, valueTypeQuiz } = useSelector(
+  const { typeQuiz, soal, detail, valueTypeQuiz, status } = useSelector(
     (state) => state.quiz
   );
 
+  const [test, setTest] = useState("");
+  const [pagetitle, setPageTitle] = useState(
+    detail ? detail && detail.data.page.title : ""
+  );
+  const [pageSubtitle, setPageSubTitle] = useState(
+    detail ? detail && detail.data.page.subtitle : ""
+  );
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [paragraph, setParagraph] = useState("");
+  const [type_test, setType_test] = useState(id);
+  const [type_soal, setType_soal] = useState("");
+  const [pTitle, setPTitle] = useState("");
+  const [no, setNo] = useState("");
+  const [a, setA] = useState("");
+  const [b, setB] = useState("");
+  const [c, setC] = useState("");
+  const [d, setD] = useState("");
+  const [key, setKey] = useState("");
+  const [timer, setTimer] = useState("");
+
   const [idTest, setIdTest] = useState("");
-  const [data, setData] = useState({
-    type_test: id,
-    type_soal: "",
-    test: "",
-    "page-title": "",
-    "page-subtitle": "",
-    title: "",
-    subtitle: "",
-    content: "",
-    "p-title": "",
-    paragraph: "",
-    no: "",
-    a: "",
-    b: "",
-    c: "",
-    d: "",
-    key: "",
-    timer: 0,
-  });
 
-  const updateData = (key, value) => {
-    setData((prevState) => ({ ...prevState, [key]: value }));
-  };
+  const handleDetail = (idDetail) => {
+    setOpenDetail(true);
 
-  const handleDetail = (id) => {
-    dispatch(getDetailQuizAct(id));
+    setClick("click");
+    dispatch(getDetailQuizAct(idDetail));
   };
 
   const fetchAPI = async () => {
@@ -56,54 +59,74 @@ const EditSoal = () => {
     dispatch(getTypeQuizAct());
   };
 
-  const handleSubmit = () => {
+  const data = {
+    type_test: type_test,
+    type_soal: type_soal,
+    test: test,
+    page_title: pagetitle,
+    page_subtitle: pageSubtitle,
+    title: title,
+    subtitle: subTitle,
+    content: content,
+    p_title: pTitle,
+    paragraph: paragraph,
+    no: no,
+    a: a,
+    b: b,
+    c: c,
+    d: d,
+    key: key,
+    timer: 0,
+  };
+
+  const resetValue = () => {
+    setPageTitle("");
+    setPageSubTitle("");
+    setTitle("");
+    setSubTitle("");
+    setContent("");
+    setParagraph("");
+    setType_soal("");
+    setPTitle("");
+    setNo("");
+    setA("");
+    setB("");
+    setC("");
+    setD("");
+    setKey("");
+    setTimer("");
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setOpenDetail(false);
     const newData = data;
-    console.log("new dataa", newData);
-    dispatch(postAddQuizAct(newData));
+
+    dispatch(await postAddQuizAct(data));
+    resetValue();
     fetchAPI();
+    setOpenModal(false);
+
     setClick("click");
-    setData({
-      type_test: id && id,
-      type_soal: "",
-      test: "",
-      "page-title": "",
-      "page-subtitle": "",
-      title: "",
-      subtitle: "",
-      content: "",
-      "p-title": "",
-      paragraph: "",
-      no: "",
-      a: "",
-      b: "",
-      c: "",
-      d: "",
-      key: "",
-      timer: 0,
-    });
   };
 
   useEffect(() => {
-    // dispatch(getDetailQuizAct);
     fetchAPI();
-    setOpenModal(false);
+
     setTypeQuizValue(valueTypeQuiz && valueTypeQuiz.type_soal);
-    updateData("type_soal", valueTypeQuiz && valueTypeQuiz.id);
+
+    valueTypeQuiz && setType_soal(valueTypeQuiz && valueTypeQuiz.id);
     setClick("");
+    id && setType_test(id);
   }, [id, idTest, typeQuizValue, valueTypeQuiz, click]);
 
-  // console.log("apa ini isinya id nya", id);
-  console.log(data);
-  console.log(
-    "apa  tipe quiz nmyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    valueTypeQuiz
-  );
-  console.log("apa iniiiiiiiiiiiiiii", data);
-
   const [openModal, setOpenModal] = useState(false);
+  const [addQuiz, setAddQuiz] = useState(false);
 
-  // console.log("detailnya apa", detail);
-  // console.log("soal nya apa typeQuizValue", typeQuizValue);
+  const handleAddQuiz = () => {
+    setOpenModal(true);
+    setAddQuiz(true);
+    setOpenDetail(false);
+  };
   return (
     <LayoutAdmin>
       <ShowCard
@@ -113,20 +136,6 @@ const EditSoal = () => {
         addTypeQuiz={""}
       />
       <div className=" bg-white mx-auto w-full h-auto">
-        {/* <div className="w-auto h-auto px-10 py-5 flex flex-row justify-start items-center gap-10">
-          <span>Edit Soal</span>
-          <label>
-            <select
-              className="w-[150px] px-2 py-2 focus:outline-none border rounded-md"
-              name="selectedJenisPeserta"
-              onChange={(e) => setShowTable(e.target.value)}
-            >
-              <option value={10}>Pretest</option>
-              <option value={30}>Post Test 1</option>
-              <option value={50}>Post Test 2</option>
-            </select>
-          </label>
-        </div> */}
         <div className="w-full px-10  grid grid-cols-6 gap-5 h-auto pb-3 py-5">
           <div className="bg-[#F3F3F3] h-full shadow-md border col-span-1 rounded-2xl px-2 py-2 relative">
             <div className="flex flex-col h-[75vh]  overflow-y-scroll">
@@ -140,7 +149,7 @@ const EditSoal = () => {
                       className={`w-full py-2  rounded-xl ${
                         detail &&
                         item.index === detail.data.index &&
-                        "bg-slate-600 text-white"
+                        "text-slate-600 bg-white"
                       } `}
                       onClick={() => handleDetail(item.id)}
                     >
@@ -154,37 +163,78 @@ const EditSoal = () => {
             </div>
 
             <button
-              onClick={() => setOpenModal(true)}
+              onClick={handleAddQuiz}
               className="absolute flex bottom-2 left-2 right-2 py-3 px-2 rounded-xl bg-slate-600 text-white "
             >
               Tambah Soal
             </button>
           </div>
           <div className="bg-white col-span-5 shadow-md border rounded-2xl px-2 py-2">
-            <CardSoal
-              type={
-                valueTypeQuiz
-                  ? valueTypeQuiz.type_soal
-                  : "" || (detail && detail.data.type_soal)
-              }
-              valueTitle={data.title}
-              title={(e) => updateData("title", e.target.value)}
-              page_title={(e) => updateData("page-title", e.target.value)}
-              p_title={(e) => updateData("p-title", e.target.value)}
-              page_subtitle={(e) => updateData("page-subtitle", e.target.value)}
-              subtitle={(e) => updateData("subtitle", e.target.value)}
-              content={(e) => updateData("content", e.target.value)}
-              paragraph={(e) => updateData("paragraph", e.target.value)}
-              no={(e) => updateData("no", e.target.value)}
-              a={(e) => updateData("a", e.target.value)}
-              b={(e) => updateData("b", e.target.value)}
-              c={(e) => updateData("c", e.target.value)}
-              d={(e) => updateData("d", e.target.value)}
-              key={(e) => updateData("key", e.target.value)}
-              timer={(e) => updateData("timer", e.target.value)}
-              type_test={(e) => updateData("type_test", id && id)}
-              submit={handleSubmit}
-            />
+            {openDetail ? (
+              <CardSoal
+                type={
+                  valueTypeQuiz
+                    ? valueTypeQuiz.type_soal
+                    : "" || (detail && detail.data.type_soal)
+                }
+                pageTitle={detail ? detail && detail.data.page.title : ""}
+                pageSubTitle={detail ? detail && detail.data.page.subtitle : ""}
+                titleValue={detail ? detail && detail.data.title.title : ""}
+                subTitleValue={
+                  detail ? detail && detail.data.title.subtitle : ""
+                }
+                contentValue={detail ? detail && detail.data.content : ""}
+                paragraphValue={detail ? detail && detail.data.paragraph : ""}
+                p_titleValue={detail ? detail && detail.data.paragraph : ""}
+                noValue={no}
+                aValue={detail ? detail && detail.data.a : ""}
+                bValue={detail ? detail && detail.data.b : ""}
+                cValue={detail ? detail && detail.data.c : ""}
+                dValue={detail ? detail && detail.data.d : ""}
+                keyValue={key}
+                submit={handleSubmit}
+              />
+            ) : (
+              addQuiz === true && (
+                <CardSoal
+                  type={
+                    valueTypeQuiz
+                      ? valueTypeQuiz.type_soal
+                      : "" || (detail && detail.data.type_soal)
+                  }
+                  pageTitle={pagetitle}
+                  pageSubTitle={pageSubtitle}
+                  titleValue={title}
+                  subTitleValue={subTitle}
+                  contentValue={content}
+                  paragraphValue={paragraph}
+                  p_titleValue={pTitle}
+                  noValue={no}
+                  aValue={a}
+                  bValue={b}
+                  cValue={c}
+                  dValue={d}
+                  keyValue={key}
+                  title={(e) => setTitle(e.target.value)}
+                  subtitle={(e) => setSubTitle(e.target.value)}
+                  page_title={(e) => setPageTitle(e.target.value)}
+                  page_subtitle={(e) => setPageSubTitle(e.target.value)}
+                  paragraph={(e) => setParagraph(e.target.value)}
+                  content={(e) => setContent(e.target.value)}
+                  p_title={(e) => setPTitle(e.target.value)}
+                  no={(e) => setNo(e.target.value)}
+                  a={(e) => setA(e.target.value)}
+                  b={(e) => setB(e.target.value)}
+                  c={(e) => setC(e.target.value)}
+                  d={(e) => setD(e.target.value)}
+                  key={(e) => setKey(e.target.value)}
+                  timer={(e) => setTimer(e.target.value)}
+                  submit={handleSubmit}
+                />
+              )
+            )}
+
+            {status === "loading" && <Loading />}
           </div>
         </div>
       </div>

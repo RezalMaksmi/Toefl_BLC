@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, CardTable, Input, ShowCard } from "../../components";
+import { Button, CardTable, Input, Loading, ShowCard } from "../../components";
 import {
   BiChevronLeft,
   BiChevronRight,
@@ -14,7 +14,6 @@ import {
   getUsersActDetail,
   usersDeleteAct,
 } from "../../redux/users/Users";
-import SweetAlert2 from "react-sweetalert2";
 import Swal from "sweetalert2";
 import { LayoutAdmin } from "../../template";
 import { toast } from "react-toastify";
@@ -47,7 +46,7 @@ const HomeAdmin = () => {
   };
   const dispatch = useDispatch();
 
-  const { data, detail } = useSelector((state) => state.users);
+  const { data, detail, status } = useSelector((state) => state.users);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -240,7 +239,7 @@ const HomeAdmin = () => {
                   );
                 })
               ) : (
-                <>Loading</>
+                <Loading />
               )}
             </tbody>
           </table>

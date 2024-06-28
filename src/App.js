@@ -9,6 +9,8 @@ import {
   EditSoal,
   LihatSoal,
   HomeAdmin,
+  LoginPeserta,
+  HomePeserta
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +29,7 @@ const Router = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          {/* routes for admin */}
           <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<LoginAdmin />} />
           <Route path="/dashboard" element={<HomeAdmin />} />
@@ -34,6 +37,10 @@ const Router = () => {
           <Route path="/peserta-test" element={<PesertaTest />} />
           <Route path="/tambah-soal/:id" element={<EditSoal />} />
           <Route path="/lihat-soal" element={<LihatSoal />} />
+          
+          {/* routes for peserta */}
+          <Route path="/login-peserta" element={<LoginPeserta/>}/>
+          <Route path="/dashboard-peserta" element={<HomePeserta/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

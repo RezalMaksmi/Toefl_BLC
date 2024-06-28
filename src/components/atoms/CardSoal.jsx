@@ -29,6 +29,20 @@ const CardSoal = (props) => {
     d,
     key,
     timer,
+    submit,
+    pageTitle,
+    pageSubTitle,
+    subTitleValue,
+    titleValue,
+    contentValue,
+    paragraphValue,
+    p_titleValue,
+    noValue,
+    aValue,
+    bValue,
+    cValue,
+    dValue,
+    keyValue,
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -50,12 +64,12 @@ const CardSoal = (props) => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-lg">Page Title</span>
+              <span className="text-lg">Page Title {pageTitle}</span>
               <input
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
-                valueTitle={valueTitle}
+                value={pageTitle}
                 onChange={page_title}
               />
             </div>
@@ -65,6 +79,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
+                value={pageSubTitle}
                 onChange={page_subtitle}
               />
             </div>
@@ -72,12 +87,26 @@ const CardSoal = (props) => {
 
           <div className="grid grid-cols gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-lg">Pertanyaan</span>
+              <span className="text-lg">paragraph Title</span>
+              <textarea
+                type="text"
+                className="border border-text_color rounded-md px-3 py-1 text-lg h-10"
+                placeholder="Title Paragraph..."
+                value={p_titleValue}
+                onChange={p_title}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols gap-4">
+            <div className="flex flex-col gap-1">
+              <span className="text-lg">Paragraph</span>
               <textarea
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-20"
                 placeholder="Pertanyaan..."
-                onChange={content}
+                value={paragraphValue}
+                onChange={paragraph}
               />
             </div>
           </div>
@@ -89,6 +118,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                value={aValue}
                 onChange={a}
               />
             </div>
@@ -98,6 +128,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                value={bValue}
                 onChange={b}
               />
             </div>
@@ -107,6 +138,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                value={cValue}
                 onChange={c}
               />
             </div>
@@ -116,12 +148,23 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
+                value={dValue}
                 onChange={d}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-row gap-4">
+              <span className="text-lg">Key</span>
+              <input
+                type="text"
+                className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
+                placeholder=""
+                value={keyValue}
+                onChange={key}
+              />
+            </div>
             <div className="flex flex-col gap-2">
               <span className="text-lg">Audio</span>
 
@@ -152,6 +195,7 @@ const CardSoal = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Simpan"
+                onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
             </div>
@@ -181,7 +225,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
-                valueTitle={valueTitle}
+                value={pageTitle}
                 onChange={title}
               />
             </div>
@@ -191,6 +235,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
+                value={pageSubTitle}
               />
             </div>
           </div>
@@ -202,6 +247,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg "
                 placeholder="Title..."
+                value={titleValue}
               />
             </div>
 
@@ -211,6 +257,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-20"
                 placeholder="Subtitle..."
+                value={subTitleValue}
               />
             </div>
           </div>
@@ -246,6 +293,7 @@ const CardSoal = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Simpan"
+                onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
             </div>
@@ -273,7 +321,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
-                valueTitle={valueTitle}
+                value={pageTitle}
                 onChange={title}
               />
             </div>
@@ -283,6 +331,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
+                value={pageSubTitle}
               />
             </div>
           </div>
@@ -294,6 +343,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg "
                 placeholder="Title..."
+                value={titleValue}
               />
             </div>
 
@@ -303,6 +353,7 @@ const CardSoal = (props) => {
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-14"
                 placeholder="Subtitle..."
+                value={subTitleValue}
               />
             </div>
 
@@ -347,6 +398,7 @@ const CardSoal = (props) => {
               <Button
                 type="PrimaryButton"
                 text="Simpan"
+                onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
             </div>

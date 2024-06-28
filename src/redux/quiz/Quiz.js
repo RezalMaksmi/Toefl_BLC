@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosInstance from "../../api/axiosInstance";
+import { toast } from "react-toastify";
 
 const API_URL = "localhost:8000";
 
@@ -18,15 +19,30 @@ export const getQuizAct = createAsyncThunk("get/quiz/api", async (endpoint) => {
   }
 });
 
-export const getDetailQuizAct = createAsyncThunk(
-  "get/detail/quiz/api",
-  async (endpoint) => {
-    try {
-      const response = await axiosInstance.get(endpoint);
-      if (response) {
-        console.log("apa ini anjayyy", response.data);
+// export const getDetailQuizAct = createAsyncThunk(
+//   "get/detail/quiz/api",
+//   async (endpoint) => {
+//     try {
+//       const response = await axiosInstance.get(endpoint);
+//       if (response) {
+//         console.log("apa ini anjayyy", response.data);
 
-        return response.data.data;
+//         return response.data.data;
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       throw error;
+//     }
+//   }
+// );
+
+export const getTypeQuizAct = createAsyncThunk(
+  "get/type/quiz/api",
+  async () => {
+    try {
+      const response = await axiosInstance.get(`/jenis_soal`);
+      if (response) {
+        return response.data;
       }
     } catch (error) {
       console.log(error);
@@ -35,17 +51,13 @@ export const getDetailQuizAct = createAsyncThunk(
   }
 );
 
-export const getTypeQuizAct = createAsyncThunk(
-  "get/type/quiz/api",
-  async () => {
+// detail quiz
+export const getDetailQuizAct = createAsyncThunk(
+  "get/detail/quiz/api",
+  async (id) => {
     try {
-      const response = await axiosInstance.get(`/jenis_soal`);
+      const response = await axiosInstance.get(`/soal/detail/${id}`);
       if (response) {
-        console.log(
-          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          response.data
-        );
-
         return response.data;
       }
     } catch (error) {
@@ -57,12 +69,9 @@ export const getTypeQuizAct = createAsyncThunk(
 
 export const setAddTypeQuizAct = createAsyncThunk(
   "set/type/quiz/api",
-  async (e) => {
+  async (data) => {
     try {
-      if (e) {
-        console.log("apa id nya type", e);
-        return e;
-      }
+      return data;
     } catch (error) {
       console.log(error);
       throw error;
@@ -70,22 +79,28 @@ export const setAddTypeQuizAct = createAsyncThunk(
   }
 );
 
-// export const getTypeTestAct = createAsyncThunk(
-//   "get/type/test/api",
-//   async (url) => {
-//     try {
-//       const response = await axiosInstance.get(`${url}`);
-//       if (response) {
-//         console.log(response.data);
+export const postAddQuizAct = createAsyncThunk(
+  "post/quiz/api",
+  async (data) => {
+    try {
+      const response = await axiosInstance.post(`/soal`, data);
+      if (response.success === true) {
+        console.log(
+          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssa",
+          response.data
+        );
+        toast.done(`${response.data.message}`, {
+          position: "bottom-right",
+        });
 
-//         return response.data.data;
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       throw error;
-//     }
-//   }
-// );
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
 
 const quiz = createSlice({
   name: "quiz",

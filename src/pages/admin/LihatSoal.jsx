@@ -39,7 +39,7 @@ const LihatSoal = () => {
                 <br /> 1. What can we learn from the text ?
               </span>
 
-              <div className="grid grid-cols-2 gap-8 mt-6">
+              <div className="grid grid-cols-2 gap-8 mt-6 uhuo">
                 <button className="flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg">
                   A. We have to have breakfast every morning
                 </button>

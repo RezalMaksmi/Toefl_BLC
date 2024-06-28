@@ -27,11 +27,10 @@ export const createUsersAct = createAsyncThunk(
         body
       );
       console.log("apa bodynya");
+      toast.done(`pppppppppppppppppp${response.data}`, {
+        position: "bottom-right",
+      });
       if (response) {
-        toast.done(`${response.data.message}`, {
-          position: "bottom-right",
-        });
-
         console.log("responya apa : =========", response.data);
 
         return response.data;

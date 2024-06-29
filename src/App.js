@@ -10,7 +10,8 @@ import {
   LihatSoal,
   HomeAdmin,
   LoginPeserta,
-  HomePeserta
+  HomePeserta,
+  TestPeserta
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,7 @@ const Router = () => {
           {/* routes for peserta */}
           <Route path="/login-peserta" element={<LoginPeserta/>}/>
           <Route path="/dashboard-peserta" element={<HomePeserta/>}/>
+          <Route path="/test-peserta" element={<TestPeserta/>}/>
         </Routes>
         <Footer />
       </BrowserRouter>

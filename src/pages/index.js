@@ -9,6 +9,7 @@ import LandingPage from "./LandingPage";
 // page for peserta
 import LoginPeserta from "./peserta/LoginPeserta";
 import HomePeserta from "./peserta/HomePeserta";
+import TestPeserta from "./peserta/TestPeserta";
 
 export {
   Home,
@@ -19,5 +20,6 @@ export {
   LihatSoal,
   LandingPage,
   LoginPeserta,
-  HomePeserta
+  HomePeserta,
+  TestPeserta
 };

@@ -30,7 +30,7 @@ const Images = (props) => {
             )
         default:
             return(
-                <img src={src} alt={alt} />
+                <img src={src} alt={alt} className={className}/>
             )
     }
   

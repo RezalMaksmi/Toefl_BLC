@@ -25,10 +25,8 @@ const Navbar = () => {
   const location = useLocation();
   const { pathname } = location;
 
-  console.log(pathname);
   const getUserDataFromLocalStorage = () => {
     const user = localStorage.getItem("userData");
-    console.log(user);
     return user ? JSON.parse(user) : {};
   };
 
@@ -37,8 +35,6 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
-
-  console.log(localStorage);
 
   const [isShown, setIsShown] = useState(false);
   const [isShownTest, setIsShownTest] = useState(false);

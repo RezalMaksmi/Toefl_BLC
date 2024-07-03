@@ -14,7 +14,7 @@ import { Footer, Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
 import PesertaTest from "./pages/admin/PesertaTest";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import NotFound from "./pages/NotFound";
 
 const Router = () => {
   const { user, loading } = useSelector((state) => state.auth);
@@ -27,6 +27,7 @@ const Router = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route exact path="*" element={<NotFound />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<LoginAdmin />} />
           <Route path="/dashboard" element={<HomeAdmin />} />

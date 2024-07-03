@@ -130,8 +130,6 @@ const HomeAdmin = () => {
     }
   };
 
-  const { user, loading } = useSelector((state) => state.auth);
-
   const fetchData = async () => {
     dispatch(await getUsersAct(`/peserta`));
   };

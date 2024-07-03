@@ -26,13 +26,10 @@ export const createUsersAct = createAsyncThunk(
         `http://localhost:8000/peserta/`,
         body
       );
-      console.log("apa bodynya");
-      toast.done(`pppppppppppppppppp${response.data}`, {
-        position: "bottom-right",
-      });
       if (response) {
-        console.log("responya apa : =========", response.data);
-
+        toast.done(`pppppppppppppppppp${response.data.message}`, {
+          position: "bottom-right",
+        });
         return response.data;
       }
     } catch (error) {
@@ -71,10 +68,9 @@ export const usersDeleteAct = createAsyncThunk(
         `${backendURL}/peserta/${id}`
       );
       if (response) {
-        toast.done(`${response.data.message}`, {
+        toast.done(`BBBB${response.data.message}`, {
           position: "bottom-right",
         });
-        console.log(response.data);
         return response.data.data;
       }
     } catch (error) {

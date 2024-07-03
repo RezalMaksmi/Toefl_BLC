@@ -79,6 +79,8 @@ const EditSoal = () => {
     timer: 0,
   };
 
+  console.log("tipe soal =", data);
+
   const resetValue = () => {
     setPageTitle("");
     setPageSubTitle("");
@@ -122,11 +124,19 @@ const EditSoal = () => {
   const [openModal, setOpenModal] = useState(false);
   const [addQuiz, setAddQuiz] = useState(false);
 
+  const indexValue = () => {
+    setNo(data.index);
+  };
+
+  console.log(data.index);
+
   const handleAddQuiz = () => {
     setOpenModal(true);
     setAddQuiz(true);
     setOpenDetail(false);
   };
+
+  console.log(valueTypeQuiz);
   return (
     <LayoutAdmin>
       <ShowCard
@@ -153,7 +163,7 @@ const EditSoal = () => {
                       } `}
                       onClick={() => handleDetail(item.id)}
                     >
-                      Soal {i + 1}
+                      {item.page.title}
                     </button>
                   );
                 })
@@ -177,20 +187,18 @@ const EditSoal = () => {
                     ? valueTypeQuiz.type_soal
                     : "" || (detail && detail.data.type_soal)
                 }
-                pageTitle={detail ? detail && detail.data.page.title : ""}
-                pageSubTitle={detail ? detail && detail.data.page.subtitle : ""}
-                titleValue={detail ? detail && detail.data.title.title : ""}
-                subTitleValue={
-                  detail ? detail && detail.data.title.subtitle : ""
-                }
-                contentValue={detail ? detail && detail.data.content : ""}
-                paragraphValue={detail ? detail && detail.data.paragraph : ""}
-                p_titleValue={detail ? detail && detail.data.paragraph : ""}
+                pageTitle={detail ? detail.data.page.title : ""}
+                pageSubTitle={detail ? detail.data.page.subtitle : ""}
+                titleValue={detail ? detail.data.title.title : ""}
+                subTitleValue={detail ? detail.data.title.subtitle : ""}
+                contentValue={detail ? detail.data.content : ""}
+                paragraphValue={detail ? detail.data.paragraph : ""}
+                p_titleValue={detail ? detail.data.paragraph : ""}
                 noValue={no}
-                aValue={detail ? detail && detail.data.a : ""}
-                bValue={detail ? detail && detail.data.b : ""}
-                cValue={detail ? detail && detail.data.c : ""}
-                dValue={detail ? detail && detail.data.d : ""}
+                aValue={detail ? detail.data.a : ""}
+                bValue={detail ? detail.data.b : ""}
+                cValue={detail ? detail.data.c : ""}
+                dValue={detail ? detail.data.d : ""}
                 keyValue={key}
                 submit={handleSubmit}
               />

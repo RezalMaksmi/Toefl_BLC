@@ -3,14 +3,10 @@ import axios from "axios";
 import axiosInstance from "../../api/axiosInstance";
 import { toast } from "react-toastify";
 
-const API_URL = "localhost:8000";
-
 export const getQuizAct = createAsyncThunk("get/quiz/api", async (endpoint) => {
   try {
     const response = await axiosInstance.get(endpoint);
     if (response) {
-      console.log("apa ini anjayyy", response.data);
-
       return response.data.data;
     }
   } catch (error) {
@@ -85,14 +81,10 @@ export const postAddQuizAct = createAsyncThunk(
     try {
       const response = await axiosInstance.post(`/soal`, data);
       if (response.success === true) {
-        console.log(
-          "apaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssa",
-          response.data
-        );
         toast.done(`${response.data.message}`, {
           position: "bottom-right",
         });
-
+        console.col("apa isinya ini  ______________", response.data);
         return response.data;
       }
     } catch (error) {

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Text } from "../../components/atoms";
-import { getAPIUsers } from "../../redux/fetch/Get";
+import { Input, Text } from "../../components/atoms";
 import { useDispatch, useSelector } from "react-redux";
-import { Accounts } from "../../data";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets";
 import { loginAdmin } from "../../redux/slices/authSlice";

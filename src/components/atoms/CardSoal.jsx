@@ -47,7 +47,6 @@ const CardSoal = (props) => {
   const navigate = useNavigate();
   switch (type) {
     case "paragraph":
-    case "example":
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
@@ -187,12 +186,12 @@ const CardSoal = (props) => {
             <div className="flex flex-row justify-end gap-4">
               <Button
                 type="PrimaryButton"
-                text="Cancel"
+                text="Hapus"
                 className="bg-[#FF4E4E] text-white"
               />
               <Button
                 type="PrimaryButton"
-                text="Simpan"
+                text="Edit"
                 onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
@@ -202,6 +201,8 @@ const CardSoal = (props) => {
       );
 
     case "test":
+    case "test1":
+    case "example":
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
@@ -256,7 +257,7 @@ const CardSoal = (props) => {
               <textarea
                 type="text"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-10"
-                placeholder="Title Paragraph..."
+                placeholder="Subtitle..."
                 value={subTitleValue}
                 onChange={subtitle}
               />
@@ -319,7 +320,7 @@ const CardSoal = (props) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             <div className="flex flex-row gap-4">
               <span className="text-lg">Key</span>
               <input
@@ -330,20 +331,16 @@ const CardSoal = (props) => {
                 onChange={key}
               />
             </div>
-            {/* <div className="flex flex-col gap-2">
-              <span className="text-lg">Audio</span>
-
-              <div className="flex flex-row gap-4">
-                <input
-                  type="file"
-                  className=" rounded-md px-3 py-1 text-lg"
-                  placeholder=""
-                />
-                <button className="text-lg bg-slate-600 text-white px-3 rounded-md">
-                  Check Shound
-                </button>
-              </div>
-            </div> */}
+            <div className="flex flex-row gap-4">
+              <span className="text-lg">no</span>
+              <input
+                type="text"
+                className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
+                placeholder=""
+                value={noValue}
+                onChange={no}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -354,12 +351,12 @@ const CardSoal = (props) => {
             <div className="flex flex-row justify-end gap-4">
               <Button
                 type="PrimaryButton"
-                text="Cancel"
+                text="Hapus"
                 className="bg-[#FF4E4E] text-white"
               />
               <Button
                 type="PrimaryButton"
-                text="Simpan"
+                text="Edit"
                 onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
@@ -368,7 +365,6 @@ const CardSoal = (props) => {
         </div>
       );
 
-    case "test1":
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
@@ -508,12 +504,12 @@ const CardSoal = (props) => {
             <div className="flex flex-row justify-end gap-4">
               <Button
                 type="PrimaryButton"
-                text="Cancel"
+                text="Hapus"
                 className="bg-[#FF4E4E] text-white"
               />
               <Button
                 type="PrimaryButton"
-                text="Simpan"
+                text="Edit"
                 onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
@@ -609,12 +605,12 @@ const CardSoal = (props) => {
             <div className="flex flex-row justify-end gap-4">
               <Button
                 type="PrimaryButton"
-                text="Cancel"
+                text="Hapus"
                 className="bg-[#FF4E4E] text-white"
               />
               <Button
                 type="PrimaryButton"
-                text="Simpan"
+                text="Edit"
                 onClick={submit}
                 className="bg-[#1283B6] text-white"
               />
@@ -714,12 +710,12 @@ const CardSoal = (props) => {
             <div className="flex flex-row justify-end gap-4">
               <Button
                 type="PrimaryButton"
-                text="Cancel"
+                text="Hapus"
                 className="bg-[#FF4E4E] text-white"
               />
               <Button
                 type="PrimaryButton"
-                text="Simpan"
+                text="Edit"
                 onClick={submit}
                 className="bg-[#1283B6] text-white"
               />

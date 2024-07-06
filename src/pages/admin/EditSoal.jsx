@@ -16,13 +16,11 @@ const EditSoal = () => {
   const dispatch = useDispatch();
   const [click, setClick] = useState("");
   const [openDetail, setOpenDetail] = useState(false);
-  const [showTable, setShowTable] = useState(10);
   const [typeQuizValue, setTypeQuizValue] = useState();
-  const { typeQuiz, soal, detail, valueTypeQuiz, status } = useSelector(
+  const { soal, detail, valueTypeQuiz, status } = useSelector(
     (state) => state.quiz
   );
 
-  const [test, setTest] = useState("");
   const [pagetitle, setPageTitle] = useState(
     detail ? detail && detail.data.page.title : ""
   );
@@ -41,10 +39,11 @@ const EditSoal = () => {
   const [b, setB] = useState("");
   const [c, setC] = useState("");
   const [d, setD] = useState("");
-  const [key, setKey] = useState("");
+  // const [key, setKey] = useState("");
+  const [keyQuiz, setKeyQuiz] = useState("");
   const [timer, setTimer] = useState("");
-
   const [idTest, setIdTest] = useState("");
+  const [test, setTest] = useState("");
 
   const handleDetail = (idDetail) => {
     setOpenDetail(true);
@@ -75,7 +74,7 @@ const EditSoal = () => {
     b: b,
     c: c,
     d: d,
-    key: key,
+    key: keyQuiz,
     timer: 0,
   };
 
@@ -95,13 +94,12 @@ const EditSoal = () => {
     setB("");
     setC("");
     setD("");
-    setKey("");
+    setKeyQuiz("");
     setTimer("");
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setOpenDetail(false);
-    const newData = data;
 
     dispatch(await postAddQuizAct(data));
     resetValue();
@@ -124,19 +122,13 @@ const EditSoal = () => {
   const [openModal, setOpenModal] = useState(false);
   const [addQuiz, setAddQuiz] = useState(false);
 
-  const indexValue = () => {
-    setNo(data.index);
-  };
-
-  console.log(data.index);
-
   const handleAddQuiz = () => {
     setOpenModal(true);
     setAddQuiz(true);
     setOpenDetail(false);
   };
 
-  console.log(valueTypeQuiz);
+  console.log(detail);
   return (
     <LayoutAdmin>
       <ShowCard
@@ -148,7 +140,7 @@ const EditSoal = () => {
       <div className=" bg-white mx-auto w-full h-auto">
         <div className="w-full px-10  grid grid-cols-6 gap-5 h-auto pb-3 py-5">
           <div className="bg-[#F3F3F3] h-full shadow-md border col-span-1 rounded-2xl px-2 py-2 relative">
-            <div className="flex flex-col h-[75vh]  overflow-y-scroll">
+            <div className="flex flex-col h-[75vh]  overflow-y-scroll pb-3">
               {soal === null ? (
                 <p>Belum ada soal </p>
               ) : soal ? (
@@ -168,7 +160,7 @@ const EditSoal = () => {
                   );
                 })
               ) : (
-                <div>Loading</div>
+                <Loading />
               )}
             </div>
 
@@ -194,13 +186,12 @@ const EditSoal = () => {
                 contentValue={detail ? detail.data.content : ""}
                 paragraphValue={detail ? detail.data.paragraph : ""}
                 p_titleValue={detail ? detail.data.paragraph : ""}
-                noValue={no}
+                noValue={detail ? detail.data.no : ""}
                 aValue={detail ? detail.data.a : ""}
                 bValue={detail ? detail.data.b : ""}
                 cValue={detail ? detail.data.c : ""}
                 dValue={detail ? detail.data.d : ""}
-                keyValue={key}
-                submit={handleSubmit}
+                keyValue={detail ? detail.data.key : ""}
               />
             ) : (
               addQuiz === true && (
@@ -222,7 +213,7 @@ const EditSoal = () => {
                   bValue={b}
                   cValue={c}
                   dValue={d}
-                  keyValue={key}
+                  keyValue={keyQuiz}
                   title={(e) => setTitle(e.target.value)}
                   subtitle={(e) => setSubTitle(e.target.value)}
                   page_title={(e) => setPageTitle(e.target.value)}
@@ -235,9 +226,10 @@ const EditSoal = () => {
                   b={(e) => setB(e.target.value)}
                   c={(e) => setC(e.target.value)}
                   d={(e) => setD(e.target.value)}
-                  key={(e) => setKey(e.target.value)}
+                  keyQuiz={(e) => setKeyQuiz(e.target.value)}
                   timer={(e) => setTimer(e.target.value)}
                   submit={handleSubmit}
+                  addSoal={true}
                 />
               )
             )}

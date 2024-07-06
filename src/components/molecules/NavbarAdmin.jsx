@@ -24,10 +24,8 @@ const NavbarAdmin = () => {
   const location = useLocation();
   const { pathname } = location;
 
-  console.log(pathname);
   const getUserDataFromLocalStorage = () => {
     const user = localStorage.getItem("userData");
-    console.log(user);
     return user ? JSON.parse(user) : {};
   };
 
@@ -36,8 +34,6 @@ const NavbarAdmin = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
-
-  console.log(localStorage);
 
   const [isShownQuiz, setIsShownQuiz] = useState(false);
   const [isShown, setIsShown] = useState(false);
@@ -54,7 +50,6 @@ const NavbarAdmin = () => {
   const { type, status, error, token } = useSelector((state) => state.auth);
   const { typeTest } = useSelector((state) => state.getAPI);
 
-  console.log("Apa type nya", typeTest);
   const fetchData = () => {
     // dispatch(await getUsersAct(`/peserta`));
     dispatch(getTypeTestAct("/test"));

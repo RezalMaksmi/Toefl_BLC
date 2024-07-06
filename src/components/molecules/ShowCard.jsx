@@ -43,10 +43,6 @@ const ShowCard = (props) => {
   const { data, detail } = useSelector((state) => state.users);
   const { typeQuiz, valueTypeQuiz } = useSelector((state) => state.quiz);
 
-  console.log(addTypeQuiz);
-
-  console.log("apa ni type value nya", typeQuiz);
-
   const handleTypeQuiz = (data) => {
     setAddTypeQuiz(data);
     setClick("click");
@@ -84,7 +80,6 @@ const ShowCard = (props) => {
     setClick("");
   }, [addTypeQuiz, click]);
 
-  console.log(close);
   switch (type) {
     case "AddData":
       return (

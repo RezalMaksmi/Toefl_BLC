@@ -5,11 +5,13 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteQuizAct,
   getDetailQuizAct,
   getQuizAct,
   getTypeQuizAct,
   postAddQuizAct,
 } from "../../redux/quiz/Quiz";
+import Swal from "sweetalert2";
 
 const EditSoal = () => {
   const { id } = useParams();
@@ -128,6 +130,23 @@ const EditSoal = () => {
     setOpenDetail(false);
   };
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Yakin ingin menghapus peserta?",
+      text: "data yang telah dihapus tidak bisa dikembalikan",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.value) {
+        fetchAPI();
+        dispatch(deleteQuizAct(id));
+      }
+    });
+  };
+
   console.log(detail);
   return (
     <LayoutAdmin>
@@ -192,6 +211,7 @@ const EditSoal = () => {
                 cValue={detail ? detail.data.c : ""}
                 dValue={detail ? detail.data.d : ""}
                 keyValue={detail ? detail.data.key : ""}
+                handleDelete={() => handleDelete(detail && detail.data.id)}
               />
             ) : (
               addQuiz === true && (

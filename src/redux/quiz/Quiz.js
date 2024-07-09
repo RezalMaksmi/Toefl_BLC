@@ -94,6 +94,22 @@ export const postAddQuizAct = createAsyncThunk(
   }
 );
 
+export const deleteQuizAct = createAsyncThunk("delete/quiz/api", async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/soal/${id}`);
+    if (response.success === true) {
+      toast.done(`${response.data.message}`, {
+        position: "bottom-right",
+      });
+      console.col("apa isinya ini  ______________", response.data);
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
 const quiz = createSlice({
   name: "quiz",
   initialState: {

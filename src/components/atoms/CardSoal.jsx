@@ -35,6 +35,7 @@ const CardSoal = (props) => {
     keyQuiz,
     keyValue,
     addSoal,
+    handleDelete,
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -189,6 +190,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Hapus"
+                  onClick={handleDelete}
                   className="bg-[#FF4E4E] text-white"
                 />
                 <Button
@@ -352,6 +354,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Hapus"
+                  onClick={handleDelete}
                   className="bg-[#FF4E4E] text-white"
                 />
                 <Button
@@ -464,6 +467,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Hapus"
+                  onClick={handleDelete}
                   className="bg-[#FF4E4E] text-white"
                 />
                 <Button
@@ -585,6 +589,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Hapus"
+                  onClick={handleDelete}
                   className="bg-[#FF4E4E] text-white"
                 />
                 <Button

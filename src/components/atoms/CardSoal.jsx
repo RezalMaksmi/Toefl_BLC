@@ -36,6 +36,7 @@ const CardSoal = (props) => {
     keyValue,
     addSoal,
     handleDelete,
+    handleEdit,
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -196,7 +197,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Edit"
-                  onClick={submit}
+                  onClick={handleEdit}
                   className="bg-[#1283B6] text-white"
                 />
               </div>
@@ -360,7 +361,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Edit"
-                  onClick={submit}
+                  onClick={handleEdit}
                   className="bg-[#1283B6] text-white"
                 />
               </div>
@@ -473,7 +474,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Edit"
-                  onClick={submit}
+                  onClick={handleEdit}
                   className="bg-[#1283B6] text-white"
                 />
               </div>
@@ -595,7 +596,7 @@ const CardSoal = (props) => {
                 <Button
                   type="PrimaryButton"
                   text="Edit"
-                  onClick={submit}
+                  onClick={handleEdit}
                   className="bg-[#1283B6] text-white"
                 />
               </div>

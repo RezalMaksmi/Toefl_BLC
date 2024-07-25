@@ -3,11 +3,15 @@ import { Images } from "../../assets";
 import { Input, Text } from "../../components/atoms";
 import { BiLoaderAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPeserta = () => {
     const [nik, setNik] = useState("");
     const [kode, setKode] = useState("");
     const {status, error} = "";
+    const token_user = sessionStorage.getItem('token_user');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,7 +22,44 @@ const LoginPeserta = () => {
           });
           return;
         }
+
+        const backendURL = "http://localhost:8000";
+
+        axios.post(
+            `${backendURL}/user/login`,
+            {
+                'nik': nik,
+                'kode': kode
+            }
+        ).then((response) => {
+            if(response.data.success == true){
+                toast.success(
+                    `${response.data.message}`, 
+                    {position: "bottom-right"}
+                );
+                sessionStorage.setItem('token_user', response.data.data.token);
+                navigate("/dashboard-peserta");
+            }else{
+                toast.error(
+                    `${response.data.message}`, 
+                    {position: "bottom-right"}
+                );
+                return;
+            }
+        }).catch((error) =>{
+            toast.error(
+                `${error}`, 
+                {position: "bottom-right"}
+            );
+            return;
+        });
       };
+
+      useEffect(() => {
+        if(token_user != null){
+            navigate('/dashboard-peserta');
+        }
+      },[token_user, status]);
 
     return (
         <div className="w-full h-screen  flex justify-center ">

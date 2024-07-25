@@ -11,7 +11,8 @@ import {
   HomeAdmin,
   LoginPeserta,
   HomePeserta,
-  TestPeserta
+  TestPeserta,
+  ProfilePeserta
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,6 +44,7 @@ const Router = () => {
           <Route path="/login-peserta" element={<LoginPeserta/>}/>
           <Route path="/dashboard-peserta" element={<HomePeserta/>}/>
           <Route path="/test-peserta" element={<TestPeserta/>}/>
+          <Route path="/profile-peserta" element={<ProfilePeserta/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -10,6 +10,7 @@ import LandingPage from "./LandingPage";
 import LoginPeserta from "./peserta/LoginPeserta";
 import HomePeserta from "./peserta/HomePeserta";
 import TestPeserta from "./peserta/TestPeserta";
+import ProfilePeserta from "./peserta/ProfilePeserta";
 
 export {
   Home,
@@ -21,5 +22,6 @@ export {
   LandingPage,
   LoginPeserta,
   HomePeserta,
-  TestPeserta
+  TestPeserta,
+  ProfilePeserta
 };

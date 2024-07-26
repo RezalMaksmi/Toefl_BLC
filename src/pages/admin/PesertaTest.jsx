@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Input } from "../../components";
-import { BiChevronLeft, BiChevronRight, BiSliderAlt } from "react-icons/bi";
+import { BiChevronLeft, BiChevronRight, BiSliderAlt, BiShow } from "react-icons/bi";
+import { LuDelete } from "react-icons/lu";
 import { LayoutAdmin } from "../../template";
 import axiosInstance from "../../api/axiosInstance";
+import Swal from "sweetalert2";
 
 const PesertaTest = () => {
+  //action
+  const [openDetail, setOpenDetail] = useState(false);
+  const [formatDate, setFormatDate] = useState();
+
+  //data
   const [test, setTest] = useState([]);
   const [testPeserta, setTestPeserta] = useState([]);
 
+  //action function
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Batal test",
+      text: "Yakin ingin membatalkan test peserta?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+
+    });
+  };
+
+  const handleOpenDetail = (i) => {
+
+  };
+
+  //fetch data
   const fetchJenisTest = async () => {
     const response = await axiosInstance.get('http://localhost:8000/test');
     setTest(response.data.data);
@@ -81,7 +108,38 @@ const PesertaTest = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>Data Kosong</tbody>
+            <tbody>
+              {testPeserta ? (
+                testPeserta.map((item, i) => {
+                  return (
+                    <tr className="border border-[#929292] " key={i}>
+                      <td className="border py-3 border-[#929292] px-2">{item.no_reg}</td>
+                      <td className="border border-[#929292] px-2">{item.nama_peserta}</td>
+                      <td className="border border-[#929292] px-2">{item.tgl_daftar}</td>
+                      <td className="border border-[#929292] px-2">{item.status_test == 0 ? (<>belum test</>) : (<>sudah test</>)}</td>
+                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : item.listening}</td>
+                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : item.structure}</td>
+                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading}</td>
+                      <td className="border border-[#929292] px-2">{item.total == null ? (<>-</>) : item.total}</td>
+                      <td className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">
+                        <Button
+                          type="ButtonIconCS"
+                          className="bg-[#4BABD6] items-center text-white "
+                          onClick={() => setOpenDetail(false)}
+                          icon={<BiShow />}
+                        />
+                        <Button
+                          type="ButtonIconCS"
+                          className="bg-[#FF4E4E] items-center text-white "
+                          onClick={() => handleDelete(i)}
+                          icon={<LuDelete />}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (<>loading</>)}
+            </tbody>
           </table>
         </div>
         <div className="flex justify-between items-center px-10">

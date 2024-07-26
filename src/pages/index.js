@@ -6,6 +6,12 @@ import EditSoal from "./admin/EditSoal";
 import LihatSoal from "./admin/LihatSoal";
 import LandingPage from "./LandingPage";
 
+// page for peserta
+import LoginPeserta from "./peserta/LoginPeserta";
+import HomePeserta from "./peserta/HomePeserta";
+import TestPeserta from "./peserta/TestPeserta";
+import ProfilePeserta from "./peserta/ProfilePeserta";
+
 export {
   Home,
   LoginAdmin,
@@ -14,4 +20,8 @@ export {
   EditSoal,
   LihatSoal,
   LandingPage,
+  LoginPeserta,
+  HomePeserta,
+  TestPeserta,
+  ProfilePeserta
 };

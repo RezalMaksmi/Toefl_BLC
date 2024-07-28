@@ -8,7 +8,7 @@ export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   try {
     const response = await axiosInstance.get(url);
     if (response) {
-      console.log(response.data);
+      // console.log(response.data);
 
       return response.data;
     }
@@ -24,7 +24,7 @@ export const getTypeQuizAct = createAsyncThunk(
     try {
       const response = await axiosInstance.get(`${url}`);
       if (response) {
-        console.log(response.data);
+        // console.log(response.data);
 
         return response.data;
       }
@@ -41,7 +41,7 @@ export const getTypeTestAct = createAsyncThunk(
     try {
       const response = await axiosInstance.get(`${url}`);
       if (response) {
-        console.log(response.data);
+        // console.log(response.data);
 
         return response.data.data;
       }

@@ -5,6 +5,8 @@ import HasilTest from "./admin/HasilTest";
 import EditSoal from "./admin/EditSoal";
 import LihatSoal from "./admin/LihatSoal";
 import LandingPage from "./LandingPage";
+import ActiveTest from "./admin/ActiveTest";
+import AdminSetting from "./admin/AdminSetting";
 
 // page for peserta
 import LoginPeserta from "./peserta/LoginPeserta";
@@ -23,5 +25,7 @@ export {
   LoginPeserta,
   HomePeserta,
   TestPeserta,
-  ProfilePeserta
+  ProfilePeserta,
+  ActiveTest,
+  AdminSetting
 };

@@ -9,6 +9,8 @@ import {
   EditSoal,
   LihatSoal,
   HomeAdmin,
+  ActiveTest,
+  AdminSetting,
   LoginPeserta,
   HomePeserta,
   TestPeserta,
@@ -24,7 +26,7 @@ const Router = () => {
   const { user, loading } = useSelector((state) => state.auth);
   const token = localStorage.getItem("userToken");
 
-  console.log("usernya apa", user);
+  // console.log("usernya apa", user);
   return (
     <>
       <ToastContainer />
@@ -39,6 +41,8 @@ const Router = () => {
           <Route path="/peserta-test" element={<PesertaTest />} />
           <Route path="/tambah-soal/:id" element={<EditSoal />} />
           <Route path="/lihat-soal" element={<LihatSoal />} />
+          <Route path="/activated-test" element={<ActiveTest/>}/>
+          <Route path="/admin-setting" element={<AdminSetting/>}/>
           
           {/* routes for peserta */}
           <Route path="/login-peserta" element={<LoginPeserta/>}/>

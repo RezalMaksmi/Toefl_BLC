@@ -6,12 +6,12 @@ import { LuDelete } from "react-icons/lu";
 const CardTable = (props) => {
   const {
     NoReg,
-    Role,
     Name,
-    JenisPeserta,
     Gender,
+    Alamat,
+    Email,
+    NoHp,
     Instansi,
-    Nilai,
     ActShow,
     ActActiveTest,
     ActDelete,
@@ -20,12 +20,13 @@ const CardTable = (props) => {
   return (
     <tr className="border border-[#929292] ">
       <td className="border py-3 border-[#929292] px-2">{NoReg}</td>
-      <td className="border border-[#929292] px-2">{Role}</td>
       <td className="border border-[#929292] px-2">{Name}</td>
-      <td className="border border-[#929292] px-2">{JenisPeserta}</td>
       <td className="border border-[#929292] px-2">{Gender}</td>
+      <td className="border border-[#929292] px-2">{Alamat}</td>
+      <td className="border border-[#929292] px-2">{Email}</td>
+      <td className="border border-[#929292] px-2">{NoHp}</td>
       <td className="border border-[#929292] px-2">{Instansi}</td>
-      <td className="border border-[#929292] px-2">{Nilai}</td>
+      <td className="border border-[#929292] px-2"></td>
       <td className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">
         <Button
           type="ButtonIconCS"

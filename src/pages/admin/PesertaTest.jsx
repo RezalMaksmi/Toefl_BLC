@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input } from "../../components";
+import { Button, Input, Loading, ShowCard } from "../../components";
 import { BiChevronLeft, BiChevronRight, BiSliderAlt, BiShow } from "react-icons/bi";
 import { LuDelete } from "react-icons/lu";
 import { LayoutAdmin } from "../../template";
 import axiosInstance from "../../api/axiosInstance";
 import Swal from "sweetalert2";
+import { cancelUserTestAct, getUsersActDetail } from "../../redux/users/Users";
+import { useDispatch, useSelector } from "react-redux";
 
 const PesertaTest = () => {
   //action
   const [openDetail, setOpenDetail] = useState(false);
-  const [formatDate, setFormatDate] = useState();
+  const [openDataId, setOpenDataId] = useState();
 
   //data
   const [test, setTest] = useState([]);
   const [testPeserta, setTestPeserta] = useState([]);
+
+  const dispatch = useDispatch();
 
   //action function
   const handleDelete = (id) => {
@@ -26,12 +30,11 @@ const PesertaTest = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes!",
     }).then((result) => {
-
+      if (result.isConfirmed) {
+        dispatch(cancelUserTestAct(id));
+        fetchTestPeserta();
+      }
     });
-  };
-
-  const handleOpenDetail = (i) => {
-
   };
 
   //fetch data
@@ -45,6 +48,17 @@ const PesertaTest = () => {
     setTestPeserta(response.data.data);
   }
 
+  const handleOpenDetail = (i) => {
+    dispatch(getUsersActDetail(i));
+    if (i === 0) {
+      return setOpenDetail(false);
+    } else {
+      setOpenDetail(true);
+      setOpenDataId(i);
+      return;
+    }
+  };
+
   useEffect(() => {
     fetchJenisTest();
     fetchTestPeserta();
@@ -53,6 +67,12 @@ const PesertaTest = () => {
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
+        <ShowCard
+          type="ShowData"
+          opens={openDetail}
+          close={() => setOpenDetail(false)}
+          id={openDataId}
+        />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
             <Button
@@ -92,7 +112,7 @@ const PesertaTest = () => {
         </div>
         <div className="h-3"></div>
         <div className=" w-full h-[70vh] overflow-scroll px-10 overflow-x-auto flex flex-col justify-between">
-          <table class=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
+          <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
             <thead className="bg-[#4BABD6] text-white h-11">
               <tr>
                 <th className="border border-[#929292]">No Reg</th>
@@ -125,20 +145,22 @@ const PesertaTest = () => {
                         <Button
                           type="ButtonIconCS"
                           className="bg-[#4BABD6] items-center text-white "
-                          onClick={() => setOpenDetail(false)}
+                          onClick={() => handleOpenDetail(item.id_peserta)}
                           icon={<BiShow />}
                         />
                         <Button
                           type="ButtonIconCS"
                           className="bg-[#FF4E4E] items-center text-white "
-                          onClick={() => handleDelete(i)}
+                          onClick={() => handleDelete(item.id_test)}
                           icon={<LuDelete />}
                         />
                       </td>
                     </tr>
                   );
                 })
-              ) : (<>loading</>)}
+              ) : (
+                <Loading />
+              )}
             </tbody>
           </table>
         </div>

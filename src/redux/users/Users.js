@@ -8,8 +8,7 @@ export const getUsersAct = createAsyncThunk("get/users/api", async (url) => {
   try {
     const response = await axiosInstance.get(`${backendURL}${url}`);
     if (response) {
-      console.log("detailnya apa : =", response.data);
-
+      // console.log("detailnya apa : =", response.data);
       return response.data.data;
     }
   } catch (error) {
@@ -80,6 +79,55 @@ export const usersDeleteAct = createAsyncThunk(
   }
 );
 
+export const activateUserTestAct = createAsyncThunk(
+  "activate/user/test/api",
+  async (id, test) => {
+    try {
+      const response = await axiosInstance.post(
+        `${backendURL}/peserta/active/${id}`,
+        { id_test: test }
+      );
+      if (response) {
+        toast.done(`Activated user with id ${id}`, {
+          position: "bottom-right",
+        });
+        console.log(response.data);
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.done(`${error.response.message}`, {
+        position: "bottom-right",
+      });
+      throw error;
+    }
+  }
+);
+
+export const cancelUserTestAct = createAsyncThunk(
+  "cancel/user/test/api",
+  async (id, test) => {
+    try {
+      const response = await axiosInstance.delete(
+        `${backendURL}/peserta/test/${id}`
+      );
+      if (response) {
+        toast.done(`Canceled user with id ${id}`, {
+          position: "bottom-right",
+        });
+        console.log(response.data);
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.done(`${error.response.message}`, {
+        position: "bottom-right",
+      });
+      throw error;
+    }
+  }
+);
+
 const Users = createSlice({
   name: "users",
   initialState: {
@@ -125,6 +173,32 @@ const Users = createSlice({
         state.detail = action.payload;
       })
       .addCase(usersDeleteAct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
+      // Activate User Test
+      .addCase(activateUserTestAct.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(activateUserTestAct.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.detail = action.payload;
+      })
+      .addCase(activateUserTestAct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
+      // Cancel User Test
+      .addCase(cancelUserTestAct.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(cancelUserTestAct.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.detail = action.payload;
+      })
+      .addCase(cancelUserTestAct.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

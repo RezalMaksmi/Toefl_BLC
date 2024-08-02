@@ -5,6 +5,8 @@ import authReducer from "./slices/authSlice";
 import { saveState, loadState } from "../utils/localStorage";
 import Users from "./users/Users";
 import Quiz from "./quiz/Quiz";
+import audioReducer from "./features/audioSlice";
+
 const preloadedState = loadState();
 
 export const store = configureStore({
@@ -13,6 +15,7 @@ export const store = configureStore({
     auth: authReducer,
     users: Users,
     quiz: Quiz,
+    audio: audioReducer,
   },
   preloadedState,
 });

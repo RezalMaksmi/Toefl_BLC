@@ -4,7 +4,7 @@ import {
   BiChevronLeft,
   BiChevronRight,
   BiSliderAlt,
-  BiSolidUserPlus,
+  BiSolidUserPlus
 } from "react-icons/bi";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useDispatch, useSelector } from "react-redux";

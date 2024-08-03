@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { LuX } from "react-icons/lu";
-import { Button, Input } from "../atoms";
+import { Button, CardSoal, Input } from "../atoms";
 import defaultProfile from "../../assets/img/default-profile.png";
 import { BiCheck } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +29,8 @@ const ShowCard = (props) => {
     emailValue,
     dateValue,
     instansiValue,
+    Children,
+    closeCart,
   } = props;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +48,7 @@ const ShowCard = (props) => {
   const handleTypeQuiz = (data) => {
     setAddTypeQuiz(data);
     setClick("click");
+    close(false);
   };
   const rolePeserta = async () => {
     try {
@@ -256,6 +259,7 @@ const ShowCard = (props) => {
           </Dialog>
         </React.Fragment>
       );
+
     case "ShowData":
       return (
         <React.Fragment>
@@ -463,7 +467,27 @@ const ShowCard = (props) => {
         </React.Fragment>
       );
     default:
-      return <div className=""></div>;
+      return (
+        <React.Fragment>
+          <Dialog
+            open={opens}
+            onClose={close}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            maxWidth="lg"
+            fullWidth="true"
+            className="relative w-full "
+          >
+            <DialogTitle
+              id="alert-dialog-title"
+              className="text-center font-bold "
+            >
+              <h1 className="font-bold text-2xl">{"Edit Soal"}</h1>
+            </DialogTitle>
+            <DialogContent className=" w-full">{Children}</DialogContent>
+          </Dialog>
+        </React.Fragment>
+      );
   }
 };
 

@@ -4,12 +4,13 @@ import Button from "./Button";
 
 const CardSoal = (props) => {
   const {
+    typeFuction,
     className,
     type,
     text,
     title,
-    page_title,
-    page_subtitle,
+    page_Title,
+    page_Subtitle,
     subtitle,
     content,
     p_title,
@@ -35,6 +36,9 @@ const CardSoal = (props) => {
     keyQuiz,
     keyValue,
     addSoal,
+    handleDelete,
+    handleEdit,
+    handleUpdate,
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -56,20 +60,22 @@ const CardSoal = (props) => {
               <span className="text-lg">Page Title {pageTitle}</span>
               <input
                 type="text"
+                name="pagetitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
                 value={pageTitle}
-                onChange={page_title}
+                onChange={page_Title}
               />
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-lg">Page Subtitle</span>
               <input
                 type="text"
+                name="pageSubtitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
                 value={pageSubTitle}
-                onChange={page_subtitle}
+                onChange={page_Subtitle}
               />
             </div>
           </div>
@@ -79,6 +85,7 @@ const CardSoal = (props) => {
               <span className="text-lg">paragraph Title</span>
               <textarea
                 type="text"
+                name="p_title"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-10"
                 placeholder="Title Paragraph..."
                 value={p_titleValue}
@@ -92,6 +99,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Paragraph</span>
               <textarea
                 type="text"
+                name="paragraph"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-20"
                 placeholder="Pertanyaan..."
                 value={paragraphValue}
@@ -105,6 +113,7 @@ const CardSoal = (props) => {
               <span className="text-lg">A</span>
               <input
                 type="text"
+                name="a"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={aValue}
@@ -115,6 +124,7 @@ const CardSoal = (props) => {
               <span className="text-lg">B</span>
               <input
                 type="text"
+                name="b"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={bValue}
@@ -125,6 +135,7 @@ const CardSoal = (props) => {
               <span className="text-lg">C</span>
               <input
                 type="text"
+                name="c"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={cValue}
@@ -148,6 +159,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Key</span>
               <input
                 type="text"
+                name="keyQuiz"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={keyValue}
@@ -186,17 +198,29 @@ const CardSoal = (props) => {
               </div>
             ) : (
               <div className="flex flex-row justify-end gap-4">
-                <Button
-                  type="PrimaryButton"
-                  text="Hapus"
-                  className="bg-[#FF4E4E] text-white"
-                />
-                <Button
-                  type="PrimaryButton"
-                  text="Edit"
-                  onClick={submit}
-                  className="bg-[#1283B6] text-white"
-                />
+                {typeFuction === "update" ? (
+                  <Button
+                    type="PrimaryButton"
+                    text="Simpan Perubahan"
+                    onClick={handleUpdate}
+                    className="bg-[#1283B6] text-white"
+                  />
+                ) : (
+                  <>
+                    <Button
+                      type="PrimaryButton"
+                      text="Hapus"
+                      onClick={handleDelete}
+                      className="bg-[#FF4E4E] text-white"
+                    />
+                    <Button
+                      type="PrimaryButton"
+                      text="Edit"
+                      onClick={handleEdit}
+                      className="bg-[#1283B6] text-white"
+                    />
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -223,20 +247,22 @@ const CardSoal = (props) => {
               <span className="text-lg">Page Title </span>
               <input
                 type="text"
+                name="pagetitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
                 value={pageTitle}
-                onChange={page_title}
+                onChange={page_Title}
               />
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-lg">Page Subtitle</span>
               <input
                 type="text"
+                name="pageSubtitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
                 value={pageSubTitle}
-                onChange={page_subtitle}
+                onChange={page_Subtitle}
               />
             </div>
           </div>
@@ -246,6 +272,7 @@ const CardSoal = (props) => {
               <span className="text-lg"> Title</span>
               <textarea
                 type="text"
+                name="title"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-10"
                 placeholder="Title Paragraph..."
                 value={titleValue}
@@ -259,6 +286,7 @@ const CardSoal = (props) => {
               <span className="text-lg">subtitle</span>
               <textarea
                 type="text"
+                name="subTitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-10"
                 placeholder="Subtitle..."
                 value={subTitleValue}
@@ -272,6 +300,7 @@ const CardSoal = (props) => {
               <span className="text-lg">A</span>
               <input
                 type="text"
+                name="a"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={aValue}
@@ -282,6 +311,7 @@ const CardSoal = (props) => {
               <span className="text-lg">B</span>
               <input
                 type="text"
+                name="b"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={bValue}
@@ -292,6 +322,7 @@ const CardSoal = (props) => {
               <span className="text-lg">C</span>
               <input
                 type="text"
+                name="c"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={cValue}
@@ -315,6 +346,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Key</span>
               <input
                 type="text"
+                name="keyQuiz"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={keyValue}
@@ -325,6 +357,7 @@ const CardSoal = (props) => {
               <span className="text-lg">no</span>
               <input
                 type="text"
+                name="no"
                 className="border border-text_color rounded-md px-3 py-1 text-lg w-full"
                 placeholder=""
                 value={noValue}
@@ -349,17 +382,29 @@ const CardSoal = (props) => {
               </div>
             ) : (
               <div className="flex flex-row justify-end gap-4">
-                <Button
-                  type="PrimaryButton"
-                  text="Hapus"
-                  className="bg-[#FF4E4E] text-white"
-                />
-                <Button
-                  type="PrimaryButton"
-                  text="Edit"
-                  onClick={submit}
-                  className="bg-[#1283B6] text-white"
-                />
+                {typeFuction === "update" ? (
+                  <Button
+                    type="PrimaryButton"
+                    text="Simpan Perubahan"
+                    onClick={handleUpdate}
+                    className="bg-[#1283B6] text-white"
+                  />
+                ) : (
+                  <>
+                    <Button
+                      type="PrimaryButton"
+                      text="Hapus"
+                      onClick={handleDelete}
+                      className="bg-[#FF4E4E] text-white"
+                    />
+                    <Button
+                      type="PrimaryButton"
+                      text="Edit"
+                      onClick={handleEdit}
+                      className="bg-[#1283B6] text-white"
+                    />
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -386,20 +431,22 @@ const CardSoal = (props) => {
               <span className="text-lg">Page Title</span>
               <input
                 type="text"
+                name="pagetitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
                 value={pageTitle}
-                onChange={page_title}
+                onChange={page_Title}
               />
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-lg">Page Subtitle</span>
               <input
                 type="text"
+                name="pageSubtitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
                 value={pageSubTitle}
-                onChange={page_subtitle}
+                onChange={page_Subtitle}
               />
             </div>
           </div>
@@ -409,6 +456,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Title</span>
               <input
                 type="text"
+                name="title"
                 className="border border-text_color rounded-md px-3 py-1 text-lg "
                 placeholder="Title..."
                 value={titleValue}
@@ -420,6 +468,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Subtitle</span>
               <textarea
                 type="text"
+                name="subTitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-20"
                 placeholder="Subtitle..."
                 value={subTitleValue}
@@ -461,17 +510,29 @@ const CardSoal = (props) => {
               </div>
             ) : (
               <div className="flex flex-row justify-end gap-4">
-                <Button
-                  type="PrimaryButton"
-                  text="Hapus"
-                  className="bg-[#FF4E4E] text-white"
-                />
-                <Button
-                  type="PrimaryButton"
-                  text="Edit"
-                  onClick={submit}
-                  className="bg-[#1283B6] text-white"
-                />
+                {typeFuction === "update" ? (
+                  <Button
+                    type="PrimaryButton"
+                    text="Simpan Perubahan"
+                    onClick={handleUpdate}
+                    className="bg-[#1283B6] text-white"
+                  />
+                ) : (
+                  <>
+                    <Button
+                      type="PrimaryButton"
+                      text="Hapus"
+                      onClick={handleDelete}
+                      className="bg-[#FF4E4E] text-white"
+                    />
+                    <Button
+                      type="PrimaryButton"
+                      text="Edit"
+                      onClick={handleEdit}
+                      className="bg-[#1283B6] text-white"
+                    />
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -496,20 +557,22 @@ const CardSoal = (props) => {
               <span className="text-lg">Page Title</span>
               <input
                 type="text"
+                name="pagetitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Title..."
                 value={pageTitle}
-                onChange={page_title}
+                onChange={page_Title}
               />
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-lg">Page Subtitle</span>
               <input
                 type="text"
+                name="pageSubtitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg"
                 placeholder="Subtitle..."
                 value={pageSubTitle}
-                onChange={page_subtitle}
+                onChange={page_Subtitle}
               />
             </div>
           </div>
@@ -519,6 +582,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Title</span>
               <input
                 type="text"
+                name="title"
                 className="border border-text_color rounded-md px-3 py-1 text-lg "
                 placeholder="Title..."
                 value={titleValue}
@@ -530,6 +594,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Subtitle</span>
               <textarea
                 type="text"
+                name="subTitle"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-14"
                 placeholder="Subtitle..."
                 value={subTitleValue}
@@ -541,6 +606,7 @@ const CardSoal = (props) => {
               <span className="text-lg">Content</span>
               <textarea
                 type="text"
+                name="content"
                 className="border border-text_color rounded-md px-3 py-1 text-lg h-20"
                 placeholder="Content..."
                 value={contentValue}
@@ -582,17 +648,29 @@ const CardSoal = (props) => {
               </div>
             ) : (
               <div className="flex flex-row justify-end gap-4">
-                <Button
-                  type="PrimaryButton"
-                  text="Hapus"
-                  className="bg-[#FF4E4E] text-white"
-                />
-                <Button
-                  type="PrimaryButton"
-                  text="Edit"
-                  onClick={submit}
-                  className="bg-[#1283B6] text-white"
-                />
+                {typeFuction === "update" ? (
+                  <Button
+                    type="PrimaryButton"
+                    text="Simpan Perubahan"
+                    onClick={handleUpdate}
+                    className="bg-[#1283B6] text-white"
+                  />
+                ) : (
+                  <>
+                    <Button
+                      type="PrimaryButton"
+                      text="Hapus"
+                      onClick={handleDelete}
+                      className="bg-[#FF4E4E] text-white"
+                    />
+                    <Button
+                      type="PrimaryButton"
+                      text="Edit"
+                      onClick={handleEdit}
+                      className="bg-[#1283B6] text-white"
+                    />
+                  </>
+                )}
               </div>
             )}
           </div>

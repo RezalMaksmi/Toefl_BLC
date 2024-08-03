@@ -53,6 +53,7 @@ export const getDetailQuizAct = createAsyncThunk(
   async (id) => {
     try {
       const response = await axiosInstance.get(`/soal/detail/${id}`);
+      console.log(id);
       if (response) {
         return response.data;
       }
@@ -80,6 +81,43 @@ export const postAddQuizAct = createAsyncThunk(
   async (data) => {
     try {
       const response = await axiosInstance.post(`/soal`, data);
+      if (response.success === true) {
+        toast.done(`${response.data.message}`, {
+          position: "bottom-right",
+        });
+        console.col("apa isinya ini  ______________", response.data);
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
+
+export const deleteQuizAct = createAsyncThunk("delete/quiz/api", async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/soal/${id}`);
+    if (response.success === true) {
+      toast.done(`${response.data.message}`, {
+        position: "bottom-right",
+      });
+      console.col("apa isinya ini  ______________", response.data);
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+export const updateQuizAct = createAsyncThunk(
+  "update/quiz/api",
+  async (id, body) => {
+    try {
+      const response = await axiosInstance.put(`/soal/${id}`, body);
+      console.log(id);
+      console.log("apa ini responnyaaaa", response);
       if (response.success === true) {
         toast.done(`${response.data.message}`, {
           position: "bottom-right",

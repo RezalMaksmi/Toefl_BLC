@@ -25,6 +25,8 @@ const Navbar = () => {
   const location = useLocation();
   const { pathname } = location;
 
+  const token_user = localStorage.getItem('token_user');
+
   const getUserDataFromLocalStorage = () => {
     const user = localStorage.getItem("userData");
     return user ? JSON.parse(user) : {};
@@ -71,11 +73,10 @@ const Navbar = () => {
                 <Images type="logo" className="h-full px-6  " />
               </div>
               <ul
-                className={`${
-                  active
+                className={`${active
                     ? "flex z-10 gap-20 max-[1300px]:gap-8 max-[1000px]:gap-2 justify-end h-auto my-4 text-text_color  w-[50%] max-[1000px]:absolute max-[1000px]:top-[60px] max-[1000px]:w-[200px]  max-[1000px]:flex-col max-[1000px]:right-1 transition-all max-[1000px]:bg-white_color max-[1000px]:shadow-box_item max-[1000px]:rounded-xl max-[1000px]:opacity-100 max-[1000px]:text-start max-[1000px]:py-2"
                     : "flex z-10 gap-20 max-[1300px]:gap-8 max-[1000px]:gap-2 justify-end h-auto my-4 text-text_color  w-[50%] max-[1000px]:absolute max-[1000px]:top-[-350px] max-[1000px]:w-[200px]  max-[1000px]:flex-col max-[1000px]:right-1 transition-all max-[1000px]:bg-white_color max-[1000px]:shadow-box_item max-[1000px]:rounded-xl max-[1000px]:opacity-0 max-[1000px]:py-2"
-                } `}
+                  } `}
               ></ul>
               <div
                 className="hidden  max-[1000px]:contents w-[30px] h-[30px] text-2xl"
@@ -84,29 +85,28 @@ const Navbar = () => {
                 {active ? <LuAlignRight /> : <LuX />}
               </div>
 
-              {token ? (
+              {token_user ? (
+                <Link
+                  to="/login-peserta"
+                  className={` border-2 border-[#1283B6]  ${pathname === "/login-peserta"
+                      ? "borderr_active px-5 py-2 rounded-lg  font-semibold bg-white border text-[#1283B6]"
+                      : "px-5 py-2 rounded-lg  font-semibold bg-white border text-[#1283B6]"
+                    }
+                `}
+                >
+                  Mulai Test
+                </Link>
+              ) : (
                 <>
-                  <h1>{users ? users.username : ""}</h1>
+                  {/* <h1>{users ? users.username : ""}</h1>
 
                   <button
                     className="px-5 py-2 rounded-lg  font-semibold border bg-red-800 text-white "
                     onClick={handleLogout}
                   >
                     Logout
-                  </button>
+                  </button> */}
                 </>
-              ) : (
-                <Link
-                  to="login"
-                  className={` border-2 border-[#1283B6]  ${
-                    pathname === "/login"
-                      ? "borderr_active px-5 py-2 rounded-lg  font-semibold bg-white border text-[#1283B6]"
-                      : "px-5 py-2 rounded-lg  font-semibold bg-white border text-[#1283B6]"
-                  }
-                  `}
-                >
-                  Mulai Test
-                </Link>
               )}
             </div>
           </section>

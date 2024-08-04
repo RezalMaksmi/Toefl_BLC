@@ -16,7 +16,7 @@ const LandingPage = () => {
             English Training.
           </span>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/login-peserta")}
             className="flex bg-[#1283B6] mt-2 w-max px-3 py-2 text-xl justify-center items-center gap-3 rounded-md text-white"
           >
             Get Started <BiRightArrowAlt />

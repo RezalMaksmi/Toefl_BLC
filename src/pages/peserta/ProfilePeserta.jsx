@@ -4,7 +4,7 @@ import React, {useState, useEffect} from "react";
 const ProfilePeserta = () => {
     const [user, setUser] = useState([]);
 
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('peserta_id');
 
     const fetchUser = async () => {
         const response = await axios.get(`http://localhost:8000/user/result/${token}`);

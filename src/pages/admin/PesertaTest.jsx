@@ -16,6 +16,7 @@ const PesertaTest = () => {
   //data
   const [test, setTest] = useState([]);
   const [testPeserta, setTestPeserta] = useState([]);
+  const [currentTest, setCurrentTest] = useState("");
 
   const dispatch = useDispatch();
 
@@ -43,8 +44,8 @@ const PesertaTest = () => {
     setTest(response.data.data);
   }
 
-  const fetchTestPeserta = async () => {
-    const response = await axiosInstance.get('http://localhost:8000/peserta/by-test/d2626d7e-94b1-4fe1-b550-10f98447f69d');
+  const fetchTestPeserta = async (id_test) => {
+    const response = await axiosInstance.get(`http://localhost:8000/peserta/by-test/${id_test}`);
     setTestPeserta(response.data.data);
   }
 
@@ -61,8 +62,8 @@ const PesertaTest = () => {
 
   useEffect(() => {
     fetchJenisTest();
-    fetchTestPeserta();
-  }, []);
+    fetchTestPeserta(currentTest);
+  }, [currentTest]);
 
   return (
     <LayoutAdmin>
@@ -85,7 +86,7 @@ const PesertaTest = () => {
               <select
                 className="w-[200px] px-2 py-2 focus:outline-none border rounded-md"
                 name="selectedJenisPeserta"
-              // onChange={(e) => setShowTable(e.target.value)}
+              onChange={(e) => setCurrentTest(e.target.value)}
               >
                 {test.map((item, i) => {
                   return (
@@ -117,6 +118,7 @@ const PesertaTest = () => {
               <tr>
                 <th className="border border-[#929292]">No Reg</th>
                 <th className="border border-[#929292]">Nama Peserta</th>
+                <th className="border border-[#929292]">Kode Test</th>
                 <th className="border border-[#929292]">Tgl. Daftar</th>
                 <th className="border border-[#929292]">Status Test</th>
                 <th className="border border-[#929292]">Listening</th>
@@ -135,11 +137,12 @@ const PesertaTest = () => {
                     <tr className="border border-[#929292] " key={i}>
                       <td className="border py-3 border-[#929292] px-2">{item.no_reg}</td>
                       <td className="border border-[#929292] px-2">{item.nama_peserta}</td>
+                      <td className="border border-[#929292] px-2">{item.kode_soal}</td>
                       <td className="border border-[#929292] px-2">{item.tgl_daftar}</td>
                       <td className="border border-[#929292] px-2">{item.status_test == 0 ? (<>belum test</>) : (<>sudah test</>)}</td>
-                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : item.listening}</td>
-                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : item.structure}</td>
-                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading}</td>
+                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : (item.listening+'/50')}</td>
+                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : (item.structure+'/40')}</td>
+                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading+'/50'}</td>
                       <td className="border border-[#929292] px-2">{item.total == null ? (<>-</>) : item.total}</td>
                       <td className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">
                         <Button
@@ -159,7 +162,11 @@ const PesertaTest = () => {
                   );
                 })
               ) : (
-                <Loading />
+                <tr className="border border-[#929292] ">
+                  <td colSpan="10" className="border py-3 border-[#929292] px-2 text-center">
+                    Data Tidak Ditemukan
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>

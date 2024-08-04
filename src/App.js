@@ -47,7 +47,7 @@ const Router = () => {
           {/* routes for peserta */}
           <Route path="/login-peserta" element={<LoginPeserta/>}/>
           <Route path="/dashboard-peserta" element={<HomePeserta/>}/>
-          <Route path="/test-peserta" element={<TestPeserta/>}/>
+          <Route path="/test-peserta/:test" element={<TestPeserta/>}/>
           <Route path="/profile-peserta" element={<ProfilePeserta/>} />
         </Routes>
         <Footer />

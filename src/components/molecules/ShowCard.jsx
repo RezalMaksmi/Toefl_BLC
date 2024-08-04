@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../api/axiosInstance";
 import { setAddTypeQuizAct } from "../../redux/quiz/Quiz";
 import { activateUserTestAct } from "../../redux/users/Users";
+import Swal from "sweetalert2";
 
 const ShowCard = (props) => {
   const {
@@ -62,7 +63,10 @@ const ShowCard = (props) => {
         `http://localhost:8000/peserta/active/${detail.id_peserta}`,
         {id_test: test}
       );
-      console.log(response.data);
+      setClick("click");
+      close(false);
+      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
+      // console.log(response.data);
     } catch (error) {
       setError(error);
     } finally {
@@ -405,8 +409,6 @@ const ShowCard = (props) => {
             onClose={close}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
-            // maxWidth="md"
-            // fullWidth="true"
             className="relative w-full "
           >
             <span

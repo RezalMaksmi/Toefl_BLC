@@ -17,7 +17,6 @@ const ShowCard = (props) => {
     opens,
     close,
     onClickEdit,
-    id,
     handleSubmit,
     nameValue,
     genderValue,
@@ -50,11 +49,10 @@ const ShowCard = (props) => {
     setClick("click");
     close(false);
   };
+
   const rolePeserta = async () => {
     try {
-      const response = await axiosInstance.get(
-        "http://localhost:8000/role_peserta"
-      );
+      const response = await axiosInstance.get("/role_peserta");
       setRoleP(response.data);
     } catch (error) {
       setError(error);
@@ -62,11 +60,10 @@ const ShowCard = (props) => {
       setIsLoading(false);
     }
   };
+
   const jenisPeserta = async () => {
     try {
-      const response = await axiosInstance.get(
-        "http://localhost:8000/jenis_kelas"
-      );
+      const response = await axiosInstance.get("/jenis_kelas");
       setJenisP(response.data);
     } catch (error) {
       setError(error);
@@ -74,6 +71,7 @@ const ShowCard = (props) => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
 
@@ -107,7 +105,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              <h1 className="font-bold text-2xl">{"Tambah Data Peserta"}</h1>
+              Tambah Data Peserta
             </DialogTitle>
             <DialogContent className=" w-full ">
               <div className="flex flex-row gap-9 w-[100%] px-10">
@@ -167,7 +165,7 @@ const ShowCard = (props) => {
                         {jenisP
                           ? jenisP.map((item, i) => {
                               return (
-                                <option value={item.id}>
+                                <option key={i} value={item.id}>
                                   {item.nama_kelas}
                                 </option>
                               );
@@ -236,7 +234,7 @@ const ShowCard = (props) => {
                         {roleP
                           ? roleP.map((item, i) => {
                               return (
-                                <option value={item.id}>
+                                <option key={i} value={item.id}>
                                   {item.nama_role}
                                 </option>
                               );
@@ -280,9 +278,9 @@ const ShowCard = (props) => {
             </span>
             <DialogTitle
               id="alert-dialog-title"
-              className="text-center font-bold "
+              className="text-center font-bold"
             >
-              <h1 className="font-bold text-2xl">{"Data Peserta"}</h1>
+              Data Peserta
             </DialogTitle>
             <DialogContent className=" w-full ">
               {detail ? (
@@ -373,6 +371,8 @@ const ShowCard = (props) => {
             aria-describedby="alert-dialog-description"
             // maxWidth="md"
             // fullWidth="true"
+            // maxWidth="md"
+            // fullWidth="true"
             className="relative w-full "
           >
             <span
@@ -385,7 +385,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              <h1 className="font-bold text-2xl">{"Active Test"}</h1>
+              Active Test
             </DialogTitle>
             <DialogContent className=" w-full ">
               <div className="flex flex-row gap-2 w-[100%] px-3 pb-4">
@@ -442,7 +442,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              <h1 className="font-bold text-2xl">{"Pilih Jenis Soal"}</h1>
+              Pilih Jenis Soal
             </DialogTitle>
             <DialogContent className=" w-full">
               <div className="flex flex-row gap-2 w-[100%] px-2 pb-4">
@@ -482,7 +482,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              <h1 className="font-bold text-2xl">{"Edit Soal"}</h1>
+              Edit Soal
             </DialogTitle>
             <DialogContent className=" w-full">{Children}</DialogContent>
           </Dialog>

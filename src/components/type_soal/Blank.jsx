@@ -1,8 +1,9 @@
 import React from "react"
 import { Timer, Button } from "../atoms";
+import { AiFillSound } from "react-icons/ai";
 
 function Blank(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, timer, handle } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, timer, handle, sound } = props;
     return (
         <>
             {/* header */}
@@ -30,6 +31,11 @@ function Blank(props) {
                 <p className="font-semibold">
                     {subTitle == '-' ? '' : subTitle}
                 </p>
+            </div>
+            <div className="flex justify-center items-center">
+                <div className="ring-2 ring-gray-700 p-8 rounded-full shadow-lg">
+                    <AiFillSound size={50}  color="gray"/>
+                </div>
             </div>
             <div className="flex justify-end m-4">
                 <Button

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Timer, Button } from "../atoms";
+import { AiFillSound } from "react-icons/ai";
 
 function Test(props) {
     const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, timer, handle } = props;
@@ -41,6 +42,11 @@ function Test(props) {
                     {title == '-' ? '' : title}
                 </span>
                 <p className="font-semibold">{subTitle == '-' ? '' : subTitle}</p>
+                <div className="flex justify-center items-center">
+                    <div className="ring-2 ring-gray-700 p-8 rounded-full shadow-lg">
+                        <AiFillSound size={50} color="gray" />
+                    </div>
+                </div>
 
                 <div className="grid grid-cols-2 gap-8 mt-6">
                     <button
@@ -52,19 +58,19 @@ function Test(props) {
                     <button
                         onClick={() => handleAnswer('b')}
                         className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${selectedAnswer == 'b' ? 'bg-blue-700 text-white' : ''}`}
-                        >
+                    >
                         {"B. " + b}
                     </button>
                     <button
                         onClick={() => handleAnswer('c')}
                         className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${selectedAnswer == 'c' ? 'bg-blue-700 text-white' : ''}`}
-                        >
+                    >
                         {"C. " + c}
                     </button>
                     <button
                         onClick={() => handleAnswer('d')}
                         className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${selectedAnswer == 'd' ? 'bg-blue-700 text-white' : ''}`}
-                        >
+                    >
                         {"D. " + d}
                     </button>
                 </div>
@@ -74,7 +80,7 @@ function Test(props) {
                     type={"PrimaryButton"}
                     text={"Next"}
                     onClick={handle}
-                    className={disabledButton ? 'bg-slate-500 cursor-not-allowed': 'bg-[#1283b6]'}
+                    className={disabledButton ? 'bg-slate-500 cursor-not-allowed' : 'bg-[#1283b6]'}
                 />
             </div>
         </>

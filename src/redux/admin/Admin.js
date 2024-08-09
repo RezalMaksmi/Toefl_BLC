@@ -8,8 +8,6 @@ export const getAdminAct = createAsyncThunk("get/admin/api", async (url) => {
   try {
     const response = await axiosInstance.get(`${backendURL}${url}`);
     if (response) {
-      // console.log("menampilkan data admin : =", response.data);
-
       return response.data;
     }
   } catch (error) {

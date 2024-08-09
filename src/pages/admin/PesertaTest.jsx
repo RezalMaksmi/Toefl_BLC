@@ -140,9 +140,9 @@ const PesertaTest = () => {
                       <td className="border border-[#929292] px-2">{item.kode_soal}</td>
                       <td className="border border-[#929292] px-2">{item.tgl_daftar}</td>
                       <td className="border border-[#929292] px-2">{item.status_test == 0 ? (<>belum test</>) : (<>sudah test</>)}</td>
-                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : (item.listening+'/50')}</td>
-                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : (item.structure+'/40')}</td>
-                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading+'/50'}</td>
+                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : (item.listening+'/'+item.k_listening)}</td>
+                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : (item.structure+'/'+item.k_structure)}</td>
+                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading+'/'+item.k_reading}</td>
                       <td className="border border-[#929292] px-2">{item.total == null ? (<>-</>) : item.total}</td>
                       <td className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">
                         <Button

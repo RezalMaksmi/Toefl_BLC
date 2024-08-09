@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Input, Loading, ShowCard } from "../../components";
 import { BiSolidUserPlus, BiSliderAlt, BiCheckSquare } from "react-icons/bi";
 import { LuDelete } from "react-icons/lu";
-import axiosInstance from "../../api/axiosInstance";
 import { LayoutAdmin } from "../../template";
 import { createAdminAct, getAdminAct, adminDeleteAct, updatePasswordAdminAct } from "../../redux/admin/Admin";
 import Swal from "sweetalert2";

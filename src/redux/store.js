@@ -17,6 +17,9 @@ export const store = configureStore({
     auth: authReducer,
     users: Users,
     quiz: Quiz,
+    admin: Admin,
+    test: Test,
+    audio: audioReducer, // add audio slice here
   },
   preloadedState,
 });

@@ -38,6 +38,7 @@ const LoginPeserta = () => {
                     {position: "bottom-right"}
                 );
                 sessionStorage.setItem('token_user', response.data.data.token);
+                sessionStorage.setItem('peserta_id', response.data.data.id);
                 navigate("/dashboard-peserta");
             }else{
                 toast.error(

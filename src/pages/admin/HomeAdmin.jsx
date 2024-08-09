@@ -120,7 +120,8 @@ const HomeAdmin = () => {
   };
 
   const handleOpenActiveTest = (i) => {
-    console.log(i);
+    // console.log(i);
+    dispatch(getUsersActDetail(i));
     if (i === 0) {
       return setOpenActiveTest(false);
     } else {
@@ -167,7 +168,7 @@ const HomeAdmin = () => {
           type="ActiveTest"
           opens={openActiveTest}
           close={() => setOpenActiveTest(false)}
-          id={"openDataId"}
+          id={openDataId}
         />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
@@ -202,16 +203,17 @@ const HomeAdmin = () => {
         </div>
         <div className="h-3"></div>
         <div className=" w-full h-[70vh] overflow-scroll px-10 overflow-x-auto flex flex-col justify-between">
-          <table class=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
+          <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
             <thead className="bg-[#4BABD6] text-white h-11">
               <tr>
                 <th className="border border-[#929292]">No Reg</th>
-                <th className="border border-[#929292]">Role</th>
-                <th className="border border-[#929292]">Nama</th>
-                <th className="border border-[#929292]">Jenis Peserta</th>
+                <th className="border border-[#929292]">Nama Peserta</th>
                 <th className="border border-[#929292]">Gender</th>
+                <th className="border border-[#929292]">Alamat</th>
+                <th className="border border-[#929292]">Email</th>
+                <th className="border border-[#929292]">No.HP</th>
                 <th className="border border-[#929292]">Instansi</th>
-                <th className="border border-[#929292]">Nilai</th>
+                <th className="border border-[#929292]">Active Test</th>
                 <th className="border border-[#929292] md:w-[150px] w-[60px]">
                   Action
                 </th>
@@ -224,14 +226,15 @@ const HomeAdmin = () => {
                     <CardTable
                       key={i}
                       NoReg={item.no_reg}
-                      Role={item.role}
                       Name={item.nama_peserta}
-                      JenisPeserta={item.kelas}
                       Gender={item.gender}
+                      Alamat={item.alamat}
+                      Email={item.email}
+                      NoHp={item.no_hp}
                       Instansi={item.instansi}
-                      Nilai={item.nilai}
+                      ActiveTest={item.active_test}
                       ActShow={() => handleOpenDetail(item.id_peserta)}
-                      ActActiveTest={() => handleOpenActiveTest(i + 1)}
+                      ActActiveTest={() => handleOpenActiveTest(item.id_peserta)}
                       ActDelete={() => handleDelete(item.id_peserta)}
                     />
                   );

@@ -10,6 +10,8 @@ import { BiCheck } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../api/axiosInstance";
 import { setAddTypeQuizAct } from "../../redux/quiz/Quiz";
+import { activateUserTestAct } from "../../redux/users/Users";
+import Swal from "sweetalert2";
 
 const ShowCard = (props) => {
   const {
@@ -17,6 +19,7 @@ const ShowCard = (props) => {
     opens,
     close,
     onClickEdit,
+    id,
     handleSubmit,
     nameValue,
     genderValue,
@@ -28,6 +31,9 @@ const ShowCard = (props) => {
     emailValue,
     dateValue,
     instansiValue,
+    usernameValue,
+    passwordValue,
+    handleSaveAdmin,
     Children,
     closeCart,
   } = props;
@@ -38,11 +44,14 @@ const ShowCard = (props) => {
   const [jenisP, setJenisP] = useState();
   const [roleP, setRoleP] = useState();
   const [click, setClick] = useState("");
+  const [test, setTest] = useState([]);
 
   const dispatch = useDispatch();
 
   const { data, detail } = useSelector((state) => state.users);
   const { typeQuiz, valueTypeQuiz } = useSelector((state) => state.quiz);
+
+  // console.log(detail.id_peserta);
 
   const handleTypeQuiz = (data) => {
     setAddTypeQuiz(data);
@@ -50,9 +59,41 @@ const ShowCard = (props) => {
     close(false);
   };
 
+  const handleActiveTestPeserta = async (e, test) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post(
+        `http://localhost:8000/peserta/active/${detail.id_peserta}`,
+        { id_test: test }
+      );
+      setClick("click");
+      close(false);
+      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
+      // console.log(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+    // dispatch(activateUserTestAct(detail.id_peserta, test));
+  };
+
+  const fetchTest = async () => {
+    try {
+      const response = await axiosInstance.get("http://localhost:8000/test");
+      setTest(response.data.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const rolePeserta = async () => {
     try {
-      const response = await axiosInstance.get("/role_peserta");
+      const response = await axiosInstance.get(
+        "http://localhost:8000/role_peserta"
+      );
       setRoleP(response.data);
     } catch (error) {
       setError(error);
@@ -60,10 +101,11 @@ const ShowCard = (props) => {
       setIsLoading(false);
     }
   };
-
   const jenisPeserta = async () => {
     try {
-      const response = await axiosInstance.get("/jenis_kelas");
+      const response = await axiosInstance.get(
+        "http://localhost:8000/jenis_kelas"
+      );
       setJenisP(response.data);
     } catch (error) {
       setError(error);
@@ -71,11 +113,11 @@ const ShowCard = (props) => {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
 
     rolePeserta();
+    fetchTest();
 
     jenisPeserta();
     setClick("");
@@ -105,7 +147,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              Tambah Data Peserta
+              <h1 className="font-bold text-2xl">{"Tambah Data Peserta"}</h1>
             </DialogTitle>
             <DialogContent className=" w-full ">
               <div className="flex flex-row gap-9 w-[100%] px-10">
@@ -165,7 +207,7 @@ const ShowCard = (props) => {
                         {jenisP
                           ? jenisP.map((item, i) => {
                               return (
-                                <option key={i} value={item.id}>
+                                <option value={item.id}>
                                   {item.nama_kelas}
                                 </option>
                               );
@@ -234,7 +276,7 @@ const ShowCard = (props) => {
                         {roleP
                           ? roleP.map((item, i) => {
                               return (
-                                <option key={i} value={item.id}>
+                                <option value={item.id}>
                                   {item.nama_role}
                                 </option>
                               );
@@ -278,9 +320,9 @@ const ShowCard = (props) => {
             </span>
             <DialogTitle
               id="alert-dialog-title"
-              className="text-center font-bold"
+              className="text-center font-bold "
             >
-              Data Peserta
+              <h1 className="font-bold text-2xl">{"Data Peserta"}</h1>
             </DialogTitle>
             <DialogContent className=" w-full ">
               {detail ? (
@@ -369,10 +411,6 @@ const ShowCard = (props) => {
             onClose={close}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
-            // maxWidth="md"
-            // fullWidth="true"
-            // maxWidth="md"
-            // fullWidth="true"
             className="relative w-full "
           >
             <span
@@ -385,38 +423,81 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              Active Test
+              <h1 className="font-bold text-2xl">{"Active Test"}</h1>
             </DialogTitle>
             <DialogContent className=" w-full ">
               <div className="flex flex-row gap-2 w-[100%] px-3 pb-4">
                 <div className="flex flex-row gap-2 w-full">
-                  <Button
-                    type="ButtonIcon"
-                    text="Pretest"
-                    className="bg-[#58b4ad] text-white items-center"
-                    icon={<BiCheck />}
+                  {test.map((item, i) => {
+                    return (
+                      <Button
+                        key={i}
+                        type="ButtonIcon"
+                        text={item.jenis_test}
+                        onClick={(e) => handleActiveTestPeserta(e, item.id)}
+                        className="bg-[#58b4ad] text-white items-center"
+                        icon={<BiCheck />}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </React.Fragment>
+      );
+    case "AddAdmin":
+      return (
+        <React.Fragment>
+          <Dialog
+            open={opens}
+            onClose={close}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            maxWidth="md"
+            fullWidth="true"
+            className="relative w-full "
+          >
+            <span
+              className="absolute top-0 right-0 px-2 py-2 text-2xl"
+              onClick={close}
+            >
+              <LuX />
+            </span>
+            <DialogTitle
+              id="alert-dialog-title"
+              className="text-center font-bold "
+            >
+              <h1 className="font-bold text-2xl">{"Tambah Admin"}</h1>
+            </DialogTitle>
+            <DialogContent className=" w-full ">
+              <div className="flex flex-row gap-9 w-[100%] px-10">
+                <div className="flex flex-col gap-4 w-full">
+                  <Input
+                    typeInput="InputForm"
+                    name="Username"
+                    placeholder="Masukkan Username"
+                    type="text"
+                    onChange={usernameValue}
                   />
-                  <Button
-                    type="ButtonIcon"
-                    text="Post Test 1"
-                    className="bg-[#58b4ad] text-white items-center"
-                    icon={<BiCheck />}
-                  />
-                  <Button
-                    type="ButtonIcon"
-                    text="Post Test 2"
-                    className="bg-[#58b4ad] text-white items-center"
-                    icon={<BiCheck />}
-                  />
-                  <Button
-                    type="ButtonIcon"
-                    text="Equivalent"
-                    className="bg-[#58b4ad] text-white items-center"
-                    icon={<BiCheck />}
+                  <Input
+                    typeInput="InputForm"
+                    name="Password"
+                    placeholder="Masukkan Password"
+                    type="text"
+                    onChange={passwordValue}
                   />
                 </div>
               </div>
             </DialogContent>
+            <DialogActions className="mr-4 mb-3">
+              <Button
+                type="PrimaryButton"
+                text="Simpan"
+                className="bg-[#22A5C4] hover:bg-[#287e92]"
+                onClick={handleSaveAdmin}
+              />
+            </DialogActions>
           </Dialog>
         </React.Fragment>
       );
@@ -442,7 +523,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              Pilih Jenis Soal
+              <h1 className="font-bold text-2xl">{"Pilih Jenis Soal"}</h1>
             </DialogTitle>
             <DialogContent className=" w-full">
               <div className="flex flex-row gap-2 w-[100%] px-2 pb-4">
@@ -482,7 +563,7 @@ const ShowCard = (props) => {
               id="alert-dialog-title"
               className="text-center font-bold "
             >
-              Edit Soal
+              <h1 className="font-bold text-2xl">{"Edit Soal"}</h1>
             </DialogTitle>
             <DialogContent className=" w-full">{Children}</DialogContent>
           </Dialog>

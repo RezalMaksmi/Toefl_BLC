@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Button = (props) => {
-  const { onClick, className, type, children, to, icon, text } = props;
+  const { onClick, className, type, children, to, icon, text, disable } = props;
   switch (type) {
     case "PrimaryButton":
       return (
         <button
+          disabled={disable}
           onClick={onClick}
           className={` text-white px-6 py-2 rounded-md flex space-x-3 justify-center items-center text-base lg:text-lg font-semibold hover:bg-secondary hover:border-secondary ${className}`}
         >

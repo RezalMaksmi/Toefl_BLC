@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Images } from "../../assets";
 import book_main from "../../assets/img/book-main.png";
 import user_profile from "../../assets/img/default-profile.png";
@@ -10,8 +10,10 @@ import axios from "axios";
 const HomePeserta = () => {
   const navigate = useNavigate();
   const [resTest, setResTest] = useState([]);
+  const [test, setTest] = useState([]);
 
-  const id_hasil = "95a270bf-9af1-4a8d-8d17-9db9a13c1721";
+  const id_hasil = sessionStorage.getItem("peserta_id");
+  const token_user = sessionStorage.getItem("token_user");
 
   const fetchResTest = async () => {
     const response = await axios.get(
@@ -20,15 +22,31 @@ const HomePeserta = () => {
     setResTest(response.data.data);
   };
 
+  const fetchDataTest = async () => {
+    const response = await axios.get("http://localhost:8000/user/test");
+    setTest(response.data.data);
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    sessionStorage.removeItem("peserta_id");
+    sessionStorage.removeItem("token_user");
+    navigate("/login-peserta");
+  };
+
   useEffect(() => {
+    if (!token_user && !id_hasil) {
+      navigate("/login-peserta");
+    }
     fetchResTest();
-  }, []);
+    fetchDataTest();
+  }, [token_user]);
   return (
     <div className="w-full h-auto flex flex-col justify-center">
       <div className="mt-[75px] grid grid-cols-6 gap-10 lg:px-[120px] w-full">
         <div className="bg-[#E4EDF1] col-span-4 flex items-center justify-between mt-10 rounded-3xl shadow-lg p-10">
           <div className="flex-col text-gray-800">
-            <p className="font-bold text-6xl">Hello, Erga Febriawan</p>
+            <p className="font-bold text-6xl">Hello, {resTest.nama_peserta}</p>
             <p className="font-semibold text-2xl mt-3">
               Selamat Datang di Brawijaya Language Center
             </p>
@@ -38,11 +56,21 @@ const HomePeserta = () => {
         <div className="bg-gray-50 h-auto col-span-2 flex justify-center items-center flex-col mt-10 rounded-3xl shadow-lg p-10 ring-1 ring-gray-500">
           <Images src={user_profile} className="h-[200px] " />
           <p className="font-semibold text-center text-2xl text-gray-900 mb-3">
-            Erga Febriawan
+            {resTest.nama_peserta}
           </p>
-          <button className="bg-blue-500  text-gray-50 py-2 px-6 rounded-md font-semibold">
-            Lihat profil
-          </button>
+          <div className="flex gap-4">
+            <Link to="/profile">
+              <button className="bg-blue-500  text-gray-50 py-2 px-6 rounded-md font-semibold">
+                Lihat profil
+              </button>
+            </Link>
+            <button
+              onClick={(e) => handleLogout(e)}
+              className="bg-red-500  text-gray-50 py-2 px-6 rounded-md font-semibold"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
       <div className="lg:px-[70px] mt-10 grid grid-cols-6">
@@ -51,28 +79,27 @@ const HomePeserta = () => {
             Test yang anda ikuti
           </p>
           <div className="grid grid-cols-4 gap-6 my-5">
-            <div className="bg-blue-100 cursor-pointer flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
-              <Images src={book_active} className="h-[150px] " />
-              <p className="font-semibold text-center text-xl mt-2">Pretest</p>
-            </div>
-            <div className="bg-blue-100 flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
-              <Images src={book_deactive} className="h-[150px] " />
-              <p className="font-semibold text-center text-xl mt-2">
-                Post Test 1
-              </p>
-            </div>
-            <div className="bg-blue-100 flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
-              <Images src={book_deactive} className="h-[150px] " />
-              <p className="font-semibold text-center text-xl mt-2">
-                Post Test 2
-              </p>
-            </div>
-            <div className="bg-blue-100 flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
-              <Images src={book_deactive} className="h-[150px] " />
-              <p className="font-semibold text-center text-xl mt-2">
-                Equivalent
-              </p>
-            </div>
+            {test.map((item, index) => (
+              <div key={index}>
+                {item.id == resTest.id_test ? (
+                  <Link to={`/test-peserta/${item.id}`}>
+                    <div className="bg-blue-100 cursor-pointer flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
+                      <Images src={book_active} className="h-[150px] " />
+                      <p className="font-semibold text-center text-xl mt-2">
+                        {item.jenis_test}
+                      </p>
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="bg-blue-100 cursor-not-allowed flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
+                    <Images src={book_deactive} className="h-[150px] " />
+                    <p className="font-semibold text-center text-xl mt-2">
+                      {item.jenis_test}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

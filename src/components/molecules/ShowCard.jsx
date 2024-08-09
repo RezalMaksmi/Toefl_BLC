@@ -64,7 +64,7 @@ const ShowCard = (props) => {
     try {
       const response = await axiosInstance.post(
         `http://localhost:8000/peserta/active/${detail.id_peserta}`,
-        {id_test: test}
+        { id_test: test }
       );
       setClick("click");
       close(false);
@@ -80,9 +80,7 @@ const ShowCard = (props) => {
 
   const fetchTest = async () => {
     try {
-      const response = await axiosInstance.get(
-        "http://localhost:8000/test"
-      );
+      const response = await axiosInstance.get("http://localhost:8000/test");
       setTest(response.data.data);
     } catch (error) {
       setError(error);
@@ -208,12 +206,12 @@ const ShowCard = (props) => {
                         </option>
                         {jenisP
                           ? jenisP.map((item, i) => {
-                            return (
-                              <option value={item.id}>
-                                {item.nama_kelas}
-                              </option>
-                            );
-                          })
+                              return (
+                                <option value={item.id}>
+                                  {item.nama_kelas}
+                                </option>
+                              );
+                            })
                           : ""}
                       </select>
                     </label>
@@ -277,12 +275,12 @@ const ShowCard = (props) => {
                         </option>
                         {roleP
                           ? roleP.map((item, i) => {
-                            return (
-                              <option value={item.id}>
-                                {item.nama_role}
-                              </option>
-                            );
-                          })
+                              return (
+                                <option value={item.id}>
+                                  {item.nama_role}
+                                </option>
+                              );
+                            })
                           : ""}
                       </select>
                     </label>
@@ -431,7 +429,7 @@ const ShowCard = (props) => {
               <div className="flex flex-row gap-2 w-[100%] px-3 pb-4">
                 <div className="flex flex-row gap-2 w-full">
                   {test.map((item, i) => {
-                    return(
+                    return (
                       <Button
                         key={i}
                         type="ButtonIcon"
@@ -539,7 +537,7 @@ const ShowCard = (props) => {
                           text={item.type_soal}
                           className="bg-[#58b4ad] text-white items-center"
                           onClick={() => handleTypeQuiz(item)}
-                        // icon={<BiCheck />}
+                          // icon={<BiCheck />}
                         />
                       );
                     })}

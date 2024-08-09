@@ -17,9 +17,6 @@ import { toast } from "react-toastify";
 import { uploadAudio } from "../../redux/features/audioSlice";
 
 const EditSoal = () => {
-  const { audioBlob, error } = useSelector((state) => state.audio);
-  const mediaRecorderRef = useRef(null);
-
   const { id } = useParams();
   const dispatch = useDispatch();
   const [click, setClick] = useState("");
@@ -29,6 +26,7 @@ const EditSoal = () => {
     (state) => state.quiz
   );
 
+  const [idQuiz, setIdQuiz] = useState("");
   const [pagetitle, setPageTitle] = useState("");
   const [pageSubtitle, setPageSubTitle] = useState("");
   const [title, setTitle] = useState("");
@@ -50,6 +48,51 @@ const EditSoal = () => {
   const [test, setTest] = useState("");
 
   const [editSoal, setEditSoal] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+    console.log("apa ini coy", event);
+  };
+
+  console.log(idQuiz);
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      setError("Please select a file first.");
+      return;
+    }
+
+    setUploading(true);
+    setError(null);
+    setSuccess(null);
+
+    const formData = new FormData();
+    formData.append("audio", selectedFile);
+
+    try {
+      const response = await axiosInstance.post(
+        `/soal/upload_audio/${idQuiz}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setSuccess("File uploaded successfully!");
+      console.log(response);
+    } catch (err) {
+      setError("Error uploading file.");
+      console.error(err);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // const [dataUpdate, setDataUpdate] = useState({
   //   type_test: type_test,
@@ -85,11 +128,9 @@ const EditSoal = () => {
   // };
 
   // uploud audio
-  const handleUpload = () => {
-    dispatch(uploadAudio(audioBlob));
-  };
 
   const handleValue = () => {
+    setIdQuiz(detail && detail.data.id);
     setPageTitle(detail && detail.data.page.title);
     setPageSubTitle(detail && detail.data.page.subtitle);
     setTitle(detail && detail.data.title.title);
@@ -106,10 +147,15 @@ const EditSoal = () => {
     setIndex(detail && detail.data.index);
   };
 
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioSrc, setAudioSrc] = useState("");
+
   const handleDetail = (idDetail) => {
     dispatch(getDetailQuizAct(idDetail));
     setOpenDetail(true);
     handleValue();
+    setIdQuiz(detail && detail.data.id);
 
     setClick("click");
   };
@@ -140,13 +186,10 @@ const EditSoal = () => {
     index: index,
   };
 
-  console.log("lllllllllllllllllllll", typeQuiz);
-
   const handleUpdateQuiz = (type_soal) => {
     setOpenDetail(false);
     const typeSoal = typeQuiz.find((s) => s.type_soal === type_soal);
     setType_soal(typeSoal.id);
-
     setEditSoal(true);
     handleValue();
     // dispatch(updateQuizAct(id, data));
@@ -162,12 +205,14 @@ const EditSoal = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes!",
     }).then((result) => {
+      handleUpload();
       if (result.value) {
         axiosInstance
           .put(`/soal/${id}`, data)
           .then((response) => {
             // Handle the response data
             console.log("response", response.data);
+
             toast.done(`${response.data.message}`, {
               position: "bottom-right",
             });
@@ -224,11 +269,11 @@ const EditSoal = () => {
 
   console.log(detail);
   useEffect(() => {
-    fetchAPI();
+    id && setType_test(id);
     setTypeQuizValue(valueTypeQuiz && valueTypeQuiz.type_soal);
     valueTypeQuiz && setType_soal(valueTypeQuiz && valueTypeQuiz.id);
+    fetchAPI();
     setClick("");
-    id && setType_test(id);
   }, [id, idTest, typeQuizValue, valueTypeQuiz, click]);
 
   const handleDelete = (id) => {
@@ -248,7 +293,19 @@ const EditSoal = () => {
     });
   };
 
-  console.log(detail && detail.data.index);
+  // useEffect(() => {
+  //   setAudioSrc(detail && detail.data.audio.url);
+  // }, []);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <LayoutAdmin>
       <ShowCard
@@ -333,6 +390,14 @@ const EditSoal = () => {
                 cValue={openDetail === true ? detail && detail.data.c : ""}
                 dValue={openDetail === true ? detail && detail.data.d : ""}
                 keyValue={openDetail === true ? detail && detail.data.key : ""}
+                handlePlayPause={handlePlayPause}
+                audioRef={audioRef}
+                audioSrc={
+                  openDetail === true
+                    ? detail && detail.data.audio && detail.data.audio.url
+                    : ""
+                }
+                isPlaying={isPlaying}
                 handleDelete={() => handleDelete(detail && detail.data.id)}
                 handleEdit={() =>
                   handleUpdateQuiz(detail && detail.data.type_soal)
@@ -374,6 +439,10 @@ const EditSoal = () => {
                 keyQuiz={(e) => setKeyQuiz(e.target.value)}
                 timer={(e) => setTimer(e.target.value)}
                 handleUpdate={() => handleUpdate(detail && detail.data.id)}
+                handleFileChange={handleFileChange}
+                audioRef={audioRef}
+                handlePlayPause={handlePlayPause}
+                isPlaying={isPlaying}
                 typeFuction="update"
               />
             ) : addQuiz === true ? (

@@ -1,9 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { BiPause, BiPlay } from "react-icons/bi";
 
 const CardSoal = (props) => {
   const {
+    handleFileChange,
+    isPlaying,
+    handlePlayPause,
+    audioRef,
+    audioSrc,
     typeFuction,
     className,
     type,
@@ -172,11 +178,17 @@ const CardSoal = (props) => {
               <div className="flex flex-row gap-4">
                 <input
                   type="file"
+                  accept="audio/*"
+                  onChange={handleFileChange}
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
                 />
-                <button className="text-lg bg-slate-600 text-white px-3 rounded-md">
-                  Check Shound
+                <audio ref={audioRef} src={audioSrc} />
+                <button
+                  className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
+                  onClick={handlePlayPause}
+                >
+                  {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
                 </button>
               </div>
             </div>
@@ -484,11 +496,17 @@ const CardSoal = (props) => {
               <div className="flex flex-row gap-4">
                 <input
                   type="file"
+                  accept="audio/*"
+                  onChange={handleFileChange}
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
                 />
-                <button className="text-lg bg-slate-600 text-white px-3 rounded-md">
-                  Check Shound
+                <audio ref={audioRef} src={audioSrc} />
+                <button
+                  className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
+                  onClick={handlePlayPause}
+                >
+                  {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
                 </button>
               </div>
             </div>
@@ -622,11 +640,17 @@ const CardSoal = (props) => {
               <div className="flex flex-row gap-4">
                 <input
                   type="file"
+                  accept="audio/*"
+                  onChange={handleFileChange}
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
                 />
-                <button className="text-lg bg-slate-600 text-white px-3 rounded-md">
-                  Check Shound
+                <audio ref={audioRef} src={audioSrc} />
+                <button
+                  className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
+                  onClick={handlePlayPause}
+                >
+                  {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
                 </button>
               </div>
             </div>

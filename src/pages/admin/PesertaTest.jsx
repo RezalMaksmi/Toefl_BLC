@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input, Loading, ShowCard } from "../../components";
-import { BiChevronLeft, BiChevronRight, BiSliderAlt, BiShow } from "react-icons/bi";
+import {
+  BiChevronLeft,
+  BiChevronRight,
+  BiSliderAlt,
+  BiShow,
+} from "react-icons/bi";
 import { LuDelete } from "react-icons/lu";
 import { LayoutAdmin } from "../../template";
 import axiosInstance from "../../api/axiosInstance";
@@ -40,14 +45,16 @@ const PesertaTest = () => {
 
   //fetch data
   const fetchJenisTest = async () => {
-    const response = await axiosInstance.get('http://localhost:8000/test');
+    const response = await axiosInstance.get("http://localhost:8000/test");
     setTest(response.data.data);
-  }
+  };
 
   const fetchTestPeserta = async (id_test) => {
-    const response = await axiosInstance.get(`http://localhost:8000/peserta/by-test/${id_test}`);
+    const response = await axiosInstance.get(
+      `http://localhost:8000/peserta/by-test/${id_test}`
+    );
     setTestPeserta(response.data.data);
-  }
+  };
 
   const handleOpenDetail = (i) => {
     dispatch(getUsersActDetail(i));
@@ -86,12 +93,10 @@ const PesertaTest = () => {
               <select
                 className="w-[200px] px-2 py-2 focus:outline-none border rounded-md"
                 name="selectedJenisPeserta"
-              onChange={(e) => setCurrentTest(e.target.value)}
+                onChange={(e) => setCurrentTest(e.target.value)}
               >
                 {test.map((item, i) => {
-                  return (
-                    <option value={item.id}>{item.jenis_test}</option>
-                  )
+                  return <option value={item.id}>{item.jenis_test}</option>;
                 })}
               </select>
             </label>
@@ -102,7 +107,7 @@ const PesertaTest = () => {
               <select
                 className="w-[100px] px-2 py-2 focus:outline-none border rounded-md"
                 name="selectedJenisPeserta"
-              // onChange={(e) => setShowTable(e.target.value)}
+                // onChange={(e) => setShowTable(e.target.value)}
               >
                 <option value={10}>Show 10</option>
                 <option value={30}>Show 30</option>
@@ -135,15 +140,45 @@ const PesertaTest = () => {
                 testPeserta.map((item, i) => {
                   return (
                     <tr className="border border-[#929292] " key={i}>
-                      <td className="border py-3 border-[#929292] px-2">{item.no_reg}</td>
-                      <td className="border border-[#929292] px-2">{item.nama_peserta}</td>
-                      <td className="border border-[#929292] px-2">{item.kode_soal}</td>
-                      <td className="border border-[#929292] px-2">{item.tgl_daftar}</td>
-                      <td className="border border-[#929292] px-2">{item.status_test == 0 ? (<>belum test</>) : (<>sudah test</>)}</td>
-                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : (item.listening+'/50')}</td>
-                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : (item.structure+'/40')}</td>
-                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading+'/50'}</td>
-                      <td className="border border-[#929292] px-2">{item.total == null ? (<>-</>) : item.total}</td>
+                      <td className="border py-3 border-[#929292] px-2">
+                        {item.no_reg}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.nama_peserta}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.kode_soal}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.tgl_daftar}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.status_test == 0 ? (
+                          <>belum test</>
+                        ) : (
+                          <>sudah test</>
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.listening == null ? (
+                          <>-</>
+                        ) : (
+                          item.listening + "/50"
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.structure == null ? (
+                          <>-</>
+                        ) : (
+                          item.structure + "/40"
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.reading == null ? <>-</> : item.reading + "/50"}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.total == null ? <>-</> : item.total}
+                      </td>
                       <td className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">
                         <Button
                           type="ButtonIconCS"
@@ -163,7 +198,10 @@ const PesertaTest = () => {
                 })
               ) : (
                 <tr className="border border-[#929292] ">
-                  <td colSpan="10" className="border py-3 border-[#929292] px-2 text-center">
+                  <td
+                    colSpan="10"
+                    className="border py-3 border-[#929292] px-2 text-center"
+                  >
                     Data Tidak Ditemukan
                   </td>
                 </tr>

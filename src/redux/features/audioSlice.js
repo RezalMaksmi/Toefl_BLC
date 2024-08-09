@@ -1,12 +1,13 @@
+// `/soal/upload_audio/${id}`
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 
-// Thunk untuk mengunggah audio
+// Thunk untuk meng-upload audio
 export const uploadAudio = createAsyncThunk(
   "audio/uploadAudio",
-  async (id, audioBlob, { rejectWithValue }) => {
+  async (id, file, { rejectWithValue }) => {
     const formData = new FormData();
-    formData.append("audio", audioBlob, "audio.wav");
+    formData.append("file", file);
 
     try {
       const response = await axiosInstance.post(
@@ -28,28 +29,19 @@ export const uploadAudio = createAsyncThunk(
 const audioSlice = createSlice({
   name: "audio",
   initialState: {
-    audioBlob: null,
-    recording: false,
     status: "idle",
     error: null,
+    audioUrl: null,
   },
-  reducers: {
-    setAudioBlob(state, action) {
-      state.audioBlob = action.payload;
-    },
-    setRecording(state, action) {
-      state.recording = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(uploadAudio.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(uploadAudio.fulfilled, (state) => {
+      .addCase(uploadAudio.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.audioBlob = null;
-        // Clear audioBlob after upload
+        state.audioUrl = action.payload.url;
       })
       .addCase(uploadAudio.rejected, (state, action) => {
         state.status = "failed";
@@ -57,7 +49,5 @@ const audioSlice = createSlice({
       });
   },
 });
-
-export const { setAudioBlob, setRecording } = audioSlice.actions;
 
 export default audioSlice.reducer;

@@ -45,6 +45,7 @@ const CardSoal = (props) => {
     handleDelete,
     handleEdit,
     handleUpdate,
+    audio,
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -502,12 +503,16 @@ const CardSoal = (props) => {
                   placeholder=""
                 />
                 <audio ref={audioRef} src={audioSrc} />
-                <button
-                  className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
-                  onClick={handlePlayPause}
-                >
-                  {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
-                </button>
+                {!audio ? (
+                  <></>
+                ) : (
+                  <button
+                    className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
+                    onClick={handlePlayPause}
+                  >
+                    {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
+                  </button>
+                )}
               </div>
             </div>
           </div>

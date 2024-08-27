@@ -397,6 +397,7 @@ const EditSoal = () => {
                     ? detail && detail.data.audio && detail.data.audio.url
                     : ""
                 }
+                audio={openDetail === true ? detail && detail.data.audio : null}
                 isPlaying={isPlaying}
                 handleDelete={() => handleDelete(detail && detail.data.id)}
                 handleEdit={() =>

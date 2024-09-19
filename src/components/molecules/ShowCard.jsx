@@ -51,8 +51,6 @@ const ShowCard = (props) => {
   const { data, detail } = useSelector((state) => state.users);
   const { typeQuiz, valueTypeQuiz } = useSelector((state) => state.quiz);
 
-  // console.log(detail.id_peserta);
-
   const handleTypeQuiz = (data) => {
     setAddTypeQuiz(data);
     setClick("click");
@@ -69,7 +67,6 @@ const ShowCard = (props) => {
       setClick("click");
       close(false);
       Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
-      // console.log(response.data);
     } catch (error) {
       setError(error);
     } finally {
@@ -133,7 +130,7 @@ const ShowCard = (props) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             maxWidth="lg"
-            fullWidth="true"
+            fullWidth={true}
             className="relative w-full "
           >
             <span
@@ -207,7 +204,7 @@ const ShowCard = (props) => {
                         {jenisP
                           ? jenisP.map((item, i) => {
                               return (
-                                <option value={item.id}>
+                                <option key={i} value={item.id}>
                                   {item.nama_kelas}
                                 </option>
                               );
@@ -276,7 +273,7 @@ const ShowCard = (props) => {
                         {roleP
                           ? roleP.map((item, i) => {
                               return (
-                                <option value={item.id}>
+                                <option key={i} value={item.id}>
                                   {item.nama_role}
                                 </option>
                               );
@@ -309,7 +306,7 @@ const ShowCard = (props) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             maxWidth="md"
-            fullWidth="true"
+            fullWidth={true}
             className="relative w-full "
           >
             <span
@@ -455,7 +452,7 @@ const ShowCard = (props) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             maxWidth="md"
-            fullWidth="true"
+            fullWidth={true}
             className="relative w-full "
           >
             <span
@@ -556,7 +553,7 @@ const ShowCard = (props) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             maxWidth="lg"
-            fullWidth="true"
+            fullWidth={true}
             className="relative w-full "
           >
             <DialogTitle

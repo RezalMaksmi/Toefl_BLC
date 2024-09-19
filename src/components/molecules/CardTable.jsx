@@ -16,9 +16,10 @@ const CardTable = (props) => {
     ActActiveTest,
     ActDelete,
     onClickEdit,
+    key,
   } = props;
   return (
-    <tr className="border border-[#929292] ">
+    <tr key={key} className="border border-[#929292] ">
       <td className="border py-3 border-[#929292] px-2">{NoReg}</td>
       <td className="border border-[#929292] px-2">{Name}</td>
       <td className="border border-[#929292] px-2">{Gender}</td>

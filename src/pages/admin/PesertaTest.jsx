@@ -81,6 +81,7 @@ const PesertaTest = () => {
           close={() => setOpenDetail(false)}
           id={openDataId}
         />
+        <h1 className="px-10 font-semibold text-xl mt-5">Peserta Test</h1>
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
             <Button
@@ -140,15 +141,49 @@ const PesertaTest = () => {
                 testPeserta.map((item, i) => {
                   return (
                     <tr className="border border-[#929292] " key={i}>
-                      <td className="border py-3 border-[#929292] px-2">{item.no_reg}</td>
-                      <td className="border border-[#929292] px-2">{item.nama_peserta}</td>
-                      <td className="border border-[#929292] px-2">{item.kode_soal}</td>
-                      <td className="border border-[#929292] px-2">{item.tgl_daftar}</td>
-                      <td className="border border-[#929292] px-2">{item.status_test == 0 ? (<>belum test</>) : (<>sudah test</>)}</td>
-                      <td className="border border-[#929292] px-2">{item.listening == null ? (<>-</>) : (item.listening+'/'+item.k_listening)}</td>
-                      <td className="border border-[#929292] px-2">{item.structure == null ? (<>-</>) : (item.structure+'/'+item.k_structure)}</td>
-                      <td className="border border-[#929292] px-2">{item.reading == null ? (<>-</>) : item.reading+'/'+item.k_reading}</td>
-                      <td className="border border-[#929292] px-2">{item.total == null ? (<>-</>) : item.total}</td>
+                      <td className="border py-3 border-[#929292] px-2">
+                        {item.no_reg}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.nama_peserta}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.kode_soal}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.tgl_daftar}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.status_test == 0 ? (
+                          <>belum test</>
+                        ) : (
+                          <>sudah test</>
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.listening == null ? (
+                          <>-</>
+                        ) : (
+                          item.listening + "/" + item.k_listening
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.structure == null ? (
+                          <>-</>
+                        ) : (
+                          item.structure + "/" + item.k_structure
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.reading == null ? (
+                          <>-</>
+                        ) : (
+                          item.reading + "/" + item.k_reading
+                        )}
+                      </td>
+                      <td className="border border-[#929292] px-2">
+                        {item.total == null ? <>-</> : item.total}
+                      </td>
                       <td className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">
                         <Button
                           type="ButtonIconCS"

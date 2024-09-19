@@ -4,7 +4,7 @@ import {
   BiChevronLeft,
   BiChevronRight,
   BiSliderAlt,
-  BiSolidUserPlus
+  BiSolidUserPlus,
 } from "react-icons/bi";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +38,6 @@ const HomeAdmin = () => {
   const [image, setImage] = useState();
   const [edit, setEdit] = useState(false);
 
-  console.log(edit);
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
@@ -120,7 +119,6 @@ const HomeAdmin = () => {
   };
 
   const handleOpenActiveTest = (i) => {
-    // console.log(i);
     dispatch(getUsersActDetail(i));
     if (i === 0) {
       return setOpenActiveTest(false);
@@ -141,6 +139,7 @@ const HomeAdmin = () => {
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
+        <h1 className="px-10 font-semibold text-xl mt-5">Semua Peserta</h1>
         <ShowCard
           type="AddData"
           opens={addData}
@@ -183,6 +182,12 @@ const HomeAdmin = () => {
               type="ButtonIcon"
               className="bg-[#58b4ad] items-center text-white "
               text="Filter"
+              icon={<BiSliderAlt className="text-2xl" />}
+            />
+            <Button
+              type="ButtonIcon"
+              className="bg-[#21716a] items-center text-white "
+              text="Import Peserta"
               icon={<BiSliderAlt className="text-2xl" />}
             />
           </div>
@@ -234,7 +239,9 @@ const HomeAdmin = () => {
                       Instansi={item.instansi}
                       ActiveTest={item.active_test}
                       ActShow={() => handleOpenDetail(item.id_peserta)}
-                      ActActiveTest={() => handleOpenActiveTest(item.id_peserta)}
+                      ActActiveTest={() =>
+                        handleOpenActiveTest(item.id_peserta)
+                      }
                       ActDelete={() => handleDelete(item.id_peserta)}
                     />
                   );

@@ -19,15 +19,13 @@ function CardProfile() {
           <Images type="profile" className="h-full w-max" />
         </div>
         <div className="flex flex-col ">
-          <span className="font-semibold">Rezal Nur Syaifudin</span>
-          <span className="text-xs mt-[-2px]">rezalnurscc@gmail.com</span>
+          <span className="font-semibold">Admin</span>
         </div>
       </div>
 
       {isOpen && (
         <div className="z-20 absolute top-[65px] flex flex-col right-[50px] gap-1 bg-white py-4 px-6 border shadow-md rounded-lg">
-          <span className="font-semibold">Rezal Nur Syaifudin</span>
-          <span className="text-xs mt-[-2px]">rezalnurscc@gmail.com</span>
+          <span className="font-semibold">Admin</span>
           <button className="px-3 py-1 text-[#fff] bg-[#2fa1bd] hover:bg-[#245f6e] rounded-md flex max-w-max mt-2">
             Edit Profil
           </button>

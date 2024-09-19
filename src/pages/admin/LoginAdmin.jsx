@@ -25,16 +25,6 @@ const LoginAdmin = () => {
     }
 
     dispatch(loginAdmin({ username, password }));
-    // .unwrap()
-    // .then((response) => {
-    //   toast.success("Berhasil Masuk!", {
-    //     position: "bottom-right",
-    //   });
-    //   navigate("/");
-    // })
-    // .catch((error) => {
-    //   return error;
-    // });
   };
 
   useEffect(() => {
@@ -49,7 +39,7 @@ const LoginAdmin = () => {
         <div className="flex flex-col bg-neutral-200 bg-opacity-50 rounded-[30px] px-[46px] py-[46px] max-w-[660px] w-full">
           <Text
             className="font-semibold text-center text-[40px] lg:text-[35px] w-full text-darkgray"
-            text="Log in"
+            text="Log in Admin"
           />
           <br />
           <div className="w-full d-flex justify-center items-center">
@@ -89,7 +79,7 @@ const LoginAdmin = () => {
           </div>
         </div>
         <div className=" w-full h-[700px] relative">
-          <Images type="vektor1" className="absolute h-[100%] right-0 " />
+          <Images type="vektor2" className="absolute h-[90%] right-0 top-6" />
         </div>
       </div>
     </div>

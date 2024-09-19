@@ -56,10 +56,7 @@ const EditSoal = () => {
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
-    console.log("apa ini coy", event);
   };
-
-  console.log(idQuiz);
 
   const handleUpload = async () => {
     if (!selectedFile) {
@@ -85,10 +82,8 @@ const EditSoal = () => {
         }
       );
       setSuccess("File uploaded successfully!");
-      console.log(response);
     } catch (err) {
       setError("Error uploading file.");
-      console.error(err);
     } finally {
       setUploading(false);
     }
@@ -159,7 +154,7 @@ const EditSoal = () => {
 
     setClick("click");
   };
-  console.log(detail);
+
   const fetchAPI = async () => {
     idTest && dispatch(await getQuizAct(`/soal/${idTest}`));
     setIdTest(id);
@@ -211,7 +206,6 @@ const EditSoal = () => {
           .put(`/soal/${id}`, data)
           .then((response) => {
             // Handle the response data
-            console.log("response", response.data);
 
             toast.done(`${response.data.message}`, {
               position: "bottom-right",
@@ -219,7 +213,7 @@ const EditSoal = () => {
           })
           .catch((error) => {
             // Handle any errors
-            console.error("There was an error!", error);
+
             toast.done(`${error.data.message}`, {
               position: "bottom-right",
             });
@@ -267,7 +261,6 @@ const EditSoal = () => {
     setOpenDetail(false);
   };
 
-  console.log(detail);
   useEffect(() => {
     id && setType_test(id);
     setTypeQuizValue(valueTypeQuiz && valueTypeQuiz.type_soal);
@@ -289,6 +282,9 @@ const EditSoal = () => {
       if (result.value) {
         fetchAPI();
         dispatch(deleteQuizAct(id));
+        toast.done(`Sukses Menghapus Soal`, {
+          position: "bottom-right",
+        });
       }
     });
   };

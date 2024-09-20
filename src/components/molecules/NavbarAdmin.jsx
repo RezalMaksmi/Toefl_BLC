@@ -12,23 +12,12 @@ import {
 } from "react-icons/bi";
 import OutsideClick from "../atoms/OutsideClick";
 import { logout } from "../../redux/slices/authSlice";
-import { toast } from "react-toastify";
-import { getTypeQuizAct, getTypeTestAct } from "../../redux/fetch/Get";
+import { getTypeTestAct } from "../../redux/fetch/Get";
 const NavbarAdmin = () => {
   const [active, setActive] = React.useState(false);
-  const { users } = useSelector((state) => state.getAPI);
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
-
-  const getUserDataFromLocalStorage = () => {
-    const user = localStorage.getItem("userData");
-    return user ? JSON.parse(user) : {};
-  };
-
-  // const { token, role } = getUserDataFromLocalStorage();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -39,19 +28,15 @@ const NavbarAdmin = () => {
   const [isShown, setIsShown] = useState(false);
   const [isShownTest, setIsShownTest] = useState(false);
   const [isShownActiveTest, setIsShownActiveTest] = useState(false);
-  const [isShownQuis, setIsShownQuis] = useState(false);
   const [isShownListAdmin, setIsShownListAdmin] = useState(false);
-  const [isShownProfile, setIsShownProfile] = useState(false);
 
   const closeToggle = () => {
     setActive(false);
   };
 
-  const { type, status, error, token } = useSelector((state) => state.auth);
   const { typeTest } = useSelector((state) => state.getAPI);
 
   const fetchData = () => {
-    // dispatch(await getUsersAct(`/peserta`));
     dispatch(getTypeTestAct("/test"));
   };
   useEffect(() => {
@@ -64,7 +49,7 @@ const NavbarAdmin = () => {
         <OutsideClick onOutsideClick={closeToggle}>
           <div
             className={`px-3 top-0 bottom-0 left-0   bg-[#E3F1FF] transition-all z-20 fixed ${
-              active ? `w-[180px]` : `w-16 `
+              active ? `w-[225px]` : `w-16 `
             }`}
           >
             <div
@@ -85,10 +70,12 @@ const NavbarAdmin = () => {
                   onMouseLeave={() => setIsShown(false)}
                 >
                   <div className="w-full flex justify-start items-end flex-row gap-4 ">
-                    <div className="w-max ml-2 h-0 flex justify-center items-center">
+                    <div className="w-max ml-2 h-0 flex justify-center items-center relative">
                       <BiSolidUserDetail className="text-3xl w-[25px] h-[25px] " />
                     </div>
-                    <span className="text-xl font-semibold ">Peserta</span>
+                    <span className="text-xl font-semibold top-3 relative">
+                      Peserta
+                    </span>
                   </div>
 
                   <div
@@ -173,7 +160,9 @@ const NavbarAdmin = () => {
                     <div className="w-max ml-2 h-0 flex justify-center items-center">
                       <BiSolidBookBookmark className="text-3xl w-[25px] h-[25px] " />
                     </div>
-                    <span className="text-xl font-semibold ">Soal</span>
+                    <span className="text-xl font-semibold top-3 relative">
+                      Soal
+                    </span>
                   </div>
 
                   <div

@@ -1,4 +1,5 @@
-import React, { Children, useEffect, useState } from "react";
+import React, { Children, useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,7 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../api/axiosInstance";
 import { setAddTypeQuizAct } from "../../redux/quiz/Quiz";
 import { activateUserTestAct } from "../../redux/users/Users";
+import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import { VscFile } from "react-icons/vsc";
 
 const ShowCard = (props) => {
   const {
@@ -119,6 +123,66 @@ const ShowCard = (props) => {
     jenisPeserta();
     setClick("");
   }, [addTypeQuiz, click]);
+
+  // ---------------------------------
+  const { dataMonth, dataIdFile, dataYear } = props;
+  const [file, setFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const location = useLocation();
+
+  const bulan = dataMonth;
+  const idFile = dataIdFile;
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setFile(acceptedFiles[0]);
+  }, []);
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    useDropzone({
+      onDrop,
+      accept: ".xlsx, .xls", // Accept specific file types
+    });
+
+  const handleUploadProgress = (progressEvent) => {
+    const progress = Math.round(
+      (progressEvent.loaded * 100) / progressEvent.total
+    );
+    setUploadProgress(progress);
+  };
+
+  const handleSubmitFile = async (event) => {
+    event.preventDefault();
+
+    if (!file) {
+      toast.error("Please select a file to upload.", {
+        position: "bottom-right",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("tahun", dataYear);
+    formData.append("bulan", bulan);
+
+    try {
+      await axiosInstance.put(`files/${idFile}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: handleUploadProgress,
+      });
+
+      toast.success("Update uploaded successfully", {
+        position: "bottom-right",
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      toast.error("Failed to upload file", { position: "bottom-right" });
+    }
+  };
 
   switch (type) {
     case "AddData":
@@ -539,6 +603,69 @@ const ShowCard = (props) => {
                       );
                     })}
                 </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </React.Fragment>
+      );
+    case "addFile":
+      return (
+        <React.Fragment>
+          <Dialog
+            open={opens}
+            onClose={close}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            className="relative w-full"
+          >
+            <span
+              className="absolute top-0 right-0 px-2 py-2 text-2xl"
+              onClick={close}
+            >
+              <LuX />
+            </span>
+            <DialogTitle
+              id="alert-dialog-title"
+              className="text-center font-bold "
+            >
+              <h1 className="font-bold text-2xl">{"Import File"}</h1>
+            </DialogTitle>
+            <DialogContent className=" w-full">
+              <div className="flex flex-col gap-2 w-[100%] px-2 pb-4">
+                {/* <h1 className="font-semibold text-xl mb-2">Update Laporan</h1> */}
+                <form onSubmit={handleSubmitFile}>
+                  <div
+                    {...getRootProps()}
+                    className={`border-2 border-dashed p-20 cursor-pointer mb-5 text-center ${
+                      isDragActive ? "bg-[#e0f7fa]" : "bg-[#fafafa]"
+                    }`}
+                  >
+                    {file ? (
+                      <div className="flex items-center justify-center">
+                        <VscFile className="mr-2 text-2xl text-[#0087F7]" />
+                        <p>{file.name}</p>
+                      </div>
+                    ) : (
+                      <>
+                        <p>
+                          Drag and drop a file here, or click to select a file
+                        </p>
+                        <input
+                          type="file"
+                          className="w-[100px]"
+                          onChange={handleFileChange}
+                        />
+                      </>
+                    )}
+                    <input {...getInputProps()} />
+                  </div>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 rounded-md bg-[#079FDB] text-white"
+                  >
+                    Uploud
+                  </button>
+                </form>
               </div>
             </DialogContent>
           </Dialog>

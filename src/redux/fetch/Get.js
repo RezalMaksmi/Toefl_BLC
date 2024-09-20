@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosInstance from "../../api/axiosInstance";
-
-const API_URL = "localhost:8000";
 
 export const getAPIAct = createAsyncThunk("get/api", async (url) => {
   try {

@@ -16,7 +16,7 @@ import axiosInstance from "../../api/axiosInstance";
 import { toast } from "react-toastify";
 import { uploadAudio } from "../../redux/features/audioSlice";
 
-const EditSoal = () => {
+const AdminQuist = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [click, setClick] = useState("");
@@ -369,6 +369,7 @@ const EditSoal = () => {
                     ? detail && detail.data.title.subtitle
                     : ""
                 }
+                typeCard="view"
                 contentValue={
                   openDetail === true ? detail && detail.data.content : ""
                 }
@@ -495,4 +496,4 @@ const EditSoal = () => {
   );
 };
 
-export default EditSoal;
+export default AdminQuist;

@@ -12,7 +12,7 @@ const LoginAdmin = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, status, error, token } = useSelector((state) => state.auth);
+  const { status, error, token } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();

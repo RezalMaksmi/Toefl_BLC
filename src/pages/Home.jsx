@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAPIAct } from "../redux/fetch/Get";
 import { CartProduct } from "../components";
 import LandingPage from "./LandingPage";
-import HomeAdmin from "./admin/HomeAdmin";
+import HomeAdmin from "./admin/AllPeserta";
 
 const Home = () => {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Loading, ShowCard } from "../../components";
+import { Button, Input, ShowCard } from "../../components";
 import {
   BiChevronLeft,
   BiChevronRight,
@@ -12,14 +12,16 @@ import axiosInstance from "../../api/axiosInstance";
 import Swal from "sweetalert2";
 import { cancelUserTestAct, getUsersActDetail } from "../../redux/users/Users";
 import { useDispatch, useSelector } from "react-redux";
+import { getTypeTestAct } from "../../redux/fetch/Get";
 
 const PesertaTest = () => {
+  const { typeTest } = useSelector((state) => state.getAPI);
+
   //action
   const [openDetail, setOpenDetail] = useState(false);
   const [openDataId, setOpenDataId] = useState();
 
   //data
-  const [test, setTest] = useState([]);
   const [testPeserta, setTestPeserta] = useState([]);
   const [currentTest, setCurrentTest] = useState("");
 
@@ -44,10 +46,13 @@ const PesertaTest = () => {
   };
 
   //fetch data
-  const fetchJenisTest = async () => {
-    const response = await axiosInstance.get("http://localhost:8000/test");
-    setTest(response.data.data);
+  const fetchData = () => {
+    dispatch(getTypeTestAct("/test"));
   };
+  // const fetchJenisTest = async () => {
+  //   const response = await axiosInstance.get("http://localhost:8000/test");
+  //   setTest(response.data.data);
+  // };
 
   const fetchTestPeserta = async (id_test) => {
     const response = await axiosInstance.get(
@@ -68,7 +73,7 @@ const PesertaTest = () => {
   };
 
   useEffect(() => {
-    fetchJenisTest();
+    fetchData();
     fetchTestPeserta(currentTest);
   }, [currentTest]);
 
@@ -96,8 +101,12 @@ const PesertaTest = () => {
                 name="selectedJenisPeserta"
                 onChange={(e) => setCurrentTest(e.target.value)}
               >
-                {test.map((item, i) => {
-                  return <option value={item.id}>{item.jenis_test}</option>;
+                {typeTest.map((item, i) => {
+                  return (
+                    <option key={i} value={item.id}>
+                      {item.jenis_test}
+                    </option>
+                  );
                 })}
               </select>
             </label>
@@ -154,7 +163,7 @@ const PesertaTest = () => {
                         {item.tgl_daftar}
                       </td>
                       <td className="border border-[#929292] px-2">
-                        {item.status_test == 0 ? (
+                        {item.status_test === 0 ? (
                           <>belum test</>
                         ) : (
                           <>sudah test</>

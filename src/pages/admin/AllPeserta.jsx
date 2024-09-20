@@ -18,8 +18,9 @@ import Swal from "sweetalert2";
 import { LayoutAdmin } from "../../template";
 import { toast } from "react-toastify";
 
-const HomeAdmin = () => {
+const AllPeserta = () => {
   const [addData, setAddData] = useState(false);
+  const [addFile, setAddFile] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
   const [openDataId, setOpenDataId] = useState();
   const [openActiveTest, setOpenActiveTest] = useState();
@@ -158,6 +159,12 @@ const HomeAdmin = () => {
         />
 
         <ShowCard
+          type="addFile"
+          opens={addFile}
+          close={() => setAddFile(false)}
+        />
+
+        <ShowCard
           type="ShowData"
           opens={openDetail}
           close={() => setOpenDetail(false)}
@@ -188,6 +195,7 @@ const HomeAdmin = () => {
               type="ButtonIcon"
               className="bg-[#21716a] items-center text-white "
               text="Import Peserta"
+              onClick={() => setAddFile(true)}
               icon={<BiSliderAlt className="text-2xl" />}
             />
           </div>
@@ -274,4 +282,4 @@ const HomeAdmin = () => {
   );
 };
 
-export default HomeAdmin;
+export default AllPeserta;

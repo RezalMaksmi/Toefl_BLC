@@ -26,6 +26,7 @@ const CardSoal = (props) => {
     b,
     c,
     d,
+    typeCard,
     submit,
     pageTitle,
     pageSubTitle,
@@ -177,13 +178,24 @@ const CardSoal = (props) => {
               <span className="text-lg">Audio</span>
 
               <div className="flex flex-row gap-4">
-                <input
+                {/* <input
                   type="file"
                   accept="audio/*"
                   onChange={handleFileChange}
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
-                />
+                /> */}
+                {audioSrc ? (
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleFileChange}
+                    className=" rounded-md px-3 py-1 text-lg"
+                    placeholder=""
+                  />
+                ) : (
+                  <span className="text-[#d33]">Audio belum ditambahkan</span>
+                )}
                 <audio ref={audioRef} src={audioSrc} />
                 <button
                   className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
@@ -495,13 +507,24 @@ const CardSoal = (props) => {
               <span className="text-lg">Audio</span>
 
               <div className="flex flex-row gap-4">
-                <input
+                {/* <input
                   type="file"
                   accept="audio/*"
                   onChange={handleFileChange}
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
-                />
+                /> */}
+                {audioSrc ? (
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleFileChange}
+                    className=" rounded-md px-3 py-1 text-lg"
+                    placeholder=""
+                  />
+                ) : (
+                  <span className="text-[#d33]">Audio belum ditambahkan</span>
+                )}
                 <audio ref={audioRef} src={audioSrc} />
                 {!audio ? (
                   <></>
@@ -643,13 +666,24 @@ const CardSoal = (props) => {
               <span className="text-lg">Audio</span>
 
               <div className="flex flex-row gap-4">
-                <input
+                {/* <input
                   type="file"
                   accept="audio/*"
                   onChange={handleFileChange}
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
-                />
+                /> */}
+                {audioSrc ? (
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleFileChange}
+                    className=" rounded-md px-3 py-1 text-lg"
+                    placeholder=""
+                  />
+                ) : (
+                  <span className="text-[#d33]">Audio belum ditambahkan</span>
+                )}
                 <audio ref={audioRef} src={audioSrc} />
                 <button
                   className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"

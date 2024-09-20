@@ -1,33 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   Home,
   LoginAdmin,
   HasilTest,
-  EditSoal,
   LihatSoal,
-  HomeAdmin,
   ActiveTest,
   AdminSetting,
   LoginPeserta,
   HomePeserta,
   TestPeserta,
   ProfilePeserta,
+  AllPeserta,
+  AdminQuist,
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
-import { useDispatch, useSelector } from "react-redux";
 import PesertaTest from "./pages/admin/PesertaTest";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "./pages/NotFound";
 
 const Router = () => {
-  const { user, loading } = useSelector((state) => state.auth);
-  const token = localStorage.getItem("userToken");
-
-  // console.log("usernya apa", user);
   return (
     <>
       <ToastContainer />
@@ -37,10 +32,10 @@ const Router = () => {
           <Route exact path="*" element={<NotFound />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/login-admin" element={<LoginAdmin />} />
-          <Route path="/dashboard" element={<HomeAdmin />} />
+          <Route path="/dashboard" element={<AllPeserta />} />
           <Route path="/hasil-test" element={<HasilTest />} />
           <Route path="/peserta-test" element={<PesertaTest />} />
-          <Route path="/tambah-soal/:id" element={<EditSoal />} />
+          <Route path="/tambah-soal/:id" element={<AdminQuist />} />
           <Route path="/lihat-soal" element={<LihatSoal />} />
           <Route path="/activated-test" element={<ActiveTest />} />
           <Route path="/admin-setting" element={<AdminSetting />} />

@@ -1,31 +1,24 @@
 // import React from 'react'
-import React, { useEffect, useState } from "react";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LuAlignRight, LuLogOut, LuX } from "react-icons/lu";
+import { LuAlignRight, LuX } from "react-icons/lu";
 
 import { Images } from "../../assets";
-import {
-  BiSolidBookBookmark,
-  BiSolidSelectMultiple,
-  BiSolidUserDetail,
-  BiSolidUserPlus,
-  BiSpreadsheet,
-} from "react-icons/bi";
+
 import CardProfile from "../atoms/CardProfile";
 import OutsideClick from "../atoms/OutsideClick";
 import { logout } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
   const [active, setActive] = React.useState(false);
-  const { users } = useSelector((state) => state.getAPI);
   const dispatch = useDispatch();
 
   let navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
 
-  const token_user = localStorage.getItem('token_user');
+  const token_user = localStorage.getItem("token_user");
 
   const getUserDataFromLocalStorage = () => {
     const user = localStorage.getItem("userData");
@@ -37,13 +30,6 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
-
-  const [isShown, setIsShown] = useState(false);
-  const [isShownTest, setIsShownTest] = useState(false);
-  const [isShownActiveTest, setIsShownActiveTest] = useState(false);
-  const [isShownQuis, setIsShownQuis] = useState(false);
-  const [isShownListAdmin, setIsShownListAdmin] = useState(false);
-  const [isShownProfile, setIsShownProfile] = useState(false);
 
   const closeToggle = () => {
     setActive(false);
@@ -73,10 +59,11 @@ const Navbar = () => {
                 <Images type="logo" className="h-full px-6  " />
               </div>
               <ul
-                className={`${active
+                className={`${
+                  active
                     ? "flex z-10 gap-20 max-[1300px]:gap-8 max-[1000px]:gap-2 justify-end h-auto my-4 text-text_color  w-[50%] max-[1000px]:absolute max-[1000px]:top-[60px] max-[1000px]:w-[200px]  max-[1000px]:flex-col max-[1000px]:right-1 transition-all max-[1000px]:bg-white_color max-[1000px]:shadow-box_item max-[1000px]:rounded-xl max-[1000px]:opacity-100 max-[1000px]:text-start max-[1000px]:py-2"
                     : "flex z-10 gap-20 max-[1300px]:gap-8 max-[1000px]:gap-2 justify-end h-auto my-4 text-text_color  w-[50%] max-[1000px]:absolute max-[1000px]:top-[-350px] max-[1000px]:w-[200px]  max-[1000px]:flex-col max-[1000px]:right-1 transition-all max-[1000px]:bg-white_color max-[1000px]:shadow-box_item max-[1000px]:rounded-xl max-[1000px]:opacity-0 max-[1000px]:py-2"
-                  } `}
+                } `}
               ></ul>
               <div
                 className="hidden  max-[1000px]:contents w-[30px] h-[30px] text-2xl"
@@ -88,10 +75,11 @@ const Navbar = () => {
               {token_user ? (
                 <Link
                   to="/login-peserta"
-                  className={` border-2 border-[#1283B6]  ${pathname === "/login-peserta"
+                  className={` border-2 border-[#1283B6]  ${
+                    pathname === "/login-peserta"
                       ? "borderr_active px-5 py-2 rounded-lg  font-semibold bg-white border text-[#1283B6]"
                       : "px-5 py-2 rounded-lg  font-semibold bg-white border text-[#1283B6]"
-                    }
+                  }
                 `}
                 >
                   Mulai Test

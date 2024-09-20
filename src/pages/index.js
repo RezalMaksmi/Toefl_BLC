@@ -1,8 +1,8 @@
 import Home from "./Home";
 import LoginAdmin from "./admin/LoginAdmin";
-import HomeAdmin from "./admin/HomeAdmin";
+import AllPeserta from "./admin/AllPeserta";
 import HasilTest from "./admin/HasilTest";
-import EditSoal from "./admin/EditSoal";
+import AdminQuist from "./admin/AdminQuist";
 import LihatSoal from "./admin/LihatSoal";
 import LandingPage from "./LandingPage";
 import ActiveTest from "./admin/ActiveTest";
@@ -17,9 +17,9 @@ import ProfilePeserta from "./peserta/ProfilePeserta";
 export {
   Home,
   LoginAdmin,
-  HomeAdmin,
+  AllPeserta,
   HasilTest,
-  EditSoal,
+  AdminQuist,
   LihatSoal,
   LandingPage,
   LoginPeserta,
@@ -27,5 +27,5 @@ export {
   TestPeserta,
   ProfilePeserta,
   ActiveTest,
-  AdminSetting
+  AdminSetting,
 };

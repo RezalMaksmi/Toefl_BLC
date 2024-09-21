@@ -25,7 +25,7 @@ const AllPeserta = () => {
   const [openDataId, setOpenDataId] = useState();
   const [openActiveTest, setOpenActiveTest] = useState();
   const [showTable, setShowTable] = useState(10);
-  //
+
   const [gender, setGender] = useState("");
   const [name, setName] = useState("");
   const [noReg, setNoReg] = useState("");
@@ -38,6 +38,32 @@ const AllPeserta = () => {
   const [instansi, setInstansi] = useState("");
   const [image, setImage] = useState();
   const [edit, setEdit] = useState(false);
+
+  // checklist
+  // State untuk checkbox individual dan select all
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+
+  // Fungsi untuk handle ketika select all dicentang
+  const handleSelectAll = () => {
+    if (!selectAll) {
+      // Jika select all dicentang, tambahkan semua item
+      const allIds = data && data.map((item) => item.id_peserta);
+      setSelectedItems(allIds);
+    } else {
+      // Jika select all di-uncheck, kosongkan daftar
+      setSelectedItems([]);
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const handleCheckboxChange = (id) => {
+    if (selectedItems.includes(id)) {
+      setSelectedItems(selectedItems.filter((item) => item !== id));
+    } else {
+      setSelectedItems([...selectedItems, id]);
+    }
+  };
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -137,6 +163,13 @@ const AllPeserta = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (selectedItems?.length === data?.length) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [selectedItems, data]);
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
@@ -198,6 +231,14 @@ const AllPeserta = () => {
               onClick={() => setAddFile(true)}
               icon={<BiSliderAlt className="text-2xl" />}
             />
+
+            <Button
+              type="ButtonIcon"
+              className="bg-[#346fce] items-center text-white "
+              text="Aktifkan Test"
+              onClick={() => setOpenActiveTest(true)}
+              icon={<BiSliderAlt className="text-2xl" />}
+            />
           </div>
           <div className="max-w-2xl w-full flex flex-row gap-4 ">
             <Input typeInput="Search" placeholder="Search..." />
@@ -219,6 +260,17 @@ const AllPeserta = () => {
           <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
             <thead className="bg-[#4BABD6] text-white h-11">
               <tr>
+                <th className="border border-[#929292]">
+                  <div className="">
+                    <input
+                      type="checkbox"
+                      name=""
+                      id=""
+                      checked={selectAll}
+                      onChange={handleSelectAll}
+                    />
+                  </div>
+                </th>
                 <th className="border border-[#929292]">No Reg</th>
                 <th className="border border-[#929292]">Nama Peserta</th>
                 <th className="border border-[#929292]">Gender</th>
@@ -238,6 +290,8 @@ const AllPeserta = () => {
                   return (
                     <CardTable
                       key={i}
+                      checked={selectedItems.includes(item.id_peserta)}
+                      onChange={() => handleCheckboxChange(item.id_peserta)}
                       NoReg={item.no_reg}
                       Name={item.nama_peserta}
                       Gender={item.gender}

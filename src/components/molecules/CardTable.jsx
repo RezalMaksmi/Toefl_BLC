@@ -17,9 +17,22 @@ const CardTable = (props) => {
     ActDelete,
     onClickEdit,
     key,
+    checked,
+    onChange,
   } = props;
   return (
     <tr key={key} className="border border-[#929292] ">
+      <td className="border px-3 border-[#929292] ">
+        <div className="flex justify-center items-center">
+          <input
+            type="checkbox"
+            name=""
+            id=""
+            checked={checked}
+            onChange={onChange}
+          />
+        </div>
+      </td>
       <td className="border py-3 border-[#929292] px-2">{NoReg}</td>
       <td className="border border-[#929292] px-2">{Name}</td>
       <td className="border border-[#929292] px-2">{Gender}</td>

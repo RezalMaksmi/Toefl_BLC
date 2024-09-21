@@ -659,12 +659,20 @@ const ShowCard = (props) => {
                     )}
                     <input {...getInputProps()} />
                   </div>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 rounded-md bg-[#079FDB] text-white"
-                  >
-                    Uploud
-                  </button>
+                  <div className="flex justify-between">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded-md bg-[#079FDB] text-white"
+                    >
+                      Uploud
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded-md bg-[#ee3636] text-white"
+                    >
+                      Download Template
+                    </button>
+                  </div>
                 </form>
               </div>
             </DialogContent>

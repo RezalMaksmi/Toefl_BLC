@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, CardTable, Input, Loading, ShowCard } from "../../components";
+import ReactPaginate from "react-paginate";
 import {
   BiChevronLeft,
   BiChevronRight,
@@ -24,6 +25,7 @@ const AllPeserta = () => {
   const [openDetail, setOpenDetail] = useState(false);
   const [openDataId, setOpenDataId] = useState();
   const [openActiveTest, setOpenActiveTest] = useState();
+  const [openActiveTestCheckbox, setOpenActiveTestCheckbox] = useState();
   const [showTable, setShowTable] = useState(10);
 
   const [gender, setGender] = useState("");
@@ -38,6 +40,20 @@ const AllPeserta = () => {
   const [instansi, setInstansi] = useState("");
   const [image, setImage] = useState();
   const [edit, setEdit] = useState(false);
+  const dispatch = useDispatch();
+  const { data, detail, status } = useSelector((state) => state.users);
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(0);
+  const perPage =
+    typeof window !== "undefined" && window.innerWidth < 768 ? 1 : showTable;
+  const pageCount = Math.ceil(data?.length / perPage);
+
+  const offset = currentPage * perPage;
+  const currentPageData = data?.slice(offset, offset + perPage);
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   // checklist
   // State untuk checkbox individual dan select all
@@ -57,6 +73,8 @@ const AllPeserta = () => {
     setSelectAll(!selectAll);
   };
 
+  console.log(selectedItems);
+
   const handleCheckboxChange = (id) => {
     if (selectedItems.includes(id)) {
       setSelectedItems(selectedItems.filter((item) => item !== id));
@@ -70,9 +88,6 @@ const AllPeserta = () => {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
   };
-  const dispatch = useDispatch();
-
-  const { data, detail, status } = useSelector((state) => state.users);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -156,6 +171,16 @@ const AllPeserta = () => {
     }
   };
 
+  const handleOpenActiveTestCheckbox = (i) => {
+    if (i === 0) {
+      return setOpenActiveTestCheckbox(false);
+    } else {
+      setOpenActiveTestCheckbox(true);
+
+      return;
+    }
+  };
+
   const fetchData = async () => {
     dispatch(await getUsersAct(`/peserta`));
   };
@@ -209,6 +234,14 @@ const AllPeserta = () => {
           close={() => setOpenActiveTest(false)}
           id={openDataId}
         />
+
+        <ShowCard
+          type="ActiveTestCheckbox"
+          opens={openActiveTestCheckbox}
+          close={() => setOpenActiveTestCheckbox(false)}
+          id={selectedItems}
+          handleOpenActiveTestCheckbox
+        />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
             <Button
@@ -236,7 +269,7 @@ const AllPeserta = () => {
               type="ButtonIcon"
               className="bg-[#346fce] items-center text-white "
               text="Aktifkan Test"
-              onClick={() => setOpenActiveTest(true)}
+              onClick={() => setOpenActiveTestCheckbox(true)}
               icon={<BiSliderAlt className="text-2xl" />}
             />
           </div>
@@ -285,8 +318,8 @@ const AllPeserta = () => {
               </tr>
             </thead>
             <tbody>
-              {data ? (
-                data.map((item, i) => {
+              {currentPageData ? (
+                currentPageData.map((item, i) => {
                   return (
                     <CardTable
                       key={i}
@@ -315,19 +348,27 @@ const AllPeserta = () => {
           </table>
         </div>
         <div className="flex justify-between items-center px-10">
-          <span className="py-4">Showing 1 to 10 of 1 entries</span>
-          <div className="flex gap-3 py-3">
-            <Button
-              type="ButtonIcon"
-              className="bg-[#F2F2F2] items-center text-[#363636] "
-              text="Prev"
-              icon={<BiChevronLeft className="text-2xl" />}
-            />
-            <Button
-              type="ButtonIcon"
-              className="bg-[#F2F2F2] items-center text-[#363636] flex-row-reverse"
-              text="Next"
-              icon={<BiChevronRight className="text-2xl" />}
+          <span className="py-4">
+            Showing {currentPage + 1} to {showTable} of {pageCount} entries
+          </span>
+
+          <div className="flex">
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              breakLabel={"..."}
+              pageCount={pageCount}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={2}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              activeClassName={
+                "active bg-[#4BABD6] border-none text-white_color"
+              }
+              className="flex justify-center space-x-5 mt-6 flex-wrap w-full"
+              previousClassName="flex justify-center items-center w-[40px] h-[40px] rounded-full font-semibold text-text_color border-2 border-gray_color"
+              nextClassName="border-2 border-gray_color border-gray-500 flex justify-center items-center w-[40px] h-[40px] rounded-full font-semibold text-text_color"
+              pageClassName="border-2 border-gray_color flex justify-center items-center w-[40px] h-[40px] rounded-full font-semibold text-text-black mb-4"
             />
           </div>
         </div>

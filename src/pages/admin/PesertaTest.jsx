@@ -101,7 +101,7 @@ const PesertaTest = () => {
                 name="selectedJenisPeserta"
                 onChange={(e) => setCurrentTest(e.target.value)}
               >
-                {typeTest.map((item, i) => {
+                {typeTest?.map((item, i) => {
                   return (
                     <option key={i} value={item.id}>
                       {item.jenis_test}

@@ -79,6 +79,25 @@ const ShowCard = (props) => {
     // dispatch(activateUserTestAct(detail.id_peserta, test));
   };
 
+  console.log(test);
+  const handleActiveTestPesertaCheckbox = async (e, test) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post(`peserta/active/more/peserta`, {
+        id_test: test,
+        peserta: id,
+      });
+      setClick("click");
+      close(false);
+      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+    // dispatch(activateUserTestAct(detail.id_peserta, test));
+  };
+
   const fetchTest = async () => {
     try {
       const response = await axiosInstance.get("http://localhost:8000/test");
@@ -122,7 +141,7 @@ const ShowCard = (props) => {
 
     jenisPeserta();
     setClick("");
-  }, [addTypeQuiz, click]);
+  }, [addTypeQuiz, click, close]);
 
   // ---------------------------------
   const { dataMonth, dataIdFile, dataYear } = props;
@@ -154,6 +173,8 @@ const ShowCard = (props) => {
     setUploadProgress(progress);
   };
 
+  console.log(file);
+
   const handleSubmitFile = async (event) => {
     event.preventDefault();
 
@@ -165,12 +186,10 @@ const ShowCard = (props) => {
     }
 
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("tahun", dataYear);
-    formData.append("bulan", bulan);
+    formData.append("file_excel", file);
 
     try {
-      await axiosInstance.put(`files/${idFile}`, formData, {
+      await axiosInstance.post(`peserta/upload/import_peserta`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: handleUploadProgress,
       });
@@ -496,6 +515,51 @@ const ShowCard = (props) => {
                         type="ButtonIcon"
                         text={item.jenis_test}
                         onClick={(e) => handleActiveTestPeserta(e, item.id)}
+                        className="bg-[#58b4ad] text-white items-center"
+                        icon={<BiCheck />}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </React.Fragment>
+      );
+    case "ActiveTestCheckbox":
+      return (
+        <React.Fragment>
+          <Dialog
+            open={opens}
+            onClose={close}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            className="relative w-full "
+          >
+            <span
+              className="absolute top-0 right-0 px-2 py-2 text-2xl"
+              onClick={close}
+            >
+              <LuX />
+            </span>
+            <DialogTitle
+              id="alert-dialog-title"
+              className="text-center font-bold "
+            >
+              <h1 className="font-bold text-2xl">{"Active Test"}</h1>
+            </DialogTitle>
+            <DialogContent className=" w-full ">
+              <div className="flex flex-row gap-2 w-[100%] px-3 pb-4">
+                <div className="flex flex-row gap-2 w-full">
+                  {test.map((item, i) => {
+                    return (
+                      <Button
+                        key={i}
+                        type="ButtonIcon"
+                        text={item.jenis_test}
+                        onClick={(e) =>
+                          handleActiveTestPesertaCheckbox(e, item.id)
+                        }
                         className="bg-[#58b4ad] text-white items-center"
                         icon={<BiCheck />}
                       />

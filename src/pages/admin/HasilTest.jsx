@@ -58,7 +58,7 @@ const HasilTest = () => {
                 name="selectedJenisPeserta"
                 onChange={(e) => setCurrentTest(e.target.value)}
               >
-                {test.map((item, i) => {
+                {test?.map((item, i) => {
                   return <option value={item.id}>{item.jenis_test}</option>;
                 })}
               </select>

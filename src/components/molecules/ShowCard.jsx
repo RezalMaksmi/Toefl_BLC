@@ -16,6 +16,7 @@ import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { VscFile } from "react-icons/vsc";
+import Loading from "./Loading";
 
 const ShowCard = (props) => {
   const {
@@ -68,12 +69,13 @@ const ShowCard = (props) => {
         `http://localhost:8000/peserta/active/${detail.id_peserta}`,
         { id_test: test }
       );
-      setClick("click");
       close(false);
+      setClick("click");
       Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
     } catch (error) {
       setError(error);
     } finally {
+      close(false);
       setIsLoading(false);
     }
     // dispatch(activateUserTestAct(detail.id_peserta, test));
@@ -149,9 +151,6 @@ const ShowCard = (props) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const location = useLocation();
 
-  const bulan = dataMonth;
-  const idFile = dataIdFile;
-
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
   }, []);
@@ -187,22 +186,30 @@ const ShowCard = (props) => {
 
     const formData = new FormData();
     formData.append("file_excel", file);
+    setIsLoading(true);
+    close(false);
 
     try {
       await axiosInstance.post(`peserta/upload/import_peserta`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: handleUploadProgress,
       });
-
-      toast.success("Update uploaded successfully", {
-        position: "bottom-right",
-      });
+      setIsLoading(false);
+      Swal.fire("Berhasil!", "Menambahkan Peserta", "success");
     } catch (error) {
+      setIsLoading(false);
       console.error("Error uploading file:", error);
       toast.error("Failed to upload file", { position: "bottom-right" });
+    } finally {
+      setIsLoading(false);
+      handleRefresh();
     }
   };
 
+  !isLoading && <Loading />;
+  const handleRefresh = () => {
+    window.location.reload();
+  };
   switch (type) {
     case "AddData":
       return (

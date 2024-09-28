@@ -43,7 +43,7 @@ const ShowCard = (props) => {
     closeCart,
   } = props;
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [addTypeQuiz, setAddTypeQuiz] = useState(null);
   const [jenisP, setJenisP] = useState();
@@ -64,6 +64,8 @@ const ShowCard = (props) => {
 
   const handleActiveTestPeserta = async (e, test) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const response = await axiosInstance.post(
         `http://localhost:8000/peserta/active/${detail.id_peserta}`,
@@ -71,10 +73,11 @@ const ShowCard = (props) => {
       );
       close(false);
       setClick("click");
-      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
     } catch (error) {
       setError(error);
+      setIsLoading(false);
     } finally {
+      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
       close(false);
       setIsLoading(false);
     }
@@ -84,6 +87,8 @@ const ShowCard = (props) => {
   console.log(test);
   const handleActiveTestPesertaCheckbox = async (e, test) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const response = await axiosInstance.post(`peserta/active/more/peserta`, {
         id_test: test,
@@ -91,10 +96,11 @@ const ShowCard = (props) => {
       });
       setClick("click");
       close(false);
-      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
     } catch (error) {
       setError(error);
+      setIsLoading(false);
     } finally {
+      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
       setIsLoading(false);
     }
     // dispatch(activateUserTestAct(detail.id_peserta, test));
@@ -106,8 +112,6 @@ const ShowCard = (props) => {
       setTest(response.data.data);
     } catch (error) {
       setError(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -119,8 +123,6 @@ const ShowCard = (props) => {
       setRoleP(response.data);
     } catch (error) {
       setError(error);
-    } finally {
-      setIsLoading(false);
     }
   };
   const jenisPeserta = async () => {
@@ -131,8 +133,6 @@ const ShowCard = (props) => {
       setJenisP(response.data);
     } catch (error) {
       setError(error);
-    } finally {
-      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -187,21 +187,20 @@ const ShowCard = (props) => {
     const formData = new FormData();
     formData.append("file_excel", file);
     setIsLoading(true);
-    close(false);
 
     try {
       await axiosInstance.post(`peserta/upload/import_peserta`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: handleUploadProgress,
       });
-      setIsLoading(false);
-      Swal.fire("Berhasil!", "Menambahkan Peserta", "success");
     } catch (error) {
       setIsLoading(false);
       console.error("Error uploading file:", error);
       toast.error("Failed to upload file", { position: "bottom-right" });
     } finally {
+      Swal.fire("Berhasil!", "Menambahkan Peserta", "success");
       setIsLoading(false);
+      close(false);
       handleRefresh();
     }
   };
@@ -475,7 +474,7 @@ const ShowCard = (props) => {
                   </div>
                 </div>
               ) : (
-                "Loading"
+                <Loading />
               )}
             </DialogContent>
             <DialogActions className="mr-4 mb-3">
@@ -527,6 +526,7 @@ const ShowCard = (props) => {
                       />
                     );
                   })}
+                  {isLoading && <Loading />}
                 </div>
               </div>
             </DialogContent>
@@ -572,6 +572,7 @@ const ShowCard = (props) => {
                       />
                     );
                   })}
+                  {isLoading && <Loading />}
                 </div>
               </div>
             </DialogContent>
@@ -745,6 +746,7 @@ const ShowCard = (props) => {
                     </button>
                   </div>
                 </form>
+                {isLoading && <Loading />}
               </div>
             </DialogContent>
           </Dialog>

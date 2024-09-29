@@ -186,7 +186,10 @@ const AllPeserta = () => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+
+    openActiveTestCheckbox === false && setSelectedItems([]);
+    openActiveTestCheckbox === false && setSelectAll(false);
+  }, [openActiveTestCheckbox]);
 
   useEffect(() => {
     if (selectedItems?.length === data?.length) {

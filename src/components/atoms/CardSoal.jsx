@@ -47,6 +47,7 @@ const CardSoal = (props) => {
     handleEdit,
     handleUpdate,
     audio,
+    id_soal
   } = props;
   const navigate = useNavigate();
   switch (type) {
@@ -61,6 +62,7 @@ const CardSoal = (props) => {
               type="PrimaryButton"
               text="Lihat Soal"
               className="bg-[#17948B] "
+              onClick={() => navigate(`/lihat-soal/${id_soal}`)}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -448,7 +450,7 @@ const CardSoal = (props) => {
               type="PrimaryButton"
               text="Lihat Soal"
               className="bg-[#17948B] "
-              onClick={() => navigate("/lihat-soal")}
+              onClick={() => navigate(`/lihat-soal/${id_soal}`)}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -596,6 +598,7 @@ const CardSoal = (props) => {
               type="PrimaryButton"
               text="Lihat Soal"
               className="bg-[#17948B] "
+              onClick={() => navigate(`/lihat-soal/${id_soal}`)}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">

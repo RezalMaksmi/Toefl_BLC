@@ -36,7 +36,7 @@ const Router = () => {
           <Route path="/hasil-test" element={<HasilTest />} />
           <Route path="/peserta-test" element={<PesertaTest />} />
           <Route path="/tambah-soal/:id" element={<AdminQuist />} />
-          <Route path="/lihat-soal" element={<LihatSoal />} />
+          <Route path="/lihat-soal/:id_soal" element={<LihatSoal />} />
           <Route path="/activated-test" element={<ActiveTest />} />
           <Route path="/admin-setting" element={<AdminSetting />} />
 

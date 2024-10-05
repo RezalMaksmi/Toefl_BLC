@@ -322,11 +322,10 @@ const AdminQuist = () => {
                   return (
                     <button
                       key={i}
-                      className={`w-full py-2 text-start rounded-xl ${
-                        detail &&
+                      className={`w-full py-2 text-start rounded-xl ${detail &&
                         item.index === detail.data.index &&
                         "text-slate-600 bg-white"
-                      } `}
+                        } `}
                       onClick={() => handleDetail(item.id)}
                     >
                       <span className="px-2">
@@ -400,6 +399,7 @@ const AdminQuist = () => {
                 handleEdit={() =>
                   handleUpdateQuiz(detail && detail.data.type_soal)
                 }
+                id_soal={detail && detail.data.id}
               />
             ) : editSoal ? (
               <CardSoal

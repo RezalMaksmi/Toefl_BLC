@@ -56,29 +56,25 @@ const AdminSetting = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Hapus",
     }).then((result) => {
-      if (result.value) {
+      if (result.isConfirmed) {
         fetchDataAdmin();
         dispatch(adminDeleteAct(id));
         Swal.fire("Berhasil!", status, "success");
-      } else {
-        Swal.fire(
-          "Gagal!",
-          "Username atau password tidak boleh kosong",
-          "error"
-        );
+      } else if (result.isDismissed) {
+        Swal.fire("Batal", "Admin tetap ada", "info");
       }
     });
   };
 
   const handleUpdatePassword = (id) => {
     Swal.fire({
-      title: "Ganti Password",
+      title: "Ganti Password (password minimal 6 karakter)",
       input: "password",
       inputPlaceholder: "Password baru",
       showCancelButton: true,
       confirmButtonText: "Simpan",
     }).then((result) => {
-      if (result.value) {
+      if (result.isConfirmed) {
         fetchDataAdmin();
         dispatch(updatePasswordAdminAct(id, { new_password: result.value }));
         Swal.fire("Berhasil", status, "success");
@@ -117,25 +113,6 @@ const AdminSetting = () => {
               onClick={handleAddAdmin}
               icon={<BiSolidUserPlus className="text-2xl" />}
             />
-            <Button
-              type="ButtonIcon"
-              className="bg-[#58b4ad] items-center text-white "
-              text="Filter"
-              icon={<BiSliderAlt className="text-2xl" />}
-            />
-          </div>
-          <div className="max-w-2xl w-full flex flex-row gap-4 ">
-            <Input typeInput="Search" placeholder="Search..." />
-            <label>
-              <select
-                className="w-[100px] px-2 py-2 focus:outline-none border rounded-md"
-                name="selectedJenisPeserta"
-              >
-                <option value={10}>Show 10</option>
-                <option value={30}>Show 30</option>
-                <option value={0}>Show All</option>
-              </select>
-            </label>
           </div>
         </div>
         <div className="h-3"></div>
@@ -143,8 +120,9 @@ const AdminSetting = () => {
           <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
             <thead className="bg-[#4BABD6] text-white h-11">
               <tr>
-                <th className="border border-[#929292]">Admin</th>
-                <th className="border border-[#929292]  w-auto">Action</th>
+                <th className="border border-[#929292] w-3/6">Username</th>
+                <th className="border border-[#929292] w-2/6">Role</th>
+                <th className="border border-[#929292] w-1/6">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -154,6 +132,9 @@ const AdminSetting = () => {
                     <tr className="border border-[#929292] " key={i}>
                       <td className="border py-3 border-[#929292] px-2">
                         {item.username}
+                      </td>
+                      <td className="border py-3 border-[#929292] px-2">
+                        Admin
                       </td>
                       <td className="">
                         <div className="flex md:flex-row gap-2 w-fit flex-col text-center mx-auto my-2">

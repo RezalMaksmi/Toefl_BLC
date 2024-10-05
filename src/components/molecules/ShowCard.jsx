@@ -615,7 +615,7 @@ const ShowCard = (props) => {
                   />
                   <Input
                     typeInput="InputForm"
-                    name="Password"
+                    name="Password (password minimal 6 karakter)"
                     placeholder="Masukkan Password"
                     type="text"
                     onChange={passwordValue}

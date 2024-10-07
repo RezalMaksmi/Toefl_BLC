@@ -1,5 +1,4 @@
 import React, { Children, useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -13,10 +12,11 @@ import axiosInstance from "../../api/axiosInstance";
 import { setAddTypeQuizAct } from "../../redux/quiz/Quiz";
 import { activateUserTestAct } from "../../redux/users/Users";
 import { useDropzone } from "react-dropzone";
+
 import Swal from "sweetalert2";
+import Loading from "./Loading";
 import { toast } from "react-toastify";
 import { VscFile } from "react-icons/vsc";
-import Loading from "./Loading";
 
 const ShowCard = (props) => {
   const {
@@ -43,13 +43,15 @@ const ShowCard = (props) => {
     closeCart,
   } = props;
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [addTypeQuiz, setAddTypeQuiz] = useState(null);
   const [jenisP, setJenisP] = useState();
   const [roleP, setRoleP] = useState();
   const [click, setClick] = useState("");
   const [test, setTest] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [file, setFile] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -64,43 +66,17 @@ const ShowCard = (props) => {
 
   const handleActiveTestPeserta = async (e, test) => {
     e.preventDefault();
-    setIsLoading(true);
-
     try {
       const response = await axiosInstance.post(
         `http://localhost:8000/peserta/active/${detail.id_peserta}`,
         { id_test: test }
       );
-      close(false);
-      setClick("click");
-    } catch (error) {
-      setError(error);
-      setIsLoading(false);
-    } finally {
-      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
-      close(false);
-      setIsLoading(false);
-    }
-    // dispatch(activateUserTestAct(detail.id_peserta, test));
-  };
-
-  console.log(test);
-  const handleActiveTestPesertaCheckbox = async (e, test) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const response = await axiosInstance.post(`peserta/active/more/peserta`, {
-        id_test: test,
-        peserta: id,
-      });
       setClick("click");
       close(false);
+      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
     } catch (error) {
       setError(error);
-      setIsLoading(false);
     } finally {
-      Swal.fire("Berhasil!", "mengaktifkan peserta", "success");
       setIsLoading(false);
     }
     // dispatch(activateUserTestAct(detail.id_peserta, test));
@@ -112,6 +88,8 @@ const ShowCard = (props) => {
       setTest(response.data.data);
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -123,6 +101,8 @@ const ShowCard = (props) => {
       setRoleP(response.data);
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   const jenisPeserta = async () => {
@@ -133,23 +113,10 @@ const ShowCard = (props) => {
       setJenisP(response.data);
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
-  useEffect(() => {
-    addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
-
-    rolePeserta();
-    fetchTest();
-
-    jenisPeserta();
-    setClick("");
-  }, [addTypeQuiz, click, close]);
-
-  // ---------------------------------
-  const { dataMonth, dataIdFile, dataYear } = props;
-  const [file, setFile] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const location = useLocation();
 
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0]);
@@ -171,8 +138,6 @@ const ShowCard = (props) => {
     );
     setUploadProgress(progress);
   };
-
-  console.log(file);
 
   const handleSubmitFile = async (event) => {
     event.preventDefault();
@@ -209,6 +174,17 @@ const ShowCard = (props) => {
   const handleRefresh = () => {
     window.location.reload();
   };
+
+  useEffect(() => {
+    addTypeQuiz && dispatch(setAddTypeQuizAct(addTypeQuiz));
+
+    rolePeserta();
+    fetchTest();
+
+    jenisPeserta();
+    setClick("");
+  }, [addTypeQuiz, click]);
+
   switch (type) {
     case "AddData":
       return (
@@ -474,7 +450,7 @@ const ShowCard = (props) => {
                   </div>
                 </div>
               ) : (
-                <Loading />
+                "Loading"
               )}
             </DialogContent>
             <DialogActions className="mr-4 mb-3">
@@ -526,53 +502,6 @@ const ShowCard = (props) => {
                       />
                     );
                   })}
-                  {isLoading && <Loading />}
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </React.Fragment>
-      );
-    case "ActiveTestCheckbox":
-      return (
-        <React.Fragment>
-          <Dialog
-            open={opens}
-            onClose={close}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            className="relative w-full "
-          >
-            <span
-              className="absolute top-0 right-0 px-2 py-2 text-2xl"
-              onClick={close}
-            >
-              <LuX />
-            </span>
-            <DialogTitle
-              id="alert-dialog-title"
-              className="text-center font-bold "
-            >
-              <h1 className="font-bold text-2xl">{"Active Test"}</h1>
-            </DialogTitle>
-            <DialogContent className=" w-full ">
-              <div className="flex flex-row gap-2 w-[100%] px-3 pb-4">
-                <div className="flex flex-row gap-2 w-full">
-                  {test.map((item, i) => {
-                    return (
-                      <Button
-                        key={i}
-                        type="ButtonIcon"
-                        text={item.jenis_test}
-                        onClick={(e) =>
-                          handleActiveTestPesertaCheckbox(e, item.id)
-                        }
-                        className="bg-[#58b4ad] text-white items-center"
-                        icon={<BiCheck />}
-                      />
-                    );
-                  })}
-                  {isLoading && <Loading />}
                 </div>
               </div>
             </DialogContent>
@@ -615,7 +544,7 @@ const ShowCard = (props) => {
                   />
                   <Input
                     typeInput="InputForm"
-                    name="Password (password minimal 6 karakter)"
+                    name="Password"
                     placeholder="Masukkan Password"
                     type="text"
                     onChange={passwordValue}

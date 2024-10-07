@@ -42,22 +42,28 @@ const CardSoal = (props) => {
     dValue,
     keyQuiz,
     keyValue,
-    addSoal,
+    addQuiz,
     handleDelete,
     handleEdit,
     handleUpdate,
     audio,
-    id_soal
+    id_soal,
+    description,
   } = props;
   const navigate = useNavigate();
+
+  console.log(audio);
   switch (type) {
     case "paragraph":
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
-            <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-              LISTENING
-            </h1>
+            <div className="flex gap-2 justify-center items-center">
+              <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
+                LISTENING
+              </h1>
+              <span> - {type}</span>
+            </div>
             <Button
               type="PrimaryButton"
               text="Lihat Soal"
@@ -187,7 +193,13 @@ const CardSoal = (props) => {
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
                 /> */}
-                {audioSrc ? (
+                {audioSrc || typeFuction === "update" ? (
+                  <></>
+                ) : (
+                  <span className="text-[#d33]">Audio belum ditambahkan</span>
+                )}
+                <audio ref={audioRef} src={audioSrc} />
+                {typeFuction === "update" && (
                   <input
                     type="file"
                     accept="audio/*"
@@ -195,16 +207,15 @@ const CardSoal = (props) => {
                     className=" rounded-md px-3 py-1 text-lg"
                     placeholder=""
                   />
-                ) : (
-                  <span className="text-[#d33]">Audio belum ditambahkan</span>
                 )}
-                <audio ref={audioRef} src={audioSrc} />
-                <button
-                  className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
-                  onClick={handlePlayPause}
-                >
-                  {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
-                </button>
+                {audio && (
+                  <button
+                    className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
+                    onClick={handlePlayPause}
+                  >
+                    {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -214,7 +225,7 @@ const CardSoal = (props) => {
               <button>{"< Back"}</button>
               <button>{"Next >"}</button>
             </div>
-            {addSoal === true ? (
+            {addQuiz == true ? (
               <div className="flex justify-end">
                 <Button
                   type="PrimaryButton"
@@ -260,9 +271,12 @@ const CardSoal = (props) => {
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
-            <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-              LISTENING
-            </h1>
+            <div className="flex gap-2 justify-center items-center">
+              <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
+                LISTENING
+              </h1>
+              <span> - {type}</span>
+            </div>
             <Button
               type="PrimaryButton"
               text="Lihat Soal"
@@ -398,7 +412,7 @@ const CardSoal = (props) => {
               <button>{"< Back"}</button>
               <button>{"Next >"}</button>
             </div>
-            {addSoal === true ? (
+            {addQuiz == true ? (
               <div className="flex justify-end">
                 <Button
                   type="PrimaryButton"
@@ -443,9 +457,12 @@ const CardSoal = (props) => {
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
-            <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-              LISTENING
-            </h1>
+            <div className="flex gap-2 justify-center items-center">
+              <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
+                LISTENING
+              </h1>
+              <span> - {type}</span>
+            </div>
             <Button
               type="PrimaryButton"
               text="Lihat Soal"
@@ -509,14 +526,13 @@ const CardSoal = (props) => {
               <span className="text-lg">Audio</span>
 
               <div className="flex flex-row gap-4">
-                {/* <input
-                  type="file"
-                  accept="audio/*"
-                  onChange={handleFileChange}
-                  className=" rounded-md px-3 py-1 text-lg"
-                  placeholder=""
-                /> */}
-                {audioSrc ? (
+                {audioSrc || typeFuction === "update" ? (
+                  <></>
+                ) : (
+                  <span className="text-[#d33]">Audio belum ditambahkan</span>
+                )}
+                <audio ref={audioRef} src={audioSrc} />
+                {typeFuction === "update" && (
                   <input
                     type="file"
                     accept="audio/*"
@@ -524,13 +540,8 @@ const CardSoal = (props) => {
                     className=" rounded-md px-3 py-1 text-lg"
                     placeholder=""
                   />
-                ) : (
-                  <span className="text-[#d33]">Audio belum ditambahkan</span>
                 )}
-                <audio ref={audioRef} src={audioSrc} />
-                {!audio ? (
-                  <></>
-                ) : (
+                {audio && (
                   <button
                     className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
                     onClick={handlePlayPause}
@@ -547,7 +558,7 @@ const CardSoal = (props) => {
               <button>{"< Back"}</button>
               <button>{"Next >"}</button>
             </div>
-            {addSoal === true ? (
+            {addQuiz == true ? (
               <div className="flex justify-end">
                 <Button
                   type="PrimaryButton"
@@ -591,9 +602,12 @@ const CardSoal = (props) => {
       return (
         <div className="flex flex-col gap-6 p-4 h-full">
           <div className="flex flex-row justify-between">
-            <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-              LISTENING
-            </h1>
+            <div className="flex gap-2 justify-center items-center">
+              <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
+                LISTENING
+              </h1>
+              <span> - {type}</span>
+            </div>
             <Button
               type="PrimaryButton"
               text="Lihat Soal"
@@ -676,7 +690,13 @@ const CardSoal = (props) => {
                   className=" rounded-md px-3 py-1 text-lg"
                   placeholder=""
                 /> */}
-                {audioSrc ? (
+                {audioSrc || typeFuction === "update" ? (
+                  <></>
+                ) : (
+                  <span className="text-[#d33]">Audio belum ditambahkan</span>
+                )}
+                <audio ref={audioRef} src={audioSrc} />
+                {typeFuction === "update" && (
                   <input
                     type="file"
                     accept="audio/*"
@@ -684,16 +704,15 @@ const CardSoal = (props) => {
                     className=" rounded-md px-3 py-1 text-lg"
                     placeholder=""
                   />
-                ) : (
-                  <span className="text-[#d33]">Audio belum ditambahkan</span>
                 )}
-                <audio ref={audioRef} src={audioSrc} />
-                <button
-                  className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
-                  onClick={handlePlayPause}
-                >
-                  {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
-                </button>
+                {audio && (
+                  <button
+                    className="text-lg bg-slate-600 text-white px-3 rounded-md flex justify-center items-center gap-2"
+                    onClick={handlePlayPause}
+                  >
+                    {!isPlaying ? <BiPlay /> : <BiPause />} Check Shound
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -703,7 +722,7 @@ const CardSoal = (props) => {
               <button>{"< Back"}</button>
               <button>{"Next >"}</button>
             </div>
-            {addSoal === true ? (
+            {addQuiz == true ? (
               <div className="flex justify-end">
                 <Button
                   type="PrimaryButton"

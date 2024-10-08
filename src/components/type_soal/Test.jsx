@@ -3,7 +3,7 @@ import { Timer, Button } from "../atoms";
 import { AiFillSound } from "react-icons/ai";
 
 function Test(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, timer, handle } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, timer, handle, edited, id_soal } = props;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [disabledButton, setDisabledButton] = useState(true);
     const handleAnswer = (answer) => {
@@ -76,6 +76,15 @@ function Test(props) {
                 </div>
             </div>
             <div className="flex justify-end m-4">
+                {edited == true ? (
+                    <Link to={`/tambah-soal/${id_soal}`}>
+                        <Button
+                            type={"PrimaryButton"}
+                            text={"Edit Soal"}
+                            className="bg-[#1283b6]"
+                        />
+                    </Link>
+                ) : ('-')}
                 <Button
                     type={"PrimaryButton"}
                     text={"Next"}

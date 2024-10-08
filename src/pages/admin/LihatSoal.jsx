@@ -38,6 +38,8 @@ const LihatSoal = () => {
                                             subTitle={soal.title.subtitle}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_test={params.id_soal}
                                         />
                                     </>
 
@@ -52,6 +54,8 @@ const LihatSoal = () => {
                                             content={soal.content}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_soal={params.id_soal}
                                         />
                                     </>
                                 case "example":
@@ -68,6 +72,8 @@ const LihatSoal = () => {
                                             d={soal.d}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_soal={params.id_soal}
                                         />
                                     </>
                                 case "test":
@@ -85,6 +91,8 @@ const LihatSoal = () => {
                                             d={soal.d}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_soal={params.id_soal}
                                         />
                                     </>
                                 case "test1":
@@ -102,6 +110,8 @@ const LihatSoal = () => {
                                             d={soal.d}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_soal={params.id_soal}
                                         />
                                     </>
                                 case "soal":
@@ -119,6 +129,8 @@ const LihatSoal = () => {
                                             d={soal.d}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_soal={params.id_soal}
                                         />
                                     </>
                                 case "paragraph":
@@ -137,6 +149,8 @@ const LihatSoal = () => {
                                             paragraph={soal.paragraph}
                                             timer={30}
                                             handle={handleNextQuiz()}
+                                            edited={true}
+                                            id_soal={params.id_soal}
                                         />
                                     </>
                             }

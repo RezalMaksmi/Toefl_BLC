@@ -13,6 +13,7 @@ import LoginPeserta from "./peserta/LoginPeserta";
 import HomePeserta from "./peserta/HomePeserta";
 import TestPeserta from "./peserta/TestPeserta";
 import ProfilePeserta from "./peserta/ProfilePeserta";
+import StartTestPeserta from "./peserta/StartTestPeserta";
 
 export {
   Home,
@@ -28,4 +29,5 @@ export {
   ProfilePeserta,
   ActiveTest,
   AdminSetting,
+  StartTestPeserta
 };

@@ -23,8 +23,6 @@ export const getTestActDetail = createAsyncThunk(
     try {
       const response = await axiosInstance.get(`${backendURL}/test/${id}`);
 
-      // console.log(response.data);
-
       return response.data.data;
     } catch (error) {
       console.log(error);
@@ -48,7 +46,6 @@ export const activeTestAct = createAsyncThunk(
         return response.data;
       }
     } catch (error) {
-      console.log(error);
       toast.done(`${error.response.message}`, {
         position: "bottom-right",
       });

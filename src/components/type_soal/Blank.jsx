@@ -1,9 +1,10 @@
-import React from "react"
+import React from "react";
 import { Timer, Button } from "../atoms";
 import { AiFillSound } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function Blank(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, timer, handle, sound } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, timer, handle, sound, edited, id_soal } = props;
     return (
         <>
             {/* header */}
@@ -34,10 +35,19 @@ function Blank(props) {
             </div>
             <div className="flex justify-center items-center">
                 <div className="ring-2 ring-gray-700 p-8 rounded-full shadow-lg">
-                    <AiFillSound size={50}  color="gray"/>
+                    <AiFillSound size={50} color="gray" />
                 </div>
             </div>
             <div className="flex justify-end m-4">
+                {edited == true ? (
+                    <Link to={`/tambah-soal/${id_soal}`}>
+                        <Button
+                            type={"PrimaryButton"}
+                            text={"Edit Soal"}
+                            className="bg-[#1283b6]"
+                        />
+                    </Link>
+                ) : ('-')}
                 <Button
                     type={"PrimaryButton"}
                     text={"Next"}

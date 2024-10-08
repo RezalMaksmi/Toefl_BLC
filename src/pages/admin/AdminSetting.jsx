@@ -17,6 +17,7 @@ const AdminSetting = () => {
   const [addAdmin, setAddAdmin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  var no = 1;
 
   const dispatch = useDispatch();
   const { data, detail, status } = useSelector((state) => state.admin);
@@ -120,9 +121,10 @@ const AdminSetting = () => {
           <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
             <thead className="bg-[#4BABD6] text-white h-11">
               <tr>
-                <th className="border border-[#929292] w-3/6">Username</th>
-                <th className="border border-[#929292] w-2/6">Role</th>
-                <th className="border border-[#929292] w-1/6">Action</th>
+                <th className="border border-[#929292] w-1/12">No.</th>
+                <th className="border border-[#929292] w-8/12">Username</th>
+                <th className="border border-[#929292] w-2/12">Role</th>
+                <th className="border border-[#929292] w-2/12">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -130,6 +132,9 @@ const AdminSetting = () => {
                 data.map((item, i) => {
                   return (
                     <tr className="border border-[#929292] " key={i}>
+                      <td className="border py-3 border-[#929292] text-center">
+                        {no++}
+                      </td>
                       <td className="border py-3 border-[#929292] px-2">
                         {item.username}
                       </td>

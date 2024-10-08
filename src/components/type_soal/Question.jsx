@@ -2,7 +2,7 @@ import React from "react"
 import { Timer, Button } from "../atoms";
 
 function Question(props) {
-    const {test, pageTitle, pageSubtitle, title, subTitle, timer, handle} = props;
+    const {test, pageTitle, pageSubtitle, title, subTitle, timer, handle, edited} = props;
     return (
         <>
         {/* header */}

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Timer, Button } from "../atoms";
 
 function Paragraph(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, paragraph_title, paragraph, timer, handle } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, paragraph_title, paragraph, timer, handle, edited } = props;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [disabledButton, setDisabledButton] = useState(true);
     const handleAnswer = (answer) => {

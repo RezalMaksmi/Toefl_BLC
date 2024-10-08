@@ -85,7 +85,7 @@ const HomePeserta = () => {
               {test.map((item, index) => (
                 <div key={index}>
                   {item.id == resTest.id_test ? (
-                    <Link to={`/test-peserta/${item.id}`}>
+                    <Link to={`/start-peserta/${item.id}`}>
                       <div className="bg-blue-100 cursor-pointer flex justify-center items-center flex-col rounded-3xl shadow-lg p-5 ring-1 ring-gray-500">
                         <Images src={book_active} className="h-[150px] " />
                         <p className="font-semibold text-center text-xl mt-2">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Timer } from "../atoms";
 
 function Example(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, timer, handle } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, timer, handle, edited, id_soal } = props;
     const [disabledButton, setDisabledButton] = useState(true);
 
     // State atau logika untuk mengelola jawaban yang dipilih
@@ -70,6 +70,15 @@ function Example(props) {
                 </div>
             </div>
             <div className="flex justify-end m-4">
+            {edited == true ? (
+                    <Link to={`/tambah-soal/${id_soal}`}>
+                        <Button
+                            type={"PrimaryButton"}
+                            text={"Edit Soal"}
+                            className="bg-[#1283b6]"
+                        />
+                    </Link>
+                ) : ('-')}
                 <Button
                 disable={disabledButton}
                     type={"PrimaryButton"}

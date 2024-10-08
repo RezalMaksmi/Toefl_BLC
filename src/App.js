@@ -15,6 +15,7 @@ import {
   ProfilePeserta,
   AllPeserta,
   AdminQuist,
+  StartTestPeserta
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
 import PesertaTest from "./pages/admin/PesertaTest";
@@ -44,6 +45,7 @@ const Router = () => {
           <Route path="/login-peserta" element={<LoginPeserta />} />
           <Route path="/dashboard-peserta" element={<HomePeserta />} />
           <Route path="/test-peserta/:test" element={<TestPeserta />} />
+          <Route path="/start-peserta/:test" element={<StartTestPeserta />} />
           <Route path="/profile-peserta" element={<ProfilePeserta />} />
         </Routes>
         <Footer />

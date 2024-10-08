@@ -2,7 +2,7 @@ import React from "react"
 import { Timer, Button } from "../atoms";
 
 function Card(props) {
-    const {test, pageTitle, pageSubtitle, title, subTitle, content, timer, handle} = props;
+    const {test, pageTitle, pageSubtitle, title, subTitle, content, timer, handle, edited, id_soal} = props;
     return (
         <>
         {/* header */}
@@ -34,6 +34,15 @@ function Card(props) {
                 </div>
             </div>
             <div className="flex justify-end m-4">
+            {edited == true ? (
+                    <Link to={`/tambah-soal/${id_soal}`}>
+                        <Button
+                            type={"PrimaryButton"}
+                            text={"Edit Soal"}
+                            className="bg-[#1283b6]"
+                        />
+                    </Link>
+                ) : ('-')}
                 <Button
                     type={"PrimaryButton"}
                     text={"Next"}

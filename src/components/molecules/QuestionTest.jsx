@@ -23,6 +23,7 @@ function QuestionTest(props) {
                                             subTitle={question.title.subtitle}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
 
@@ -37,6 +38,7 @@ function QuestionTest(props) {
                                             content={question.content}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
                                 case "example":
@@ -53,6 +55,7 @@ function QuestionTest(props) {
                                             d={question.d}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
                                 case "test":
@@ -70,6 +73,7 @@ function QuestionTest(props) {
                                             d={question.d}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
                                 case "test1":
@@ -87,6 +91,7 @@ function QuestionTest(props) {
                                             d={question.d}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
                                 case "question":
@@ -104,6 +109,7 @@ function QuestionTest(props) {
                                             d={question.d}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
                                 case "paragraph":
@@ -122,6 +128,7 @@ function QuestionTest(props) {
                                             paragraph={question.paragraph}
                                             timer={timeLeft}
                                             handle={handleClick}
+                                            edited={false}
                                         />
                                     </>
                             }

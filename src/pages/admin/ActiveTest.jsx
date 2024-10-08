@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Loading } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import axiosInstance from "../../api/axiosInstance";
 import { LayoutAdmin } from "../../template";
 import { getTestAct, activeTestAct } from "../../redux/test/Test";
 

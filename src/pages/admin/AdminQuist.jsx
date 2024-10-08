@@ -322,10 +322,11 @@ const AdminQuist = () => {
                   return (
                     <button
                       key={i}
-                      className={`w-full py-2 text-start rounded-xl ${detail &&
+                      className={`w-full py-2 text-start rounded-xl ${
+                        detail &&
                         item.index === detail.data.index &&
                         "text-slate-600 bg-white"
-                        } `}
+                      } `}
                       onClick={() => handleDetail(item.id)}
                     >
                       <span className="px-2">
@@ -400,6 +401,7 @@ const AdminQuist = () => {
                   handleUpdateQuiz(detail && detail.data.type_soal)
                 }
                 id_soal={detail && detail.data.id}
+                addQuiz={false}
               />
             ) : editSoal ? (
               <CardSoal
@@ -439,6 +441,12 @@ const AdminQuist = () => {
                 handleUpdate={() => handleUpdate(detail && detail.data.id)}
                 handleFileChange={handleFileChange}
                 audioRef={audioRef}
+                audioSrc={
+                  openDetail === true
+                    ? detail && detail.data.audio && detail.data.audio.url
+                    : ""
+                }
+                audio={openDetail === true ? detail && detail.data.audio : null}
                 handlePlayPause={handlePlayPause}
                 isPlaying={isPlaying}
                 typeFuction="update"
@@ -478,7 +486,7 @@ const AdminQuist = () => {
                 keyQuiz={(e) => setKeyQuiz(e.target.value)}
                 timer={(e) => setTimer(e.target.value)}
                 submit={handleSubmit}
-                addSoal={true}
+                addQuiz={true}
               />
             ) : (
               <div className="w-full h-full flex justify-center items-center">

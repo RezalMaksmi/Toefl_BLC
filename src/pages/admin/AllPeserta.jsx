@@ -184,6 +184,7 @@ const AllPeserta = () => {
   const fetchData = async () => {
     dispatch(await getUsersAct(`/peserta`));
   };
+
   useEffect(() => {
     fetchData();
 
@@ -198,6 +199,8 @@ const AllPeserta = () => {
       setSelectAll(false);
     }
   }, [selectedItems, data]);
+
+  console.log(data);
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">

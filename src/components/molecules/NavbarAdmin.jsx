@@ -36,11 +36,8 @@ const NavbarAdmin = () => {
 
   const { typeTest } = useSelector((state) => state.getAPI);
 
-  const fetchData = () => {
-    dispatch(getTypeTestAct("/test"));
-  };
   useEffect(() => {
-    fetchData();
+    dispatch(getTypeTestAct("/test"));
   }, []);
 
   return (

@@ -49,6 +49,8 @@ const CardSoal = (props) => {
     audio,
     id_soal,
     description,
+    handleNext,
+    handleBack,
   } = props;
   const navigate = useNavigate();
 
@@ -222,8 +224,8 @@ const CardSoal = (props) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-row gap-5">
-              <button>{"< Back"}</button>
-              <button>{"Next >"}</button>
+              <button onClick={handleBack}>{"< Back"}</button>
+              <button onClick={handleNext}>{"Next >"}</button>
             </div>
             {addQuiz == true ? (
               <div className="flex justify-end">
@@ -409,8 +411,8 @@ const CardSoal = (props) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-row gap-5">
-              <button>{"< Back"}</button>
-              <button>{"Next >"}</button>
+              <button onClick={handleBack}>{"< Back"}</button>
+              <button onClick={handleNext}>{"Next >"}</button>
             </div>
             {addQuiz == true ? (
               <div className="flex justify-end">
@@ -555,8 +557,8 @@ const CardSoal = (props) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-row gap-5">
-              <button>{"< Back"}</button>
-              <button>{"Next >"}</button>
+              <button onClick={handleBack}>{"< Back"}</button>
+              <button onClick={handleNext}>{"Next >"}</button>
             </div>
             {addQuiz == true ? (
               <div className="flex justify-end">
@@ -719,8 +721,8 @@ const CardSoal = (props) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-row gap-5">
-              <button>{"< Back"}</button>
-              <button>{"Next >"}</button>
+              <button onClick={handleBack}>{"< Back"}</button>
+              <button onClick={handleNext}>{"Next >"}</button>
             </div>
             {addQuiz == true ? (
               <div className="flex justify-end">

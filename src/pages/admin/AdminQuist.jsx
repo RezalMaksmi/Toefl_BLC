@@ -155,6 +155,49 @@ const AdminQuist = () => {
     setClick("click");
   };
 
+  const [currentId, setCurrentId] = useState(null);
+
+  const handleClickNext = () => {
+    if (soal?.length === 0) return;
+
+    const currentIndex = soal?.findIndex((item) => item.id === currentId);
+    // Jika ID tidak ditemukan, cari ID pertama yang berbeda
+    const nextIndex = (currentIndex + 1) % soal?.length; // Loop kembali jika sudah sampai akhir
+
+    // Cek sampai menemukan ID yang valid
+    let nextId = soal?.[nextIndex]?.id;
+    while (nextId === currentId && nextIndex !== currentIndex) {
+      const newIndex = (nextIndex + 1) % soal?.length;
+      nextId = soal?.[newIndex]?.id;
+    }
+    setCurrentId(nextId);
+    if (nextId) {
+      dispatch(getDetailQuizAct(nextId));
+    }
+  };
+
+  const getPreviousId = () => {
+    if (soal?.length === 0) return;
+
+    const currentIndex = soal?.findIndex((item) => item.id === currentId);
+    // Jika currentIndex adalah 0, kita kembali ke akhir array
+    const previousIndex = (currentIndex - 1 + soal?.length) % soal?.length;
+
+    let previousId = soal?.[previousIndex]?.id;
+    // Cek untuk memastikan ID berbeda dari currentId
+    while (previousId === currentId && previousIndex !== currentIndex) {
+      const newIndex = (previousIndex - 1 + soal?.length) % soal?.length;
+      previousId = soal?.[newIndex]?.id;
+    }
+
+    setCurrentId(previousId);
+
+    // Dispatch untuk mengambil soal sebelumnya
+    if (previousId) {
+      dispatch(getDetailQuizAct(previousId));
+    }
+  };
+
   const fetchAPI = async () => {
     idTest && dispatch(await getQuizAct(`/soal/${idTest}`));
     setIdTest(id);
@@ -330,7 +373,7 @@ const AdminQuist = () => {
                       onClick={() => handleDetail(item.id)}
                     >
                       <span className="px-2">
-                        {i}. {item.page.title}
+                        {i}. {item.page.title} - {item.page.subtitle}
                       </span>
                     </button>
                   );
@@ -402,6 +445,8 @@ const AdminQuist = () => {
                 }
                 id_soal={detail && detail.data.id}
                 addQuiz={false}
+                handleNext={handleClickNext}
+                handleBack={getPreviousId}
               />
             ) : editSoal ? (
               <CardSoal
@@ -450,6 +495,8 @@ const AdminQuist = () => {
                 handlePlayPause={handlePlayPause}
                 isPlaying={isPlaying}
                 typeFuction="update"
+                handleNext={handleClickNext}
+                handleBack={getPreviousId}
               />
             ) : addQuiz === true ? (
               <CardSoal
@@ -487,6 +534,8 @@ const AdminQuist = () => {
                 timer={(e) => setTimer(e.target.value)}
                 submit={handleSubmit}
                 addQuiz={true}
+                handleNext={handleClickNext}
+                handleBack={getPreviousId}
               />
             ) : (
               <div className="w-full h-full flex justify-center items-center">

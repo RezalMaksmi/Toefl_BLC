@@ -246,7 +246,7 @@ const AllPeserta = () => {
           opens={openActiveTestCheckbox}
           close={() => setOpenActiveTestCheckbox(false)}
           id={selectedItems}
-          handleOpenActiveTestCheckbox
+          // handleOpenActiveTestCheckbox
         />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">

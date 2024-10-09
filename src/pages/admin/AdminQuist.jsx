@@ -345,6 +345,8 @@ const AdminQuist = () => {
     setIsPlaying(!isPlaying);
   };
 
+  console.log(detail);
+
   return (
     <LayoutAdmin>
       <ShowCard
@@ -367,12 +369,13 @@ const AdminQuist = () => {
                       key={i}
                       className={`w-full py-2 text-start rounded-xl ${
                         detail &&
-                        item.index === detail.data.index &&
+                        item.id === detail.data.id &&
                         "text-slate-600 bg-white"
                       } `}
                       onClick={() => handleDetail(item.id)}
                     >
                       <span className="px-2">
+                        {console.log("apa ini", item)}
                         {i}. {item.page.title} - {item.page.subtitle}
                       </span>
                     </button>

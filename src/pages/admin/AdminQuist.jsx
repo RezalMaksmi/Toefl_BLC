@@ -134,6 +134,7 @@ const AdminQuist = () => {
     setParagraph(detail && detail.data.paragraph);
     setPTitle(detail && detail.data.paragraph);
     setNo(detail && detail.data.no);
+    setTest(detail && detail.data.test);
     setA(detail && detail.data.a);
     setB(detail && detail.data.b);
     setC(detail && detail.data.c);
@@ -277,6 +278,7 @@ const AdminQuist = () => {
     setType_soal("");
     setPTitle("");
     setNo("");
+    setTest("");
     setA("");
     setB("");
     setC("");
@@ -483,6 +485,7 @@ const AdminQuist = () => {
                 content={(e) => setContent(e.target.value)}
                 p_title={(e) => setPTitle(e.target.value)}
                 no={(e) => setNo(e.target.value)}
+                test={(e) => setTest(e.target.value)}
                 a={(e) => setA(e.target.value)}
                 b={(e) => setB(e.target.value)}
                 c={(e) => setC(e.target.value)}

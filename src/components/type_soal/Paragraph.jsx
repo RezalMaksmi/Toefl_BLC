@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import { Timer, Button } from "../atoms";
+import {Link} from "react-router-dom";
 
 function Paragraph(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, paragraph_title, paragraph, timer, handle, edited } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, a, b, c, d, no, paragraph_title, paragraph, timer, handle, edited, id_soal} = props;
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [disabledButton, setDisabledButton] = useState(true);
     const handleAnswer = (answer) => {
@@ -71,7 +72,18 @@ function Paragraph(props) {
                     </button>
                 </div>
             </div>
-            <div className="flex justify-end m-4">
+            <div className="flex justify-between m-4">
+            {edited == true ? (
+          <Link to={`/tambah-soal/${id_soal}`}>
+            <Button
+              type={"PrimaryButton"}
+              text={"Edit Soal"}
+              className="bg-[#1283b6]"
+            />
+          </Link>
+        ) : (
+          "-"
+        )}
                 <Button
                     type={"PrimaryButton"}
                     text={"Next"}

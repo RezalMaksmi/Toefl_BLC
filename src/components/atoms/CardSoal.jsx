@@ -281,6 +281,7 @@ const CardSoal = (props) => {
               type="PrimaryButton"
               text="Lihat Soal"
               className="bg-[#17948B] "
+              onClick={() => navigate(`/lihat-soal/${id_soal}`)}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">

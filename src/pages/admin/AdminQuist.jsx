@@ -134,6 +134,7 @@ const AdminQuist = () => {
     setParagraph(detail && detail.data.paragraph);
     setPTitle(detail && detail.data.paragraph);
     setNo(detail && detail.data.no);
+    setTest(detail && detail.data.test);
     setA(detail && detail.data.a);
     setB(detail && detail.data.b);
     setC(detail && detail.data.c);
@@ -153,6 +154,49 @@ const AdminQuist = () => {
     setIdQuiz(detail && detail.data.id);
 
     setClick("click");
+  };
+
+  const [currentId, setCurrentId] = useState(null);
+
+  const handleClickNext = () => {
+    if (soal?.length === 0) return;
+
+    const currentIndex = soal?.findIndex((item) => item.id === currentId);
+    // Jika ID tidak ditemukan, cari ID pertama yang berbeda
+    const nextIndex = (currentIndex + 1) % soal?.length; // Loop kembali jika sudah sampai akhir
+
+    // Cek sampai menemukan ID yang valid
+    let nextId = soal?.[nextIndex]?.id;
+    while (nextId === currentId && nextIndex !== currentIndex) {
+      const newIndex = (nextIndex + 1) % soal?.length;
+      nextId = soal?.[newIndex]?.id;
+    }
+    setCurrentId(nextId);
+    if (nextId) {
+      dispatch(getDetailQuizAct(nextId));
+    }
+  };
+
+  const getPreviousId = () => {
+    if (soal?.length === 0) return;
+
+    const currentIndex = soal?.findIndex((item) => item.id === currentId);
+    // Jika currentIndex adalah 0, kita kembali ke akhir array
+    const previousIndex = (currentIndex - 1 + soal?.length) % soal?.length;
+
+    let previousId = soal?.[previousIndex]?.id;
+    // Cek untuk memastikan ID berbeda dari currentId
+    while (previousId === currentId && previousIndex !== currentIndex) {
+      const newIndex = (previousIndex - 1 + soal?.length) % soal?.length;
+      previousId = soal?.[newIndex]?.id;
+    }
+
+    setCurrentId(previousId);
+
+    // Dispatch untuk mengambil soal sebelumnya
+    if (previousId) {
+      dispatch(getDetailQuizAct(previousId));
+    }
   };
 
   const fetchAPI = async () => {
@@ -180,6 +224,8 @@ const AdminQuist = () => {
     timer: 0,
     index: index,
   };
+
+  console.log(test);
 
   const handleUpdateQuiz = (type_soal) => {
     setOpenDetail(false);
@@ -232,6 +278,7 @@ const AdminQuist = () => {
     setType_soal("");
     setPTitle("");
     setNo("");
+    setTest("");
     setA("");
     setB("");
     setC("");
@@ -302,6 +349,8 @@ const AdminQuist = () => {
     setIsPlaying(!isPlaying);
   };
 
+  console.log(detail);
+
   return (
     <LayoutAdmin>
       <ShowCard
@@ -324,13 +373,14 @@ const AdminQuist = () => {
                       key={i}
                       className={`w-full py-2 text-start rounded-xl ${
                         detail &&
-                        item.index === detail.data.index &&
+                        item.id === detail.data.id &&
                         "text-slate-600 bg-white"
                       } `}
                       onClick={() => handleDetail(item.id)}
                     >
                       <span className="px-2">
-                        {i}. {item.page.title}
+                        {console.log("apa ini", item)}
+                        {i}. {item.page.title} - {item.page.subtitle}
                       </span>
                     </button>
                   );
@@ -358,6 +408,7 @@ const AdminQuist = () => {
                 pageTitle={
                   openDetail === true ? detail && detail.data.page.title : ""
                 }
+                test={openDetail === true ? detail && detail.data.test : ""}
                 pageSubTitle={
                   openDetail === true ? detail && detail.data.page.subtitle : ""
                 }
@@ -402,6 +453,8 @@ const AdminQuist = () => {
                 }
                 id_soal={detail && detail.data.id}
                 addQuiz={false}
+                handleNext={handleClickNext}
+                handleBack={getPreviousId}
               />
             ) : editSoal ? (
               <CardSoal
@@ -432,6 +485,7 @@ const AdminQuist = () => {
                 content={(e) => setContent(e.target.value)}
                 p_title={(e) => setPTitle(e.target.value)}
                 no={(e) => setNo(e.target.value)}
+                test={(e) => setTest(e.target.value)}
                 a={(e) => setA(e.target.value)}
                 b={(e) => setB(e.target.value)}
                 c={(e) => setC(e.target.value)}
@@ -450,6 +504,8 @@ const AdminQuist = () => {
                 handlePlayPause={handlePlayPause}
                 isPlaying={isPlaying}
                 typeFuction="update"
+                handleNext={handleClickNext}
+                handleBack={getPreviousId}
               />
             ) : addQuiz === true ? (
               <CardSoal
@@ -487,6 +543,8 @@ const AdminQuist = () => {
                 timer={(e) => setTimer(e.target.value)}
                 submit={handleSubmit}
                 addQuiz={true}
+                handleNext={handleClickNext}
+                handleBack={getPreviousId}
               />
             ) : (
               <div className="w-full h-full flex justify-center items-center">

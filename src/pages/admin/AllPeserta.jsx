@@ -18,6 +18,7 @@ import {
 import Swal from "sweetalert2";
 import { LayoutAdmin } from "../../template";
 import { toast } from "react-toastify";
+import { AiFillCaretDown } from "react-icons/ai";
 
 const AllPeserta = () => {
   const [addData, setAddData] = useState(false);
@@ -198,9 +199,53 @@ const AllPeserta = () => {
     } else {
       setSelectAll(false);
     }
-  }, [selectedItems, data]);
+  }, [selectedItems, data, currentPage]);
 
-  console.log(data);
+  // ==================
+  const [dataBaru, setDataBaru] = useState(currentPageData && currentPageData);
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
+
+  useEffect(() => {
+    setDataBaru(currentPageData); // Reset dataBaru ketika currentPageData berubah
+  }, [currentPage]);
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+
+    // Mengurutkan data
+
+    const sortedData =
+      currentPageData &&
+      [...currentPageData].sort((a, b) => {
+        if (a[key] < b[key]) {
+          return direction === "ascending" ? -1 : 1;
+        }
+        if (a[key] > b[key]) {
+          return direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
+
+    // Mengupdate currentPageData jika diperlukan
+    // pastikan untuk memiliki state untuk currentPageData jika ingin memperbarui secara langsung
+    sortedData && setDataBaru(sortedData);
+  };
+
+  const renderSortArrow = (key) => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === "ascending" ? <AiFillCaretDown /> : "";
+    }
+    return null;
+  };
+
+  console.log("apa ini", dataBaru);
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">
@@ -246,7 +291,7 @@ const AllPeserta = () => {
           opens={openActiveTestCheckbox}
           close={() => setOpenActiveTestCheckbox(false)}
           id={selectedItems}
-          handleOpenActiveTestCheckbox
+          // handleOpenActiveTestCheckbox
         />
         <div className="w-auto h-[60px] px-10 pt-5 flex flex-row justify-between">
           <div className="flex gap-2">
@@ -296,7 +341,7 @@ const AllPeserta = () => {
         </div>
         <div className="h-3"></div>
         <div className=" w-full h-[70vh] overflow-scroll px-10 overflow-x-auto flex flex-col justify-between">
-          <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
+          {/* <table className=" table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
             <thead className="bg-[#4BABD6] text-white h-11">
               <tr>
                 <th className="border border-[#929292]">
@@ -347,6 +392,111 @@ const AllPeserta = () => {
                     />
                   );
                 })
+              ) : (
+                <Loading />
+              )}
+            </tbody>
+          </table> */}
+
+          <table className="table-fixed md:table-auto w-full max-h-max border-collapse border border-slate-500">
+            <thead className="bg-[#4BABD6] text-white h-11">
+              <tr>
+                <th className="border border-[#929292]">
+                  <input
+                    type="checkbox"
+                    checked={selectAll}
+                    onChange={handleSelectAll}
+                  />
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("no_reg")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    No Reg {renderSortArrow("no_reg")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("nama_peserta")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    Nama Peserta {renderSortArrow("nama_peserta")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("gender")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    Gender {renderSortArrow("gender")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("alamat")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    Alamat {renderSortArrow("alamat")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("email")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    Email {renderSortArrow("email")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("no_hp")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    No.HP {renderSortArrow("no_hp")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("instansi")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    Instansi {renderSortArrow("instansi")}
+                  </div>
+                </th>
+                <th
+                  className="border border-[#929292]"
+                  onClick={() => requestSort("active_test")}
+                >
+                  <div className="flex gap-1 text-center justify-center items-center">
+                    Active Test {renderSortArrow("active_test")}
+                  </div>
+                </th>
+                <th className="border border-[#929292] md:w-[150px] w-[60px]">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPageData ? (
+                dataBaru?.map((item, i) => (
+                  <CardTable
+                    key={i}
+                    checked={selectedItems.includes(item.id_peserta)}
+                    onChange={() => handleCheckboxChange(item.id_peserta)}
+                    NoReg={item.no_reg}
+                    Name={item.nama_peserta}
+                    Gender={item.gender}
+                    Alamat={item.alamat}
+                    Email={item.email}
+                    NoHp={item.no_hp}
+                    Instansi={item.instansi}
+                    ActiveTest={item.active_test}
+                    ActShow={() => handleOpenDetail(item.id_peserta)}
+                    ActActiveTest={() => handleOpenActiveTest(item.id_peserta)}
+                    ActDelete={() => handleDelete(item.id_peserta)}
+                  />
+                ))
               ) : (
                 <Loading />
               )}

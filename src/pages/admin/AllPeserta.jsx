@@ -202,15 +202,17 @@ const AllPeserta = () => {
   }, [selectedItems, data, currentPage]);
 
   // ==================
-  const [dataBaru, setDataBaru] = useState(currentPageData && currentPageData);
+  const [dataBaru, setDataBaru] = useState(currentPageData);
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
   });
 
   useEffect(() => {
-    setDataBaru(currentPageData); // Reset dataBaru ketika currentPageData berubah
-  }, [currentPage]);
+    !currentPageData && setDataBaru(currentPageData); // Reset dataBaru ketika currentPageData berubah
+  }, [currentPage, currentPageData]);
+
+  console.log(currentPageData);
 
   const requestSort = (key) => {
     let direction = "ascending";
@@ -245,7 +247,6 @@ const AllPeserta = () => {
     return null;
   };
 
-  console.log("apa ini", dataBaru);
   return (
     <LayoutAdmin>
       <div className=" bg-white mx-auto w-full h-auto">

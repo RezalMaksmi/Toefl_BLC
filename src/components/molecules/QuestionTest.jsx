@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from '../atoms';
 import { Blank, Card, Example, Paragraph, Question, Test, Test1 } from '../type_soal';
 
 function QuestionTest(props) {

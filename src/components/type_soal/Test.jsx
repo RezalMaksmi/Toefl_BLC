@@ -95,7 +95,7 @@ function Test(props) {
           </button>
         </div>
       </div>
-      <div className="flex justify-end m-4">
+      <div className="flex justify-between m-4">
         {edited == true ? (
           <Link to={`/tambah-soal/${id_soal}`}>
             <Button

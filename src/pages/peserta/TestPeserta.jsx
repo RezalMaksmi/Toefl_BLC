@@ -20,7 +20,7 @@ const TestPeserta = () => {
         setQuest(response.data.data);
     };
 
-    const handleNextQuiz = (e) =>{
+    const handleNextQuiz = (e) => {
         e.preventDefault();
         position++;
         setCurrentQuestion(position);
@@ -51,23 +51,22 @@ const TestPeserta = () => {
                     question={quest[currentQuestion]}
                     timeLeft={timeLeft}
                     handleClick={((e) => handleNextQuiz(e))}
-                    // onAnswer={(isCorrect) => {
-                    //     if (isCorrect) {
-                    //         setScore(score + 1);
-                    //     }
-                    //     setCurrentQuestion(currentQuestion + 1);
-                    //     if (currentQuestion === quest.length) {
-                    //         setIsFinished(true);
-                    //     }
-                    // }}
+                // onAnswer={(isCorrect) => {
+                //     if (isCorrect) {
+                //         setScore(score + 1);
+                //     }
+                //     setCurrentQuestion(currentQuestion + 1);
+                //     if (currentQuestion === quest.length) {
+                //         setIsFinished(true);
+                //     }
+                // }}
                 />
             ) : (
-                // <Loading/>
                 <Result score={score} />
             )}
             {/* {isFinished ? (
             ) : 
-            } */}
+            }  */}
         </div>
     );
 };

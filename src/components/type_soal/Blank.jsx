@@ -4,11 +4,11 @@ import { AiFillSound } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 function Blank(props) {
-    const { test, pageTitle, pageSubtitle, title, subTitle, timer, handle, sound, edited, id_soal } = props;
+    const { test, pageTitle, pageSubtitle, title, subTitle, timer, handle, sound, edited, id_test } = props;
     return (
         <>
             {/* header */}
-            <div className="grid grid-cols-2 gap-4 m-4">
+            <div className="flex justify-between m-4">
                 <div className="flex items-end gap-1">
                     <span className="text-2xl font-semibold ml-4">
                         {pageTitle}
@@ -38,16 +38,16 @@ function Blank(props) {
                     <AiFillSound size={50} color="gray" />
                 </div>
             </div>
-            <div className="flex justify-end m-4">
+            <div className="flex justify-between items-end m-4">
                 {edited == true ? (
-                    <Link to={`/tambah-soal/${id_soal}`}>
+                    <Link to={`/tambah-soal/${id_test}`}>
                         <Button
                             type={"PrimaryButton"}
                             text={"Edit Soal"}
-                            className="bg-[#1283b6]"
+                            className="bg-[#52c535]"
                         />
                     </Link>
-                ) : ('-')}
+                ) : ('')}
                 <Button
                     type={"PrimaryButton"}
                     text={"Next"}

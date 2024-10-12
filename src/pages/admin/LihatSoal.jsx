@@ -11,7 +11,6 @@ const LihatSoal = () => {
   const fetchSoal = async () => {
       const response = await axios.get(`http://localhost:8000/soal/detail/${params.id_soal}`);
       setSoal(response.data.data);
-      console.log(soal);
   };
 
   const handleNextQuiz = () => {}
@@ -22,10 +21,10 @@ const LihatSoal = () => {
 
   return (
     <LayoutAdmin>
-      <div className="w-full h-screen flex flex-col justify-center">
-            <div className=" bg-white mx-auto w-full h-auto mt-[75px] lg:px-[70px]">
-                <div className="w-auto h-full px-10 py-10 flex justify-center items-end gap-10">
-                    <div className="bg-[#f8f8f8] w-2/3 h-full shadow-md border col-span-1 rounded-3xl px-2 py-2 relative">
+      <div className="w-full flex flex-col justify-center">
+            <div className=" bg-white mx-auto w-full h-auto mt-[30px] lg:px-[70px]">
+                <div className="w-auto h-[800px] px-10 py-10 flex justify-center items-end gap-10">
+                    <div className="bg-[#f8f8f8] flex-col w-5/6 h-full shadow-md border col-span-1 rounded-3xl px-2 py-2 relative">
                         {(() => {
                             switch (soal.type_soal) {
                                 case "blank":

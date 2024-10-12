@@ -1,8 +1,9 @@
 import React from "react"
 import { Timer, Button } from "../atoms";
+import {Link} from "react-router-dom";
 
 function Question(props) {
-    const {test, pageTitle, pageSubtitle, title, subTitle, timer, handle, edited} = props;
+    const {test, pageTitle, pageSubtitle, title, subTitle, timer, handle, edited, id_soal} = props;
     return (
         <>
         {/* header */}
@@ -30,6 +31,17 @@ function Question(props) {
                 <p className="font-semibold">{subTitle == '-' ? '' : subTitle}</p>
             </div>
             <div className="flex justify-end m-4">
+            {edited == true ? (
+          <Link to={`/tambah-soal/${id_soal}`}>
+            <Button
+              type={"PrimaryButton"}
+              text={"Edit Soal"}
+              className="bg-[#1283b6]"
+            />
+          </Link>
+        ) : (
+          "-"
+        )}
                 <Button
                     type={"PrimaryButton"}
                     text={"Next"}

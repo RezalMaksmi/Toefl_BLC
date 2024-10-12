@@ -27,6 +27,65 @@ function Test1(props) {
     setDisabledButton(false);
   };
 
+  console.log(test);
+
+  const words = title.split(' ');
+
+  const joinQuestionAnswer =
+    words.map((part) => {
+      if (part === a) {
+        return (
+          <span>
+            <span onClick={() => handleAnswer('a')}>
+              <button className={`underline underline-offset-1 ${selectedAnswer == 'a' ? " text-blue-400" : "text-gray-800"
+                }`} key={part}>
+                {part}
+              </button>
+              <span className={`absolute p-2 rounded-full ${selectedAnswer == 'a' ? "bg-blue-700 text-white" : "bg-white text-gray-800 ring-1 ring-gray-800"}`}>A</span>
+            </span>&nbsp;
+          </span>
+        );
+      } else if (part === b) {
+        return (
+          <span>
+            <span onClick={() => handleAnswer('b')}>
+              <button className={`underline underline-offset-1 ${selectedAnswer == 'b' ? " text-blue-400" : "text-gray-800"
+                }`} key={part}>
+                {part}
+              </button>
+              <span className={`absolute p-2 rounded-full ${selectedAnswer == 'b' ? "bg-blue-700 text-white" : "bg-white text-gray-800 ring-1 ring-gray-800"}`}>B</span>
+            </span>&nbsp;
+          </span>
+        );
+      } else if (part === c) {
+        return (
+          <span>
+            <span onClick={() => handleAnswer('c')}>
+              <button className={`underline underline-offset-1 ${selectedAnswer == 'c' ? " text-blue-400" : "text-gray-800"
+                }`} key={part}>
+                {part}
+              </button>
+              <span className={`absolute p-2 rounded-full ${selectedAnswer == 'c' ? "bg-blue-700 text-white" : "bg-white text-gray-800 ring-1 ring-gray-800"}`}>C</span>
+            </span>&nbsp;
+          </span>
+        );
+      } else if (part === d) {
+        return (
+          <span>
+            <span onClick={() => handleAnswer('d')}>
+              <button className={`underline underline-offset-1 ${selectedAnswer == 'd' ? " text-blue-400" : "text-gray-800"
+                }`} key={part}>
+                {part}
+              </button>
+              <span className={`absolute p-2 rounded-full ${selectedAnswer == 'd' ? "bg-blue-700 text-white" : "bg-white text-gray-800 ring-1 ring-gray-800"}`}>D</span>
+            </span>&nbsp;
+          </span>
+        );
+      } else {
+        return <span>{part}&nbsp;</span>;
+      }
+    })
+
   return (
     <>
       {/* header */}
@@ -54,44 +113,9 @@ function Test1(props) {
       {/* content */}
       <div className="grid grid-cols-1 gap-4 px-8 py-5">
         <span className="text-base font-semibold">
-          {title == "-" ? "" : title}
+          {joinQuestionAnswer}
         </span>
         <p className="font-semibold">{subTitle == "-" ? "" : subTitle}</p>
-
-        <div className="grid grid-cols-2 gap-8 mt-6">
-          <button
-            onClick={() => handleAnswer("a")}
-            className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${
-              selectedAnswer == "a" ? "bg-blue-700 text-white" : ""
-            }`}
-          >
-            {"A. " + a}
-          </button>
-          <button
-            onClick={() => handleAnswer("b")}
-            className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${
-              selectedAnswer == "b" ? "bg-blue-700 text-white" : ""
-            }`}
-          >
-            {"B. " + b}
-          </button>
-          <button
-            onClick={() => handleAnswer("c")}
-            className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${
-              selectedAnswer == "c" ? "bg-blue-700 text-white" : ""
-            }`}
-          >
-            {"C. " + c}
-          </button>
-          <button
-            onClick={() => handleAnswer("d")}
-            className={`flex justify-startw-full border-2 border-gray-500 py-3 px-3 rounded-lg font-semibold ${
-              selectedAnswer == "d" ? "bg-blue-700 text-white" : ""
-            }`}
-          >
-            {"D. " + d}
-          </button>
-        </div>
       </div>
       <div className="flex justify-between m-4">
         {edited == true ? (

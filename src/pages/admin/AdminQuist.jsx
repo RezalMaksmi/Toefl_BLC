@@ -224,6 +224,8 @@ const AdminQuist = () => {
     index: index,
   };
 
+  console.log(test);
+
   const handleUpdateQuiz = (type_soal) => {
     setOpenDetail(false);
     const typeSoal = typeQuiz.find((s) => s.type_soal === type_soal);
@@ -404,6 +406,7 @@ const AdminQuist = () => {
                 pageTitle={
                   openDetail === true ? detail && detail.data.page.title : ""
                 }
+                test={openDetail === true ? detail && detail.data.test : ""}
                 pageSubTitle={
                   openDetail === true ? detail && detail.data.page.subtitle : ""
                 }

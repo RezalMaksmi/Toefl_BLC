@@ -51,6 +51,7 @@ const CardSoal = (props) => {
     description,
     handleNext,
     handleBack,
+    test,
   } = props;
   const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ const CardSoal = (props) => {
           <div className="flex flex-row justify-between">
             <div className="flex gap-2 justify-center items-center">
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-                LISTENING
+                {test}
               </h1>
               <span> - {type}</span>
             </div>
@@ -275,7 +276,7 @@ const CardSoal = (props) => {
           <div className="flex flex-row justify-between">
             <div className="flex gap-2 justify-center items-center">
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-                LISTENING
+                {test}
               </h1>
               <span> - {type}</span>
             </div>
@@ -461,7 +462,7 @@ const CardSoal = (props) => {
           <div className="flex flex-row justify-between">
             <div className="flex gap-2 justify-center items-center">
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-                LISTENING
+                {test}
               </h1>
               <span> - {type}</span>
             </div>
@@ -606,7 +607,7 @@ const CardSoal = (props) => {
           <div className="flex flex-row justify-between">
             <div className="flex gap-2 justify-center items-center">
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-                LISTENING
+                {test}
               </h1>
               <span> - {type}</span>
             </div>

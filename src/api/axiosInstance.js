@@ -41,7 +41,7 @@ function clearCookiesAndLocalStorage() {
   localStorage.clear();
 
   // Redirect ke halaman login atau lakukan tindakan lain
-  window.location.href = "/login"; // Ganti dengan URL halaman login Anda
+  window.location.href = "/"; // Ganti dengan URL halaman login Anda
 }
 
 export default axiosInstance;

@@ -43,6 +43,7 @@ const CardSoal = (props) => {
     keyQuiz,
     keyValue,
     addQuiz,
+    editSoal,
     handleDelete,
     handleEdit,
     handleUpdate,
@@ -52,10 +53,11 @@ const CardSoal = (props) => {
     handleNext,
     handleBack,
     test,
+    testValue,
+    handlePageTitleChange,
   } = props;
   const navigate = useNavigate();
 
-  console.log(audio);
   switch (type) {
     case "paragraph":
       return (
@@ -63,8 +65,21 @@ const CardSoal = (props) => {
           <div className="flex flex-row justify-between">
             <div className="flex gap-2 justify-center items-center">
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
-                {test}
+                {!addQuiz && test}
               </h1>
+              {(addQuiz || editSoal) && (
+                <select
+                  name="pagetitle"
+                  className="border border-text_color rounded-md px-3 py-1 text-lg"
+                  value={testValue}
+                  onChange={test}
+                >
+                  <option value="">{testValue || "Select a title..."}</option>
+                  <option value="Listening">Listening</option>
+                  <option value="Structure">Structure</option>
+                  <option value="Reading">Reading</option>
+                </select>
+              )}
               <span> - {type}</span>
             </div>
             <Button
@@ -76,7 +91,7 @@ const CardSoal = (props) => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-lg">Page Title {pageTitle}</span>
+              <span className="text-lg">Page Title</span>
               <input
                 type="text"
                 name="pagetitle"
@@ -278,6 +293,19 @@ const CardSoal = (props) => {
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
                 {test}
               </h1>
+              {(addQuiz || editSoal) && (
+                <select
+                  name="pagetitle"
+                  className="border border-text_color rounded-md px-3 py-1 text-lg"
+                  value={testValue}
+                  onChange={test}
+                >
+                  <option value="">{testValue || "Select a title..."}</option>
+                  <option value="Listening">Listening</option>
+                  <option value="Structure">Structure</option>
+                  <option value="Reading">Reading</option>
+                </select>
+              )}
               <span> - {type}</span>
             </div>
             <Button
@@ -465,6 +493,19 @@ const CardSoal = (props) => {
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
                 {test}
               </h1>
+              {(addQuiz || editSoal) && (
+                <select
+                  name="pagetitle"
+                  className="border border-text_color rounded-md px-3 py-1 text-lg"
+                  value={testValue}
+                  onChange={test}
+                >
+                  <option value="">{testValue || "Select a title..."}</option>
+                  <option value="Listening">Listening</option>
+                  <option value="Structure">Structure</option>
+                  <option value="Reading">Reading</option>
+                </select>
+              )}
               <span> - {type}</span>
             </div>
             <Button
@@ -610,6 +651,19 @@ const CardSoal = (props) => {
               <h1 className="text-2xl font-semibold border-b-4 border-[#4BABD6]">
                 {test}
               </h1>
+              {(addQuiz || editSoal) && (
+                <select
+                  name="pagetitle"
+                  className="border border-text_color rounded-md px-3 py-1 text-lg"
+                  value={testValue}
+                  onChange={test}
+                >
+                  <option value="">{testValue || "Select a title..."}</option>
+                  <option value="Listening">Listening</option>
+                  <option value="Structure">Structure</option>
+                  <option value="Reading">Reading</option>
+                </select>
+              )}
               <span> - {type}</span>
             </div>
             <Button

@@ -727,19 +727,19 @@ const ShowCard = (props) => {
                     )}
                     <input {...getInputProps()} />
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <button
                       type="submit"
                       className="px-4 py-2 rounded-md bg-[#079FDB] text-white"
                     >
                       Uploud
                     </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 rounded-md bg-[#ee3636] text-white"
+                    <a
+                      href="http://localhost:8000/peserta/download/template_peserta"
+                      className="text-blue-500 hover:text-blue-600 underline"
                     >
                       Download Template
-                    </button>
+                    </a>
                   </div>
                 </form>
                 {isLoading && <Loading />}

@@ -25,6 +25,7 @@ const AdminQuist = () => {
   const { soal, detail, valueTypeQuiz, status, typeQuiz } = useSelector(
     (state) => state.quiz
   );
+  console.log("apa ini", id);
 
   const [idQuiz, setIdQuiz] = useState("");
   const [pagetitle, setPageTitle] = useState("");
@@ -53,6 +54,10 @@ const AdminQuist = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+
+  const handleTest = (event) => {
+    setTest(event.target.value);
+  };
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -268,6 +273,8 @@ const AdminQuist = () => {
     });
   };
 
+  console.log(data);
+
   const resetValue = () => {
     setPageTitle("");
     setPageSubTitle("");
@@ -349,7 +356,7 @@ const AdminQuist = () => {
     setIsPlaying(!isPlaying);
   };
 
-  console.log(detail);
+  console.log(test);
 
   return (
     <LayoutAdmin>
@@ -362,8 +369,8 @@ const AdminQuist = () => {
 
       <div className=" bg-white mx-auto w-full h-auto">
         <div className="w-full px-10  grid grid-cols-6 gap-5 h-auto pb-3 py-5">
-          <div className="bg-[#F3F3F3] h-auto pb-5 shadow-md border col-span-1 rounded-2xl px-2 py-2 relative">
-            <div className="flex flex-col h-[75vh]  overflow-y-scroll mb-5">
+          <div className="bg-[#F3F3F3] h-[90vh] shadow-md border col-span-1 rounded-2xl px-2 py-2 relative">
+            <div className="flex flex-col h-[90%]  overflow-y-scroll ">
               {soal === null ? (
                 <p>Belum ada soal </p>
               ) : soal ? (
@@ -379,7 +386,6 @@ const AdminQuist = () => {
                       onClick={() => handleDetail(item.id)}
                     >
                       <span className="px-2">
-                        {console.log("apa ini", item)}
                         {i}. {item.page.title} - {item.page.subtitle}
                       </span>
                     </button>
@@ -392,7 +398,7 @@ const AdminQuist = () => {
 
             <button
               onClick={handleAddQuiz}
-              className="absolute flex bottom-2 left-2 right-2 py-3 px-2 rounded-xl bg-slate-600 text-white "
+              className="relative w-full flex bottom-0  py-3 px-2 rounded-xl bg-slate-600 text-white "
             >
               Tambah Soal
             </button>
@@ -463,6 +469,7 @@ const AdminQuist = () => {
                     ? valueTypeQuiz.type_soal
                     : "" || (detail && detail.data.type_soal)
                 }
+                editSoal={true}
                 pageTitle={pagetitle}
                 pageSubTitle={pageSubtitle}
                 titleValue={title}
@@ -471,6 +478,7 @@ const AdminQuist = () => {
                 paragraphValue={paragraph}
                 p_titleValue={pTitle}
                 noValue={no}
+                valueTest={test}
                 aValue={a}
                 bValue={b}
                 cValue={c}
@@ -521,6 +529,7 @@ const AdminQuist = () => {
                 contentValue={content}
                 paragraphValue={paragraph}
                 p_titleValue={pTitle}
+                valueTest={test}
                 noValue={no}
                 aValue={a}
                 bValue={b}
@@ -535,6 +544,7 @@ const AdminQuist = () => {
                 content={(e) => setContent(e.target.value)}
                 p_title={(e) => setPTitle(e.target.value)}
                 no={(e) => setNo(e.target.value)}
+                test={(e) => setTest(e.target.value)}
                 a={(e) => setA(e.target.value)}
                 b={(e) => setB(e.target.value)}
                 c={(e) => setC(e.target.value)}

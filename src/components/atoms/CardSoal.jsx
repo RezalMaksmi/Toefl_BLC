@@ -55,6 +55,7 @@ const CardSoal = (props) => {
     test,
     testValue,
     handlePageTitleChange,
+    no_soal,
   } = props;
   const navigate = useNavigate();
 

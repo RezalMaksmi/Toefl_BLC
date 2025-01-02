@@ -13,6 +13,8 @@ import {
 import OutsideClick from "../atoms/OutsideClick";
 import { logout } from "../../redux/slices/authSlice";
 import { getTypeTestAct } from "../../redux/fetch/Get";
+import axiosInstance from "../../api/axiosInstance";
+import axios from "axios";
 const NavbarAdmin = () => {
   const [active, setActive] = React.useState(false);
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ const NavbarAdmin = () => {
   const [isShownTest, setIsShownTest] = useState(false);
   const [isShownActiveTest, setIsShownActiveTest] = useState(false);
   const [isShownListAdmin, setIsShownListAdmin] = useState(false);
+  const [test, setTest] = useState();
 
   const closeToggle = () => {
     setActive(false);
@@ -36,10 +39,15 @@ const NavbarAdmin = () => {
 
   const { typeTest } = useSelector((state) => state.getAPI);
 
+  const fetchJenisTest = async () => {
+    const response = await axiosInstance.get("/test");
+    setTest(response.data.data);
+  };
   useEffect(() => {
-    dispatch(getTypeTestAct("/test"));
+    fetchJenisTest();
+    // dispatch(getTypeTestAct("/test"));
   }, []);
-
+  console.log("isinya .env", process.env.REACT_APP_API_BASE_URL);
   return (
     <div>
       <div className="w-full  ">
@@ -169,8 +177,8 @@ const NavbarAdmin = () => {
                         : "w-0 h-0 opacity-0"
                     } transition-all overflow-hidden`}
                   >
-                    {typeTest &&
-                      typeTest.map((item, i) => {
+                    {test &&
+                      test.map((item, i) => {
                         return (
                           <Link
                             key={i}

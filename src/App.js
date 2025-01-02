@@ -15,7 +15,7 @@ import {
   ProfilePeserta,
   AllPeserta,
   AdminQuist,
-  StartTestPeserta
+  StartTestPeserta,
 } from "./pages";
 import { Footer, Navbar } from "./components/index";
 import PesertaTest from "./pages/admin/PesertaTest";

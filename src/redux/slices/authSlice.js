@@ -3,20 +3,17 @@ import axiosInstance from "../../api/axiosInstance";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
-const backendURL = "http://localhost:8000";
+// const backendURL = "http://localhost:8000";
 
 // Async thunk untuk login
 export const loginAdmin = createAsyncThunk(
   "auth/login/admin",
   async ({ username, password }) => {
     try {
-      const response = await axiosInstance.post(
-        `${backendURL}/auth/login/admin`,
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axiosInstance.post(`/auth/login/admin`, {
+        username,
+        password,
+      });
       console.log(response);
 
       if (response) {

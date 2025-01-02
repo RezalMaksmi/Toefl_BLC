@@ -385,7 +385,7 @@ const AdminQuist = () => {
                       } `}
                       onClick={() => handleDetail(item.id)}
                     >
-                      <span className="px-2">
+                      <span className="px-2" >
                         {i}. {item.page.title} - {item.page.subtitle}
                       </span>
                     </button>

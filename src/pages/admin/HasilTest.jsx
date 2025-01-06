@@ -17,13 +17,13 @@ const HasilTest = () => {
 
   //fetch data
   const fetchJenisTest = async () => {
-    const response = await axiosInstance.get("http://localhost:8000/test");
+    const response = await axiosInstance.get("http://api.ept-blc.com/test");
     setTest(response.data.data);
   };
 
   const fetchTestPeserta = async (id_test) => {
     const response = await axiosInstance.get(
-      `http://localhost:8000/peserta/by-hasil/${id_test}`
+      `http://api.ept-blc.com/peserta/by-hasil/${id_test}`
     );
     setTestPeserta(response.data.data);
   };

@@ -68,7 +68,7 @@ const ShowCard = (props) => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post(
-        `http://localhost:8000/peserta/active/${detail.id_peserta}`,
+        `http://api.ept-blc.com/peserta/active/${detail.id_peserta}`,
         { id_test: test }
       );
       setClick("click");
@@ -105,7 +105,7 @@ const ShowCard = (props) => {
 
   const fetchTest = async () => {
     try {
-      const response = await axiosInstance.get("http://localhost:8000/test");
+      const response = await axiosInstance.get("http://api.ept-blc.com/test");
       setTest(response.data.data);
     } catch (error) {
       setError(error);
@@ -117,7 +117,7 @@ const ShowCard = (props) => {
   const rolePeserta = async () => {
     try {
       const response = await axiosInstance.get(
-        "http://localhost:8000/role_peserta"
+        "http://api.ept-blc.com/role_peserta"
       );
       setRoleP(response.data);
     } catch (error) {
@@ -129,7 +129,7 @@ const ShowCard = (props) => {
   const jenisPeserta = async () => {
     try {
       const response = await axiosInstance.get(
-        "http://localhost:8000/jenis_kelas"
+        "http://api.ept-blc.com/jenis_kelas"
       );
       setJenisP(response.data);
     } catch (error) {
@@ -735,7 +735,7 @@ const ShowCard = (props) => {
                       Uploud
                     </button>
                     <a
-                      href="http://localhost:8000/peserta/download/template_peserta"
+                      href="http://api.ept-blc.com/peserta/download/template_peserta"
                       className="text-blue-500 hover:text-blue-600 underline"
                     >
                       Download Template

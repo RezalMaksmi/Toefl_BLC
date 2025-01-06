@@ -20,7 +20,7 @@ const LihatSoal = () => {
 
   const fetchSoal = async () => {
     const response = await axios.get(
-      `http://localhost:8000/soal/detail/${params.id_soal}`
+      `http://api.ept-blc.com/soal/detail/${params.id_soal}`
     );
     setSoal(response.data.data);
   };

@@ -13,7 +13,7 @@ const ProfilePeserta = () => {
 
   const fetchUser = async () => {
     const response = await axios.get(
-      `http://localhost:8000/user/result/${token}`
+      `http://api.ept-blc.com/user/result/${token}`
     );
     setUser(response.data.data);
   };

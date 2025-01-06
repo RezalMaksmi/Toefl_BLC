@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 import { toast } from "react-toastify";
 
-const backendURL = "http://localhost:8000";
+const backendURL = "http://api.ept-blc.com";
 
 export const getAdminAct = createAsyncThunk("get/admin/api", async (url) => {
   try {
@@ -21,10 +21,7 @@ export const createAdminAct = createAsyncThunk(
   "post/admin/api",
   async (body) => {
     try {
-      const response = await axiosInstance.post(
-        `${backendURL}/admin`,
-        body
-      );
+      const response = await axiosInstance.post(`${backendURL}/admin`, body);
       if (response) {
         toast.done(`${response.data.message}`, {
           position: "bottom-right",
@@ -63,9 +60,7 @@ export const adminDeleteAct = createAsyncThunk(
   "delete/admin/api",
   async (id) => {
     try {
-      const response = await axiosInstance.delete(
-        `${backendURL}/admin/${id}`
-      );
+      const response = await axiosInstance.delete(`${backendURL}/admin/${id}`);
       if (response) {
         toast.done(`${response.data.message}`, {
           position: "bottom-right",
@@ -166,7 +161,6 @@ const Admin = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       });
-
   },
 });
 

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 import { toast } from "react-toastify";
 
-const backendURL = "http://localhost:8000";
+const backendURL = "http://api.ept-blc.com";
 
 export const getUsersAct = createAsyncThunk("get/users/api", async (url) => {
   try {
@@ -22,7 +22,7 @@ export const createUsersAct = createAsyncThunk(
   async (body) => {
     try {
       const response = await axiosInstance.post(
-        `http://localhost:8000/peserta/`,
+        `http://api.ept-blc.com/peserta/`,
         body
       );
       if (response) {

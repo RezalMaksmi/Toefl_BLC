@@ -17,13 +17,13 @@ const HomePeserta = () => {
 
   const fetchResTest = async () => {
     const response = await axios.get(
-      `http://localhost:8000/user/result/${id_hasil}`
+      `http://api.ept-blc.com/user/result/${id_hasil}`
     );
     setResTest(response.data.data);
   };
 
   const fetchDataTest = async () => {
-    const response = await axios.get("http://localhost:8000/user/test");
+    const response = await axios.get("http://api.ept-blc.com/user/test");
     setTest(response.data.data);
   };
 
